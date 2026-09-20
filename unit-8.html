@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 8 games hub</title>
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--navy:#16335B;--navy2:#22497D;--amber:#E8A33D;--amb:#96610F;--green:#0B6E4F;
+--grey:#5A6472;--ink:#243A5E;--line:#D8E2EE;--bg:#F4F7FB;--card:#fff;--red:#B3261E;--fs:16px;--r:14px}
+body.cream{--bg:#F6EFE1;--card:#FFFDF8;--line:#E4D9C4}
+body.big{--fs:20px}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-size:var(--fs);line-height:1.5;
+font-family:Arial,"Liberation Sans",Helvetica,sans-serif}
+header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:18px 20px 14px}
+header .kick{color:var(--amber);font-weight:700;font-size:.7em;letter-spacing:.09em}
+header h1{margin:3px 0;font-size:1.5em;letter-spacing:-.01em}
+header .sub{color:#B9CCE6;font-size:.78em}
+.rule{height:5px;background:linear-gradient(90deg,var(--amber),#F2C879)}
+main{max-width:1060px;margin:0 auto;padding:18px 20px 44px}
+footer{max-width:1060px;margin:0 auto;padding:14px 20px 30px;color:var(--grey);
+font-size:.76em;border-top:1px solid var(--line)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--card);
+border:1px solid var(--line);padding:9px 12px;border-radius:var(--r);margin-bottom:16px;
+box-shadow:0 1px 3px rgba(22,51,91,.06)}
+.who{font-weight:700;color:var(--navy);margin-right:auto}
+button{font-family:inherit;font-size:.95em;cursor:pointer}
+.btn{background:var(--navy);color:#fff;border:2px solid var(--navy);border-radius:10px;
+padding:9px 15px;font-weight:700;transition:.15s}
+.btn:hover{background:var(--navy2);border-color:var(--navy2)}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.ghost:hover{background:#E9EFF7}
+.btn.amber{background:var(--amber);border-color:var(--amb);color:#241802}
+.btn.amber:hover{filter:brightness(1.06)}
+.btn:focus-visible,.tile:focus-visible,.opt:focus-visible,input:focus-visible,
+textarea:focus-visible{outline:4px solid var(--amb);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.tile{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+padding:0;overflow:hidden;display:flex;flex-direction:column;transition:.15s;
+box-shadow:0 1px 3px rgba(22,51,91,.07)}
+.tile:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(22,51,91,.13);border-color:var(--amber)}
+.tile .art{height:74px;background:#EEF3FA;display:flex;align-items:center;justify-content:center}
+body.cream .tile .art{background:#F2EADB}
+.tile .body{padding:11px 14px 13px;display:flex;flex-direction:column;gap:3px}
+.tno{color:var(--amb);font-weight:700;font-size:.72em;letter-spacing:.09em}
+.ttl{color:var(--navy);font-weight:700;font-size:1.04em}
+.twhat{font-size:.84em}
+.trec{font-size:.78em;color:var(--grey);font-style:italic;margin-top:5px}
+.tile.done .trec{color:var(--green);font-style:normal;font-weight:700}
+h2{color:var(--navy);font-size:1.22em;margin:18px 0 8px}
+h3{color:var(--navy);font-size:1.02em;margin:15px 0 5px}
+.panel{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--navy);
+border-radius:10px;padding:12px 15px;margin:13px 0}
+.panel.amber{border-left-color:var(--amber);background:#FFF8EC}
+body.cream .panel.amber{background:#F7EED9}
+.panel h3{margin-top:0}
+.qwrap{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;
+box-shadow:0 1px 3px rgba(22,51,91,.06)}
+.prog{color:var(--grey);font-size:.82em;margin-bottom:9px;display:flex;gap:10px;align-items:center}
+.pbar{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--amber),var(--green));width:0;transition:.3s}
+.qnum{color:var(--amb);font-weight:700;font-size:.76em;letter-spacing:.08em}
+.qtext{font-size:1.14em;font-weight:700;color:var(--navy);margin:4px 0 2px}
+.qprompt{color:var(--grey);font-size:.87em;margin-bottom:11px}
+.art-lg{background:#EEF3FA;border-radius:10px;padding:10px;margin:0 0 13px;text-align:center}
+body.cream .art-lg{background:#F2EADB}
+.art-lg svg{max-width:100%;height:auto}
+.opts{display:grid;gap:9px}
+.opt{text-align:left;background:var(--card);border:2px solid var(--line);border-radius:10px;
+padding:11px 13px;display:flex;gap:11px;align-items:flex-start;transition:.12s}
+.opt .key{background:#EEF3FA;color:var(--navy);font-weight:700;border-radius:6px;padding:1px 9px;flex:none}
+body.cream .opt .key{background:#F2EADB}
+.opt:hover:not([disabled]){border-color:var(--amber);background:#FFFCF6}
+.opt[disabled]{color:var(--ink);opacity:1}
+.opt.right{border-color:var(--green);background:#E9F5F0}
+.opt.wrong{border-color:var(--red);background:#FCEDEC}
+.mark{font-weight:700;margin-left:auto;flex:none;font-size:.85em}
+.opt.right .mark{color:var(--green)}.opt.wrong .mark{color:var(--red)}
+.fb{margin-top:12px;padding:11px 13px;border-radius:10px;font-size:.92em}
+.fb.right{background:#E9F5F0;border-left:6px solid var(--green);color:var(--green)}
+.fb.wrong{background:#FCEDEC;border-left:6px solid var(--red);color:var(--red)}
+.fb b{display:block;margin-bottom:3px}
+.score{font-size:2.6em;font-weight:700;color:var(--navy);line-height:1.1}
+.code{font-family:"Courier New",monospace;font-size:1.35em;font-weight:700;color:var(--amb);
+letter-spacing:.14em;background:#FFF8EC;border:2px dashed var(--amber);border-radius:10px;
+padding:9px 14px;display:inline-block}
+table{border-collapse:collapse;width:100%;font-size:.87em;background:var(--card)}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+th{background:var(--navy);color:#fff}
+td.played{color:var(--green);font-weight:700;text-align:center}
+td.no{color:var(--grey);text-align:center}
+textarea,input[type=text]{width:100%;font-family:inherit;font-size:.92em;padding:9px;
+border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+textarea{min-height:90px}
+.hidden{display:none!important}
+.flashcard{background:var(--card);border:2px solid var(--line);border-radius:14px;
+min-height:190px;padding:22px;display:flex;flex-direction:column;justify-content:center;
+align-items:center;text-align:center;margin-bottom:14px}
+.fterm{font-size:1.5em;font-weight:700;color:var(--navy)}
+.fmean{margin-top:14px;padding-top:14px;border-top:2px dashed var(--line);font-size:1.02em}
+.namebtns{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.namebtn{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:7px 15px;
+color:var(--navy);font-weight:700}
+.namebtn:hover{border-color:var(--amber)}
+.small{font-size:.83em;color:var(--grey)}
+.copyline{font-family:"Courier New",monospace;font-size:.82em;background:#EEF3FA;padding:9px;
+border-radius:8px;white-space:pre-wrap;word-break:break-word}
+body.cream .copyline{background:#F2EADB}
+ul{margin:6px 0 6px 19px;padding:0}li{margin-bottom:4px}
+ol{margin:6px 0 6px 21px;padding:0}
+@media print{.bar,.btn{display:none}}
+</style></head><body>
+<header><div class="kick">ENGINEERING COMMON CORE (300)  .  Core Paper 1</div>
+<h1>Unit 8 games hub</h1><div class="sub">8.1 Principles of electrical and electronic systems  .  The Manchester College, ACEL</div></header>
+<div class="rule"></div>
+<main>
+<div class="bar hidden" id="bar"><span class="who" id="who"></span>
+<button class="btn ghost" id="bMenu">All games</button>
+<button class="btn ghost" id="bRec">My record</button>
+<button class="btn ghost" id="bTut">For the tutor</button>
+<button class="btn ghost" id="bBig">Large text</button>
+<button class="btn ghost" id="bCream">Cream</button>
+<button class="btn ghost" id="bOut">Sign out</button></div>
+
+<section id="vIn"><h2>Sign in first</h2>
+<p>Your name joins your records together and it is what your tutor sees. Type it the same way
+every time, or tap it below if the class list is in.</p>
+<label for="nm"><b>Your name</b></label><input type="text" id="nm" autocomplete="off"
+placeholder="First name and surname">
+<p><button class="btn amber" id="bIn">Sign in</button> <span class="small" id="msgIn"></span></p>
+<div id="pick" class="hidden"><h3>Or tap your name</h3><div class="namebtns" id="nbs"></div></div>
+<div class="panel amber"><h3>Nothing here is marked</h3><p>This is formative. There are no marks anywhere on this sheet and nothing here is graded. Your score is yours.
+It stays on this device until you choose to send it.</p></div></section>
+
+<section id="vMenu" class="hidden"><h2>Ten games</h2>
+<p class="small">Every game plays from the keyboard as well as the mouse. Press 1, 2, 3 or 4 to
+answer and Enter to move on.</p><div class="grid" id="tiles"></div></section>
+
+<section id="vGame" class="hidden">
+<div class="prog"><span id="gHead"></span><span class="pbar"><span class="pfill" id="pf"></span></span></div>
+<div class="qwrap"><div class="qnum" id="qn"></div><div class="qtext" id="qt"></div>
+<div class="art-lg hidden" id="art"></div>
+<div class="qprompt" id="qp"></div><div class="opts" id="opts"></div><div id="fb"></div>
+<p><button class="btn amber hidden" id="bNext">Next</button>
+<button class="btn ghost" id="bQuit">Back to the games</button></p></div></section>
+
+<section id="vFlash" class="hidden">
+<div class="prog"><span id="fHead"></span><span class="pbar"><span class="pfill" id="fpf"></span></span></div>
+<div class="qwrap"><div class="qnum" id="fn"></div>
+<div class="flashcard" id="fcard"><div class="fterm" id="fterm"></div>
+<div class="fmean hidden" id="fmean"></div></div>
+<p><button class="btn amber" id="bFlip">Show the answer</button>
+<button class="btn ghost" id="bFQuit">Back to the games</button></p>
+<div id="fjudge" class="hidden"><p class="small">Be honest with yourself. Nothing here is marked.</p>
+<p><button class="btn" id="bKnew">I knew that</button>
+<button class="btn ghost" id="bNotYet">Not yet</button></p></div>
+</div></section>
+
+<section id="vEnd" class="hidden"><h2 id="eT"></h2><p class="score" id="eS"></p><p id="eM"></p>
+<div class="panel amber"><h3>Send this to your tutor</h3>
+<p>One tap. The form opens with your name, the game and your score already filled in.
+Your verification code is below, and it goes with the record.</p>
+<p><span class="code" id="eC"></span></p>
+<p><button class="btn amber" id="bSend">Send my result</button>
+<button class="btn ghost" id="bCopy1">Copy it instead</button>
+<span class="small" id="mSend"></span></p></div>
+<div id="eR"></div>
+<p><button class="btn amber" id="bAgain">Play it again</button>
+<button class="btn ghost" id="bBack">Back to the games</button></p></section>
+
+<section id="vRec" class="hidden"><h2>My record</h2><table id="rT"></table>
+<h3>Send everything at once</h3>
+<p class="small">Opens the form once for each game you have played. Or copy the block and paste
+it into the class chat.</p>
+<p><button class="btn amber" id="bSendAll">Send all my results</button>
+<button class="btn ghost" id="bCopyAll">Copy the block</button>
+<span class="small" id="mAll"></span></p>
+<div class="copyline" id="rL"></div>
+<div class="panel amber"><h3>Changing device</h3>
+<p>Your record lives in this browser, on this device. Typing the same name on a different
+device does not bring it across, because nothing is stored online.</p>
+<p>To move it, copy the transfer code below, then paste it into the same box on the other
+device and press Bring it across.</p>
+<p><button class="btn" id="bPack">Copy my transfer code</button>
+<span class="small" id="mPack"></span></p>
+<div class="copyline" id="packL"></div>
+<p style="margin-top:12px"><label for="unpack"><b>Coming from another device? Paste the code here</b></label></p>
+<textarea id="unpack" placeholder="U8-..."></textarea>
+<p><button class="btn amber" id="bUnpack">Bring it across</button>
+<span class="small" id="mUnpack"></span></p></div>
+<div class="panel"><h3>What this record is</h3><ul>
+<li>It is kept in this browser, on this device, under the name you signed in with.</li>
+<li>It does not follow you to another device on its own. Use the transfer code, or just send
+your results through the form, which is the copy your tutor keeps.</li>
+<li>Nothing is sent anywhere until you press a send button.</li>
+<li>Clearing your browser data clears it. Send your results before you do that.</li>
+<li>Several people can share one device. Each name keeps a separate record.</li>
+</ul></div></section>
+
+<section id="vTut" class="hidden"><h2>For the tutor</h2>
+<div class="panel amber"><h3>Set this up once for the whole unit</h3>
+<p>One form covers Unit 8. Every criterion writes into the same response workbook, which is what
+makes the tracker link work.</p></div>
+<h3>1. Build the form</h3>
+<p>In the class team, add a Forms tab. Name it <b>Unit 8 games record</b>. Six questions:</p>
+<table><tr><th>No.</th><th>Question</th><th>Type</th><th>Settings</th></tr>
+<tr><td>1</td><td>Your name</td><td>Text, short</td><td>Required</td></tr>
+<tr><td>2</td><td>Which game</td><td>Choice</td><td>G1 to G15, one option each. Required</td></tr>
+<tr><td>3</td><td>Your best score</td><td>Text, short</td><td>Required. Format is 11 of 12</td></tr>
+<tr><td>4</td><td>How many times you played it</td><td>Text, short</td><td>Required</td></tr>
+<tr><td>5</td><td>Verification code</td><td>Text, short</td><td>Required. The hub supplies it</td></tr>
+<tr><td>6</td><td>Anything you want me to go over</td><td>Text, long</td><td>Not required</td></tr></table>
+<p class="small">Settings: people in my organisation, record name on, one response per person off,
+show results automatically off. Nothing here is scored.</p>
+<h3>2. Get the prefill link</h3>
+<ol><li>Open the form, press Collect responses, then Get a link to prefill answers.</li>
+<li>Type a marker into each box: put NAMEHERE in question 1, GAMEHERE in 2, SCOREHERE in 3,
+PLAYSHERE in 4, CODEHERE in 5.</li>
+<li>Press Get link, copy it, and paste it below.</li></ol>
+<div class="panel amber"><h3>Do this in Notepad, not here</h3>
+<p>Pasting the link on this page saves it to <b>this device only</b>. A learner who downloads
+the file gets a copy with nothing in it.</p>
+<p>Right click the file, Open with, Notepad. Press Ctrl and F and search for
+<b>TUTOR SETTINGS</b>. It is about thirty lines down. You will find two lines there, one
+beginning <b>var FORM_PREFILL</b> and one beginning <b>var CLASS_LIST</b>. Each ends with a
+pair of empty quote marks.</p>
+<p>Paste your prefill link between the quote marks on the first line. Put the class names
+between the quote marks on the second, separated by a vertical bar. Save, and upload that copy
+to the class team. Every learner who downloads it then has both.</p>
+<p>Each of those two lines appears once in the whole file, so a find and replace cannot go
+wrong.</p>
+<p>The box below is still useful for testing the link before you paste it into the file.</p></div>
+<textarea id="furl" placeholder="Paste the prefill link here to test it"></textarea>
+<p><button class="btn" id="bSaveUrl">Save the link</button>
+<button class="btn ghost" id="bTestUrl">Test it</button> <span class="small" id="mUrl"></span></p>
+<p class="small">The hub swaps those markers for the learner's real values. Saving here covers this
+device only. Editing the file in Notepad covers everybody.</p>
+<h3>3. Link the responses to the tracker</h3>
+<ol><li>In Forms, press Open results in Excel. That workbook lives on your OneDrive and updates itself.</li>
+<li>Open the tracker, Data, Get Data, From File, From Workbook, and point it at that file.</li>
+<li>Load it onto the Paste here sheet. The Games record sheet and the class overview fill themselves.</li>
+<li>Press Refresh All whenever you want the latest submissions.</li></ol>
+<h3>4. The class list</h3>
+<p>Paste the names, one per line. They then appear as buttons on the sign in page on this device.</p>
+<textarea id="cls" placeholder="Alex Example&#10;Bea Example"></textarea>
+<p><button class="btn" id="bSaveCls">Save the class list</button>
+<span class="small" id="mCls"></span></p>
+<div class="panel"><h3>What this cannot do</h3><ul>
+<li>A browser cannot see another device. The hub only knows what was played where it is open.</li>
+<li>A learner's record does not follow them from one device to another. They can move it with the
+transfer code on their My record page, but the form is the copy that reaches you.</li>
+<li>The verification code proves the score came from the hub. It does not prove who played.</li>
+<li>A score is a score. It does not tell you whether a learner understood anything.</li>
+</ul></div></section>
+</main>
+<footer><div>Unit 8: Electrical and electronic principles  .  8.1 Principles of electrical and electronic systems</div>
+<div>Unit 8 games hub  .  v2.0  .  15 games  .  The Manchester College, ACEL</div>
+<div>This is formative. There are no marks anywhere on this sheet and nothing here is graded.</div></footer>
+<script>
+"use strict";
+/* ==========================================================================
+   TUTOR SETTINGS. These are the only two lines in this file you need to edit.
+   Open this file in Notepad, change what is between the quotes, save, then
+   upload it to the class team. Every learner who downloads it gets these.
+   ==========================================================================
+
+   1. FORM_PREFILL
+      Paste the prefill link from your Microsoft Form between the quotes.
+      It must contain all five markers: NAMEHERE GAMEHERE SCOREHERE
+      PLAYSHERE CODEHERE. Leave it empty and the send buttons tell learners
+      to copy their result instead.                                          */
+
+var FORM_PREFILL = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=4OQOG2ZRykO0ZwI86bscxMYYDaKEnltPkgEAd3RnKLRUN0FJUkFRMlhSTUJDRVhTUFExOTZLRzdIOCQlQCN0PWcu&r2c179fb710af4f21b89adf48babfc12b=NAMEHERE&r02987fd4cae5449397ec2a0e6450a118=SCOREHERE&r547e0b4295f446ed9486e49a1231fcd1=PLAYSHERE&rfb502794cb62412cadb3361ea6643f59=CODEHERE";
+
+/*    2. CLASS_LIST
+      Names between the quotes, separated by  |  so learners can tap their
+      name instead of typing it. Example:
+      var CLASS_LIST = "Alex Example|Bea Example|Cam Example";
+      Leave it empty and learners type their name.                           */
+
+var CLASS_LIST = "";
+
+/* ======================= nothing below here needs editing ================ */
+
+var GAMES={"G1": {"id": "G1", "title": "Quantity, symbol and unit", "engine": "quiz", "what": "Pick the unit that goes with each quantity.", "items": [{"q": "Current", "prompt": "Pick the unit", "correct": "ampere (A)", "wrongs": ["volt (V)", "coulomb (C)", "watt (W)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Charge", "prompt": "Pick the unit", "correct": "coulomb (C)", "wrongs": ["ampere (A)", "farad (F)", "joule (J)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Resistance", "prompt": "Pick the unit", "correct": "ohm", "wrongs": ["volt (V)", "henry (H)", "watt (W)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Power", "prompt": "Pick the unit", "correct": "watt (W)", "wrongs": ["joule (J)", "volt (V)", "hertz (Hz)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Energy or work", "prompt": "Pick the unit", "correct": "joule (J)", "wrongs": ["watt (W)", "coulomb (C)", "weber (Wb)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Capacitance", "prompt": "Pick the unit", "correct": "farad (F)", "wrongs": ["henry (H)", "coulomb (C)", "tesla (T)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Inductance", "prompt": "Pick the unit", "correct": "henry (H)", "wrongs": ["farad (F)", "hertz (Hz)", "ohm"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Magnetic flux", "prompt": "Pick the unit", "correct": "weber (Wb)", "wrongs": ["tesla (T)", "ampere per metre (A/m)", "henry (H)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Magnetic flux density", "prompt": "Pick the unit", "correct": "tesla (T)", "wrongs": ["weber (Wb)", "ampere per metre (A/m)", "farad (F)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Magnetic field strength", "prompt": "Pick the unit", "correct": "ampere per metre (A/m)", "wrongs": ["tesla (T)", "weber (Wb)", "henry (H)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Frequency", "prompt": "Pick the unit", "correct": "hertz (Hz)", "wrongs": ["second (s)", "watt (W)", "volt (V)"], "why": "The unit is the check on every calculation you do with it."}, {"q": "Potential difference", "prompt": "Pick the unit", "correct": "volt (V)", "wrongs": ["ampere (A)", "ohm", "joule (J)"], "why": "The unit is the check on every calculation you do with it."}]}, "G2": {"id": "G2", "title": "Prefix drill", "engine": "quiz", "what": "Convert between prefixes without a calculator.", "items": [{"q": "480 mA in amperes", "prompt": "Pick the value that is the same size", "correct": "0.48 A", "wrongs": ["4.8 A", "0.048 A", "480000 A"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "3.3 kohm in ohms", "prompt": "Pick the value that is the same size", "correct": "3300 ohm", "wrongs": ["330 ohm", "33000 ohm", "0.0033 ohm"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "3300 ohm in megohms", "prompt": "Pick the value that is the same size", "correct": "0.0033 Mohm", "wrongs": ["3.3 Mohm", "0.33 Mohm", "3300000 Mohm"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "0.00000022 F using a sensible submultiple", "prompt": "Pick the value that is the same size", "correct": "0.22 microfarad", "wrongs": ["22 microfarad", "220 microfarad", "0.22 nanofarad"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "2.7 A in milliamperes", "prompt": "Pick the value that is the same size", "correct": "2700 mA", "wrongs": ["0.0027 mA", "270 mA", "27000 mA"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "8 ms in seconds", "prompt": "Pick the value that is the same size", "correct": "0.008 s", "wrongs": ["0.8 s", "8000 s", "0.08 s"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "5 mWb in webers", "prompt": "Pick the value that is the same size", "correct": "0.005 Wb", "wrongs": ["5000 Wb", "0.05 Wb", "0.0005 Wb"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "1 Mohm compared with 1 mohm", "prompt": "Pick the value that is the same size", "correct": "One thousand million times bigger", "wrongs": ["One thousand times bigger", "The same size", "One million times smaller"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "68000 ohm using a sensible prefix", "prompt": "Pick the value that is the same size", "correct": "68 kohm", "wrongs": ["6.8 kohm", "0.068 kohm", "68 Mohm"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "0.000047 s using a sensible prefix", "prompt": "Pick the value that is the same size", "correct": "47 microseconds", "wrongs": ["47 milliseconds", "47 nanoseconds", "0.047 microseconds"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "150 nF in farads", "prompt": "Pick the value that is the same size", "correct": "0.00000015 F", "wrongs": ["0.00015 F", "150000000 F", "0.15 F"], "why": "Sense check it. A smaller prefix has to give a smaller number."}, {"q": "A meter shows 0.047. What is missing?", "prompt": "Pick the value that is the same size", "correct": "The unit", "wrongs": ["The prefix key", "A decimal point", "Nothing, it is a complete reading"], "why": "Sense check it. A smaller prefix has to give a smaller number."}]}, "G3": {"id": "G3", "title": "Spot the error", "engine": "quiz", "what": "Eight worked solutions, one planted mistake each.", "items": [{"q": "A 25 W lamp runs 6 minutes.  W = 25 x 6 = 150 J", "prompt": "What is wrong with this?", "correct": "The time was left in minutes", "wrongs": ["The formula is the wrong one", "The unit is missing", "The power should be squared"], "why": "Six minutes is 360 s, so W = 9000 J."}, {"q": "A 150 ohm resistor carries 0.4 A.  P = (0.4 x 150) squared = 3600 W", "prompt": "What is wrong with this?", "correct": "The product was squared instead of the current", "wrongs": ["The resistance should be squared", "The time is missing", "The unit is wrong"], "why": "Square the current first: 0.16 x 150 = 24 W."}, {"q": "R = 9.6 divided by 0.008 = 1200", "prompt": "What is wrong with this?", "correct": "The unit is missing", "wrongs": ["The division is the wrong way round", "The current was not converted", "The formula is wrong"], "why": "1200 ohm, or 1.2 kohm. A number with no unit is not an answer."}, {"q": "Cover I on the triangle.  I = R divided by V", "prompt": "What is wrong with this?", "correct": "V and I have been swapped", "wrongs": ["The triangle does not work for Ohm's law", "R should be squared", "The unit is missing"], "why": "Cover I and V sits over R, so I = V divided by R."}, {"q": "B = 0.003 divided by 0.012 = 0.25 T", "prompt": "What is wrong with this?", "correct": "The division is the wrong way round", "wrongs": ["The area was not converted", "The unit should be webers", "The flux should be squared"], "why": "Tesla is webers per square metre, so webers goes on top. B = 4 T."}, {"q": "H = (3 x 320) divided by 0.4, where l is the inductance", "prompt": "What is wrong with this?", "correct": "l is the coil length, not the inductance", "wrongs": ["N should be divided, not multiplied", "The current should be squared", "The answer needs no unit"], "why": "Amperes per metre only works if l is a length."}, {"q": "A 22 microfarad capacitor at 10 V.  Q = 22 x 10 = 220 C", "prompt": "What is wrong with this?", "correct": "The microfarads were not converted", "wrongs": ["The voltage should be squared", "The formula should be Q = C divided by V", "The unit should be farads"], "why": "22 microfarad is 0.000022 F, so Q = 0.00022 C, which is 0.22 mC."}, {"q": "Two 100 microfarad capacitors in series.  Total = 200 microfarad", "prompt": "What is wrong with this?", "correct": "Capacitors were combined like resistors", "wrongs": ["The values should be added then halved", "The unit is wrong", "Series always gives zero"], "why": "Reciprocals in series: the total is 50 microfarad, smaller than the smallest."}]}, "G4": {"id": "G4", "title": "Left hand or right hand", "engine": "quiz", "what": "Motor or generator, and which rule applies.", "items": [{"q": "A starter motor turning an engine", "prompt": "Motor or generator, and which rule?", "correct": "Motor, left hand rule", "wrongs": ["Generator, right hand rule", "Motor, right hand rule", "Generator, left hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "A bicycle dynamo lighting a lamp", "prompt": "Motor or generator, and which rule?", "correct": "Generator, right hand rule", "wrongs": ["Motor, left hand rule", "Generator, left hand rule", "Motor, right hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "A wind turbine feeding the grid", "prompt": "Motor or generator, and which rule?", "correct": "Generator, right hand rule", "wrongs": ["Motor, left hand rule", "Motor, right hand rule", "Generator, left hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "A hybrid car recovering energy under braking", "prompt": "Motor or generator, and which rule?", "correct": "Generator, right hand rule", "wrongs": ["Motor, left hand rule", "Motor, right hand rule", "Generator, left hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "A conveyor drive pulling a belt", "prompt": "Motor or generator, and which rule?", "correct": "Motor, left hand rule", "wrongs": ["Generator, right hand rule", "Motor, right hand rule", "Generator, left hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "Electrical energy goes in and movement comes out", "prompt": "Motor or generator, and which rule?", "correct": "Motor, left hand rule", "wrongs": ["Generator, right hand rule", "Motor, right hand rule", "Generator, left hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "Movement goes in and electrical energy comes out", "prompt": "Motor or generator, and which rule?", "correct": "Generator, right hand rule", "wrongs": ["Motor, left hand rule", "Generator, left hand rule", "Motor, right hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "Finding which end of a solenoid is north", "prompt": "Motor or generator, and which rule?", "correct": "Neither, use the right hand grip rule", "wrongs": ["Motor, left hand rule", "Generator, right hand rule", "Fleming's left hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "An alternator driven by a diesel engine", "prompt": "Motor or generator, and which rule?", "correct": "Generator, right hand rule", "wrongs": ["Motor, left hand rule", "Motor, right hand rule", "Generator, left hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}, {"q": "The rotor of an induction motor turned by a moving flux", "prompt": "Motor or generator, and which rule?", "correct": "Motor, left hand rule", "wrongs": ["Generator, right hand rule", "Motor, right hand rule", "Generator, left hand rule"], "why": "Anchor it on the energy direction. Electricity in means a motor."}]}, "G5": {"id": "G5", "title": "Calculation ladder", "engine": "ladder", "what": "Three steps: the formula, the substitution, then the answer with its unit.", "items": [{"q": "A current of 3.2 A flows for 25 s. Find the charge moved.", "steps": [{"label": "Pick the formula", "correct": "Q = I x t", "wrongs": ["Q = I divided by t", "Q = V x t", "Q = I x R"]}, {"label": "Pick the substitution", "correct": "Q = 3.2 x 25", "wrongs": ["Q = 25 divided by 3.2", "Q = 3.2 divided by 25", "Q = 3.2 x 25 x 60"]}, {"label": "Pick the answer", "correct": "80 C", "wrongs": ["80 A", "7.8 C", "0.128 C"]}]}, {"q": "A 25 W lamp runs for 6 minutes. Find the energy transferred.", "steps": [{"label": "Pick the first line", "correct": "Convert: 6 minutes = 360 s", "wrongs": ["W = 25 x 6", "Convert: 6 minutes = 0.1 s", "P = W divided by t"]}, {"label": "Pick the substitution", "correct": "W = 25 x 360", "wrongs": ["W = 25 x 6", "W = 360 divided by 25", "W = 25 squared x 360"]}, {"label": "Pick the answer", "correct": "9000 J, which is 9 kJ", "wrongs": ["150 J", "9000 W", "9 J"]}]}, {"q": "A 150 ohm resistor carries 0.4 A. Find the power dissipated.", "steps": [{"label": "Pick the formula", "correct": "P = I squared x R", "wrongs": ["P = I x V", "P = V squared divided by R", "P = I x R squared"]}, {"label": "Pick the substitution", "correct": "P = 0.16 x 150", "wrongs": ["P = (0.4 x 150) squared", "P = 0.4 x 150", "P = 0.4 x 150 squared"]}, {"label": "Pick the answer", "correct": "24 W", "wrongs": ["3600 W", "60 W", "24 J"]}]}, {"q": "A flux of 0.012 Wb passes through 0.003 square metres. Find the flux density.", "steps": [{"label": "Pick the formula", "correct": "B = flux divided by A", "wrongs": ["B = flux x A", "B = A divided by flux", "B = flux divided by l"]}, {"label": "Pick the substitution", "correct": "B = 0.012 divided by 0.003", "wrongs": ["B = 0.003 divided by 0.012", "B = 0.012 x 0.003", "B = 12 divided by 3"]}, {"label": "Pick the answer", "correct": "4 T", "wrongs": ["0.25 T", "4 Wb", "0.000036 T"]}]}, {"q": "A coil of 320 turns is 0.4 m long and carries 3 A. Find the field strength.", "steps": [{"label": "Pick the formula", "correct": "H = (I x N) divided by l", "wrongs": ["H = (I x l) divided by N", "H = I x N x l", "H = N divided by (I x l)"]}, {"label": "Pick the substitution", "correct": "H = 960 divided by 0.4", "wrongs": ["H = 3 divided by (320 x 0.4)", "H = 320 divided by (3 x 0.4)", "H = 3 x 320 x 0.4"]}, {"label": "Pick the answer", "correct": "2400 A/m", "wrongs": ["2400 A", "384 A/m", "0.00375 A/m"]}]}, {"q": "A meter reads 9.6 V across a component and 8 mA through it. Find the resistance.", "steps": [{"label": "Pick the first line", "correct": "Convert: 8 mA = 0.008 A", "wrongs": ["Convert: 8 mA = 8000 A", "R = 9.6 x 8", "R = 8 divided by 9.6"]}, {"label": "Pick the substitution", "correct": "R = 9.6 divided by 0.008", "wrongs": ["R = 0.008 divided by 9.6", "R = 9.6 x 0.008", "R = 9.6 divided by 8"]}, {"label": "Pick the answer", "correct": "1200 ohm, which is 1.2 kohm", "wrongs": ["1200", "76.8 ohm", "1.2 ohm"]}]}]}, "G6": {"id": "G6", "title": "Fault finder", "engine": "ladder", "what": "Name the cause, then pick the test that confirms it.", "items": [{"q": "A lamp is off. The cell reads 1.5 V. The fuse reads OL on continuity.", "steps": [{"label": "Name the cause", "correct": "Blown fuse, so the circuit is open", "wrongs": ["Flat cell", "Short circuited turns in the winding", "Lamp A is open circuit"]}, {"label": "Pick the confirming test", "correct": "Continuity or resistance range across the fuse, supply isolated. A healthy fuse reads close to 0 ohm.", "wrongs": ["DC voltage across the cell terminals under load, not off load. The off load reading is the trap.", "Resistance range with the supply isolated and the winding disconnected at one end, compared against the rating plate.", "Continuity across lamp A with the supply isolated."]}]}, {"q": "A lamp is very dim. The cell reads 1.5 V with nothing connected, and 0.6 V with the lamp connected.", "steps": [{"label": "Name the cause", "correct": "Flat cell", "wrongs": ["Blown fuse, so the circuit is open", "Short circuited turns in the winding", "Lamp A is open circuit"]}, {"label": "Pick the confirming test", "correct": "DC voltage across the cell terminals under load, not off load. The off load reading is the trap.", "wrongs": ["Continuity or resistance range across the fuse, supply isolated. A healthy fuse reads close to 0 ohm.", "Resistance range with the supply isolated and the winding disconnected at one end, compared against the rating plate.", "Continuity across lamp A with the supply isolated."]}]}, {"q": "A motor runs hot and slow. The supply is correct. A winding reads 0.2 ohm where 4 ohm is expected.", "steps": [{"label": "Name the cause", "correct": "Short circuited turns in the winding", "wrongs": ["Blown fuse, so the circuit is open", "Flat cell", "Lamp A is open circuit"]}, {"label": "Pick the confirming test", "correct": "Resistance range with the supply isolated and the winding disconnected at one end, compared against the rating plate.", "wrongs": ["Continuity or resistance range across the fuse, supply isolated. A healthy fuse reads close to 0 ohm.", "DC voltage across the cell terminals under load, not off load. The off load reading is the trap.", "Continuity across lamp A with the supply isolated."]}]}, {"q": "Two lamps in series are both off. The supply reads 12 V. Lamp A reads 12 V across it, lamp B reads 0 V.", "steps": [{"label": "Name the cause", "correct": "Lamp A is open circuit", "wrongs": ["Blown fuse, so the circuit is open", "Flat cell", "Short circuited turns in the winding"]}, {"label": "Pick the confirming test", "correct": "Continuity across lamp A with the supply isolated.", "wrongs": ["Continuity or resistance range across the fuse, supply isolated. A healthy fuse reads close to 0 ohm.", "DC voltage across the cell terminals under load, not off load. The off load reading is the trap.", "Resistance range with the supply isolated and the winding disconnected at one end, compared against the rating plate."]}]}, {"q": "A 230 V heater runs but at reduced output. The element reads 40 ohm where 20 ohm is expected.", "steps": [{"label": "Name the cause", "correct": "Wrong value component, or an element that has partly failed", "wrongs": ["Blown fuse, so the circuit is open", "Flat cell", "Short circuited turns in the winding"]}, {"label": "Pick the confirming test", "correct": "Resistance range against the rating plate, then check the arithmetic with P = V squared divided by R.", "wrongs": ["Continuity or resistance range across the fuse, supply isolated. A healthy fuse reads close to 0 ohm.", "DC voltage across the cell terminals under load, not off load. The off load reading is the trap.", "Resistance range with the supply isolated and the winding disconnected at one end, compared against the rating plate."]}]}, {"q": "A circuit blows its fuse the instant it is switched on. With the supply isolated, the resistance across the supply terminals reads 0.3 ohm where 100 ohm is expected.", "steps": [{"label": "Name the cause", "correct": "Short circuit across the supply", "wrongs": ["Blown fuse, so the circuit is open", "Flat cell", "Short circuited turns in the winding"]}, {"label": "Pick the confirming test", "correct": "Resistance across the supply terminals with the load disconnected in stages, to find which branch holds the short.", "wrongs": ["Continuity or resistance range across the fuse, supply isolated. A healthy fuse reads close to 0 ohm.", "DC voltage across the cell terminals under load, not off load. The off load reading is the trap.", "Resistance range with the supply isolated and the winding disconnected at one end, compared against the rating plate."]}]}]}, "G7": {"id": "G7", "title": "Read the waveform", "engine": "quiz", "what": "Eight traces drawn on the screen. Read them properly.", "items": [{"draw": ["wave", 2.0, 4.0], "q": "Read the waveform below.", "prompt": "What is the amplitude?", "correct": "2 V", "wrongs": ["4 V", "1 V", "0.25 V"], "why": "Amplitude is measured from zero to the peak, not peak to peak."}, {"draw": ["wave", 2.0, 4.0], "q": "The same waveform.", "prompt": "What is the peak to peak value?", "correct": "4 V", "wrongs": ["2 V", "8 V", "1 V"], "why": "Peak to peak is twice the amplitude."}, {"draw": ["wave", 3.0, 2.0], "q": "One complete cycle takes 8 ms.", "prompt": "What is the frequency?", "correct": "125 Hz", "wrongs": ["8 Hz", "800 Hz", "0.008 Hz"], "why": "f = 1 divided by T. Convert the milliseconds first."}, {"draw": ["wave", 1.0, 2.0], "q": "UK mains runs at 50 Hz.", "prompt": "What is the period?", "correct": "20 ms", "wrongs": ["50 ms", "0.5 s", "2 ms"], "why": "T = 1 divided by 50 = 0.02 s, which is 20 ms."}, {"draw": ["dc"], "q": "This trace was taken on an oscilloscope.", "prompt": "What is it?", "correct": "Direct current", "wrongs": ["Alternating current", "A square wave", "A sawtooth wave"], "why": "Constant value, one direction only. A battery gives this."}, {"draw": ["square"], "q": "Name this waveform shape.", "prompt": "What is it called?", "correct": "Square", "wrongs": ["Sinusoidal", "Triangular", "Sawtooth"], "why": "Named in the range: sinusoidal, square, rectangular, triangular and sawtooth."}, {"draw": ["saw"], "q": "Name this waveform shape.", "prompt": "What is it called?", "correct": "Sawtooth", "wrongs": ["Triangular", "Square", "Rectangular"], "why": "It rises slowly and falls almost instantly. A triangle rises and falls evenly."}, {"draw": ["tri"], "q": "Name this waveform shape.", "prompt": "What is it called?", "correct": "Triangular", "wrongs": ["Sawtooth", "Sinusoidal", "Square"], "why": "Equal rise and fall. The sawtooth is the one with the vertical edge."}]}, "G8": {"id": "G8", "title": "Meter connection", "engine": "quiz", "what": "Six benches. Series, parallel, or power off first.", "items": [{"draw": ["meter", "V"], "q": "You need to measure the voltage across the resistor.", "prompt": "How does the meter go in?", "correct": "In parallel, across the component", "wrongs": ["In series, with the circuit broken", "In parallel, across the supply", "In series, with the supply off"], "why": "Voltage is always measured across, never through."}, {"draw": ["meter", "A"], "q": "You need to measure the current through the lamp.", "prompt": "How does the meter go in?", "correct": "In series, with the circuit broken", "wrongs": ["In parallel, across the lamp", "In parallel, across the supply", "Across the supply with the power off"], "why": "All the current has to pass through the meter, so the loop is broken to take it."}, {"draw": ["meter", "R"], "q": "You need to measure the resistance of the component.", "prompt": "What has to happen first?", "correct": "Switch the supply off and isolate it", "wrongs": ["Turn the supply up to full", "Move the red lead to the 10 A socket", "Nothing, the meter protects itself"], "why": "Then lift the component out, or anything in parallel gives a lower reading."}, {"draw": ["meter", "short"], "q": "An ammeter has been connected straight across the supply.", "prompt": "What is this?", "correct": "A short circuit, and a hazard", "wrongs": ["A normal current reading", "A voltage reading", "Fine, as long as the range is high enough"], "why": "An ammeter has almost no resistance. This is a hazard, not simply an error."}, {"draw": ["meter", "V"], "q": "The red lead is still in the 10 A socket from the last reading.", "prompt": "You now select volts and touch the probes across the supply. What happens?", "correct": "The supply is short circuited through the meter", "wrongs": ["Nothing, the dial overrides the socket", "The meter reads volts as normal", "The meter reads amps instead"], "why": "Dial first, then the lead into the matching input, then the circuit. Every time."}, {"draw": ["meter", "R"], "q": "A resistor is measured while it is still soldered into a board.", "prompt": "What is wrong with the reading?", "correct": "Anything in parallel with it reads lower", "wrongs": ["It reads higher than it should", "It reads correctly", "It reads zero every time"], "why": "Lift one end out of circuit. In circuit readings are almost always wrong."}]}, "G9": {"id": "G9", "title": "Field and direction", "engine": "quiz", "what": "Eight field diagrams. Cross, dot, poles and rules.", "items": [{"draw": ["cross"], "q": "Current is flowing in this conductor, seen end on.", "prompt": "Which way is the current going?", "correct": "Into the screen", "wrongs": ["Out of the screen", "Left to right", "There is no current"], "why": "Think of an arrow: you see the flights going away from you."}, {"draw": ["dot"], "q": "Current is flowing in this conductor, seen end on.", "prompt": "Which way is the current going?", "correct": "Out of the screen", "wrongs": ["Into the screen", "Right to left", "There is no current"], "why": "The point of the arrow is coming towards you."}, {"draw": ["magnet"], "q": "A bar magnet and its field.", "prompt": "Which way do the arrows run outside the magnet?", "correct": "North to south", "wrongs": ["South to north", "Both ways at once", "They do not have a direction"], "why": "Outside the magnet, north to south. Inside, the other way."}, {"draw": ["magnet"], "q": "Two lines of flux appear to be about to cross.", "prompt": "What does that tell you?", "correct": "The drawing is wrong, flux lines never cross", "wrongs": ["The field is strongest there", "The field reverses there", "There are two magnets"], "why": "They take the shortest route between opposite poles and never cross."}, {"draw": ["coil"], "q": "Current flows round this coil in the direction shown.", "prompt": "Which rule tells you which end is north?", "correct": "The right hand grip rule", "wrongs": ["Fleming's left hand rule", "Fleming's right hand rule", "Lenz's law"], "why": "Wrap the fingers of your right hand along the current. The thumb points to north."}, {"draw": ["coil"], "q": "The current through the coil is reversed.", "prompt": "What happens to the poles?", "correct": "They swap over", "wrongs": ["Nothing changes", "The field disappears", "The coil saturates"], "why": "Reverse the current and the field reverses with it."}, {"draw": ["force"], "q": "A conductor carries current into the screen, in a field running upwards.", "prompt": "Which rule gives the direction of the force?", "correct": "Fleming's left hand rule", "wrongs": ["Fleming's right hand rule", "The right hand grip rule", "Faraday's first law"], "why": "Left hand for a motor: current in, movement out."}, {"draw": ["force"], "q": "A conductor is pushed through a field and a current appears in it.", "prompt": "Which rule gives the direction of that current?", "correct": "Fleming's right hand rule", "wrongs": ["Fleming's left hand rule", "The right hand grip rule", "Ohm's law"], "why": "Right hand for a generator: movement in, current out."}]}, "G10": {"id": "G10", "title": "Symbol sprint", "engine": "quiz", "what": "Ten circuit symbols, drawn on the screen. Name them.", "items": [{"draw": ["sym", "resistor"], "q": "Name this component.", "prompt": "What is it?", "correct": "Resistor", "wrongs": ["Capacitor", "Inductor", "Diode"], "why": "You would measure resistance, in ohm, Ω."}, {"draw": ["sym", "capacitor"], "q": "Name this component.", "prompt": "What is it?", "correct": "Capacitor", "wrongs": ["Resistor", "Inductor", "Diode"], "why": "You would measure capacitance, in farad, F."}, {"draw": ["sym", "inductor"], "q": "Name this component.", "prompt": "What is it?", "correct": "Inductor", "wrongs": ["Resistor", "Capacitor", "Diode"], "why": "You would measure inductance, in henry, H."}, {"draw": ["sym", "diode"], "q": "Name this component.", "prompt": "What is it?", "correct": "Diode", "wrongs": ["Resistor", "Capacitor", "Inductor"], "why": "You would measure forward volt drop on the diode range, in volt, V."}, {"draw": ["sym", "led"], "q": "Name this component.", "prompt": "What is it?", "correct": "LED", "wrongs": ["Resistor", "Capacitor", "Inductor"], "why": "You would measure forward volt drop on the diode range, in volt, V."}, {"draw": ["sym", "transistor"], "q": "Name this component.", "prompt": "What is it?", "correct": "Transistor", "wrongs": ["Resistor", "Capacitor", "Inductor"], "why": "You would measure forward volt drop across each junction, in volt, V."}, {"draw": ["sym", "fuse"], "q": "Name this component.", "prompt": "What is it?", "correct": "Fuse", "wrongs": ["Resistor", "Capacitor", "Inductor"], "why": "You would measure continuity, so resistance, in ohm, Ω."}, {"draw": ["sym", "cell"], "q": "Name this component.", "prompt": "What is it?", "correct": "Cell or battery", "wrongs": ["Resistor", "Capacitor", "Inductor"], "why": "You would measure voltage, off load then under load, in volt, V."}, {"draw": ["sym", "fuse"], "q": "This symbol is a rectangle in a line, like a resistor.", "prompt": "How do you tell a fuse from a resistor?", "correct": "By what the component is for, not what it looks like", "wrongs": ["The fuse box is always wider", "The fuse has no leads", "The resistor symbol is a zigzag"], "why": "This is the one that causes the argument. A fuse protects, a resistor limits."}, {"draw": ["sym", "capacitor"], "q": "A capacitor is marked 100n on a circuit board.", "prompt": "What does that mean?", "correct": "100 nanofarad", "wrongs": ["100 nanoamp", "100 ohm", "Just the number 100"], "why": "Marking conventions on small components leave the F off."}]}, "G11": {"id": "G11", "title": "Say it carefully", "engine": "quiz", "what": "Twelve pairs. One wording is precise, the other is the one that loses marks.", "items": [{"q": "Resistance and what it does to the electrons.", "prompt": "Which wording would you write in an exam?", "correct": "It reduces how many electrons pass a point each second", "wrongs": ["It slows the electrons down", "It uses the electrons up", "It stops some electrons and lets others through"], "why": "Rate, not speed. Resistance changes how many pass per second."}, {"q": "What happens along a series circuit.", "prompt": "Which wording would you write in an exam?", "correct": "The current is the same everywhere and the voltage is shared out", "wrongs": ["The current is used up by each resistor in turn", "The voltage is the same everywhere and the current is shared out", "Both the current and the voltage are shared out"], "why": "Current is the same at every point. What gets divided is the voltage."}, {"q": "How B and H are related.", "prompt": "Which wording would you write in an exam?", "correct": "H is what you apply and B is what results, and the link depends on the material", "wrongs": ["They are the same quantity in different units", "B is what you apply and H is what results", "They are always in the same proportion"], "why": "That dependence on the material is the whole point of the B against H graph."}, {"q": "Flux and flux density.", "prompt": "Which wording would you write in an exam?", "correct": "Flux is the total through an area, flux density is the amount per unit area", "wrongs": ["They are the same thing said two ways", "Flux density is the total and flux is the amount per unit area", "Flux is measured in tesla and flux density in webers"], "why": "They differ by an area. Webers for one, tesla for the other."}, {"q": "What the supply provides to a circuit.", "prompt": "Which wording would you write in an exam?", "correct": "The push. The electrons are already in the wire", "wrongs": ["The electrons, which are then used up", "The electrons, which travel from the switch to the lamp", "The resistance that the circuit needs"], "why": "Electricity is not stored in the wire and used up."}, {"q": "A capacitor next to a battery.", "prompt": "Which wording would you write in an exam?", "correct": "A capacitor holds only what you put in, and its voltage falls as it discharges", "wrongs": ["A capacitor is a small battery", "A capacitor makes charge from a chemical reaction", "A capacitor holds its voltage the way a battery does"], "why": "A battery makes charge chemically and holds its voltage. A capacitor does neither."}, {"q": "What semiconductor means.", "prompt": "Which wording would you write in an exam?", "correct": "Its conduction can be controlled", "wrongs": ["It only half works", "It conducts at half the rate of copper", "It conducts in one direction only"], "why": "Controlled conduction is the entire point of a transistor."}, {"q": "Why a transformer will not work on DC.", "prompt": "Which wording would you write in an exam?", "correct": "A transformer needs a changing flux, and DC does not give one", "wrongs": ["DC is not powerful enough", "DC saturates the core straight away", "The primary would need more turns on DC"], "why": "No change means nothing induced in the secondary."}, {"q": "What induces an emf in a coil.", "prompt": "Which wording would you write in an exam?", "correct": "A change in the flux linking the circuit", "wrongs": ["A strong magnet held inside the coil", "A strong magnet anywhere near the coil", "Any magnet, as long as the coil has enough turns"], "why": "Strength is not the point. Change is."}, {"q": "An atom that has lost an electron.", "prompt": "Which wording would you write in an exam?", "correct": "Something negative has left, so the atom is now positively charged", "wrongs": ["The atom has gained a positive charge from the supply", "A proton has been added to the nucleus", "The atom has gained a neutron"], "why": "Nothing is added. Something negative has left."}, {"q": "How potential difference is measured.", "prompt": "Which wording would you write in an exam?", "correct": "Across a component, between two points either side of it", "wrongs": ["Through a component, in series with it", "Across the supply only", "Either across or through, it makes no difference"], "why": "Across, never through. It is a difference between two points."}, {"q": "A meter reading of 0.047 written in your book.", "prompt": "Which wording would you write in an exam?", "correct": "It means nothing until you write the unit with it", "wrongs": ["It is a complete reading as it stands", "It means 47 milli of whatever you measured", "The unit can be added later from memory"], "why": "0.047 could be volts, amperes or farads. Three different situations."}]}, "G12": {"id": "G12", "title": "Command words", "engine": "quiz", "what": "Twelve questions on what each instruction is actually asking you to do.", "items": [{"q": "Give the meaning of a term, precisely.", "prompt": "Which command word, or which answer?", "correct": "Define", "wrongs": ["Describe", "State", "Explain"], "why": "Define asks for the meaning. Describe asks what it is or what happens."}, {"q": "Say how or why, with a causal link in it.", "prompt": "Which command word, or which answer?", "correct": "Explain", "wrongs": ["Describe", "State", "Identify"], "why": "An explanation needs because or so in it. Without one it is a description."}, {"q": "Work out a value, showing the formula, the substitution and the unit.", "prompt": "Which command word, or which answer?", "correct": "Calculate", "wrongs": ["State", "Evaluate", "Justify"], "why": "A bare number scores nothing, however right it is."}, {"q": "Give the similarities and the differences between two things.", "prompt": "Which command word, or which answer?", "correct": "Compare", "wrongs": ["Describe", "Discuss", "Identify"], "why": "Both halves are needed. Differences alone is not a comparison."}, {"q": "Give reasons that support a choice you have already made.", "prompt": "Which command word, or which answer?", "correct": "Justify", "wrongs": ["Explain", "Evaluate", "Describe"], "why": "Justify defends a decision. Explain accounts for how something works."}, {"q": "Weigh more than one side and reach a judgement.", "prompt": "Which command word, or which answer?", "correct": "Discuss or evaluate", "wrongs": ["Compare", "Explain", "Describe"], "why": "A judgement is required. Laying out both sides and stopping does not answer it."}, {"q": "A short factual answer, with no explanation needed.", "prompt": "Which command word, or which answer?", "correct": "State", "wrongs": ["Explain", "Describe", "Justify"], "why": "State wants the fact. Writing a paragraph wastes time you need elsewhere."}, {"q": "Name the thing being asked for.", "prompt": "Which command word, or which answer?", "correct": "Identify", "wrongs": ["Define", "Describe", "Explain"], "why": "Identify asks which one. Define asks what it means."}, {"q": "Say what something is or what happens, in more detail than state.", "prompt": "Which command word, or which answer?", "correct": "Describe", "wrongs": ["Explain", "Define", "Evaluate"], "why": "Describe says what. Explain says how or why."}, {"q": "A question says: explain why an ammeter is connected in series.", "prompt": "Which command word, or which answer?", "correct": "Your answer needs the word because or so in it", "wrongs": ["A one word answer is enough", "You should give both sides and judge between them", "You should show a formula and a substitution"], "why": "Explain means a causal link. Without one you have described, not explained."}, {"q": "A question says: state the unit of magnetic field strength.", "prompt": "Which command word, or which answer?", "correct": "Amperes per metre, and nothing else", "wrongs": ["Amperes per metre, and why", "A full sentence explaining field strength", "The formula H = (I x N) divided by l"], "why": "State wants the fact. Extra writing earns nothing here."}, {"q": "A question says: calculate the charge moved. You write 80 C with no working.", "prompt": "Which command word, or which answer?", "correct": "You lose the formula and substitution marks", "wrongs": ["You get full marks, the answer is right", "You lose everything, including the answer mark", "Working is only needed if the question says show your working"], "why": "The mark scheme rewards the formula and the substitution as well as the number."}]}, "G13": {"id": "G13", "title": "Flashcards", "engine": "flash", "what": "Thirty five glossary terms. Look, think, flip, then say whether you knew it.", "items": [{"term": "Alternating current, AC", "meaning": "A current that changes direction periodically. UK mains is AC at 230 V, 50 Hz."}, {"term": "Ampere, A", "meaning": "The unit of current, and one of the seven SI base units."}, {"term": "Amplitude", "meaning": "The size of the peak of a waveform, measured from zero."}, {"term": "Capacitance, C", "meaning": "The ratio of the charge stored on a capacitor's plates to the voltage across them. Unit the farad, F."}, {"term": "Charge, Q", "meaning": "The quantity of electricity that has passed a point. Unit the coulomb, C. Q = I x t."}, {"term": "Conductor", "meaning": "A material with many free electrons, so current flows easily through it."}, {"term": "Conventional current", "meaning": "Current drawn from positive to negative on a circuit diagram. It predates the discovery of the electron."}, {"term": "Dielectric", "meaning": "The insulating layer between the plates of a capacitor."}, {"term": "Direct current, DC", "meaning": "A current that is constant in value and flows in one direction only."}, {"term": "Domain", "meaning": "A group of atoms in a ferrous material whose magnetic fields are lined up together."}, {"term": "Electromagnetic induction", "meaning": "The production of an emf in a conductor moving through a magnetic field."}, {"term": "Electromotive force, emf", "meaning": "The voltage produced by a source such as a generator or a cell."}, {"term": "Farad, F", "meaning": "The unit of capacitance. A very large unit, so microfarads, nanofarads and picofarads are used in practice."}, {"term": "Fleming's left hand rule", "meaning": "Gives the direction of the force on a current carrying conductor in a field. Left hand for a motor."}, {"term": "Fleming's right hand rule", "meaning": "Gives the direction of the induced current in a conductor moved through a field. Right hand for a generator."}, {"term": "Flux", "meaning": "The total magnetic field passing through an area. Unit the weber, Wb."}, {"term": "Flux density, B", "meaning": "The flux passing through a given area. Unit the tesla, T, which is webers per square metre."}, {"term": "Free electron", "meaning": "An outer electron that can break away from its atom and move to a neighbouring one."}, {"term": "Frequency, f", "meaning": "The number of complete cycles per second. Unit the hertz, Hz. f = 1 divided by T."}, {"term": "Henry, H", "meaning": "The unit of inductance. The quantity itself is L."}, {"term": "Inductance, L", "meaning": "The property of a coil that opposes a change in the current through it."}, {"term": "Insulator", "meaning": "A material whose electrons cannot break away, so current does not flow through it."}, {"term": "Joule, J", "meaning": "The unit of energy and work. One joule is the work done when 1 C passes through 1 ohm."}, {"term": "Magnetic field strength, H", "meaning": "The magnetising force produced by the current in a coil. Unit amperes per metre."}, {"term": "Ohm's law", "meaning": "The potential difference across a circuit is proportional to the current through it. V = I x R."}, {"term": "Period, T", "meaning": "The time taken for one complete cycle of a waveform, in seconds."}, {"term": "Potential difference", "meaning": "The voltage drop across a component, measured between two points either side of it."}, {"term": "Power, P", "meaning": "The rate at which energy is transferred. Unit the watt, W, which is one joule per second."}, {"term": "Prime mover", "meaning": "The external machine that drives a generator, such as a steam, gas or wind turbine, or a diesel engine."}, {"term": "Saturation", "meaning": "The point on a B against H curve where almost all the domains are aligned, so more field strength produces almost no more flux density."}, {"term": "Semiconductor", "meaning": "A material between a conductor and an insulator, whose conduction can be controlled."}, {"term": "Solenoid", "meaning": "A coil of wire that produces a magnetic field when a current flows through it."}, {"term": "Tesla, T", "meaning": "The unit of magnetic flux density, equal to one weber per square metre."}, {"term": "Transformer", "meaning": "Two coils on a common core, which changes the level of an alternating voltage. It does not work on DC."}, {"term": "Weber, Wb", "meaning": "The unit of magnetic flux."}]}, "G14": {"id": "G14", "title": "Safety on the bench", "engine": "quiz", "what": "Ten decisions from the practical work. One of them is a hazard, not an error.", "items": [{"q": "You are about to measure the resistance of a component on a live board.", "prompt": "What do you do?", "correct": "Isolate the supply, prove it dead, then lift the component out", "wrongs": ["Measure it as it is, the meter protects itself", "Turn the supply down and measure it", "Use the 10 A socket instead"], "why": "Resistance is measured with the supply off. In circuit readings are wrong anyway."}, {"q": "What does prove, test, prove mean?", "prompt": "What do you do?", "correct": "Prove the meter on a known live source, test the circuit, then prove the meter again", "wrongs": ["Test three times and take the average", "Prove the circuit dead, test it, then prove it dead again", "Test with two different meters"], "why": "A meter that failed during the job would have told you the circuit was dead."}, {"q": "An ammeter is connected in parallel across the supply.", "prompt": "What do you do?", "correct": "That is a short circuit and a hazard, not simply a wrong reading", "wrongs": ["It reads the supply current", "It reads zero and does no harm", "It is fine if the range is set high enough"], "why": "An ammeter has almost no resistance. Address this before anyone reaches a bench."}, {"q": "A fuse keeps blowing, and a higher rated one is the same physical size.", "prompt": "What do you do?", "correct": "Find the fault. The rating is a protection decision", "wrongs": ["Fit the higher rating, it is the same size", "Fit two of the original in parallel", "Bypass the fuse for testing only"], "why": "Never replace a fuse with a higher rating."}, {"q": "A power supply has been switched off, but it has large capacitors in it.", "prompt": "What do you do?", "correct": "Discharge them before touching anything", "wrongs": ["It is safe the moment the supply is off", "Wait ten seconds and it will be fine", "Short the output with a screwdriver"], "why": "A large capacitor holds its charge after the supply is removed."}, {"q": "A motor is about to be run on the bench for a test.", "prompt": "What do you do?", "correct": "Clamp it down before it is energised", "wrongs": ["Hold it steady while it runs", "Run it at low voltage and it will stay put", "Stand clear and switch on"], "why": "An unsecured motor will walk off the bench when it starts."}, {"q": "One of the probe leads has a small crack in the insulation.", "prompt": "What do you do?", "correct": "Take it out of service. It is a shock risk", "wrongs": ["Wrap it in tape and carry on", "Use it for low voltage work only", "Use it, but hold it above the crack"], "why": "Check both leads for damage before every use."}, {"q": "The job could be done live, or the circuit could be isolated first.", "prompt": "What do you do?", "correct": "Isolate. Live working has to be justified, not chosen for convenience", "wrongs": ["Work live, it is quicker", "Work live if you are wearing gloves", "It makes no difference either way"], "why": "Under the Electricity at Work Regulations, work on or near live conductors must be justified."}, {"q": "The red lead is in the 10 A socket and you now need to read a voltage.", "prompt": "What do you do?", "correct": "Move the lead first, then select volts, then touch the circuit", "wrongs": ["Select volts, the dial overrides the socket", "Read it, then move the lead", "It makes no difference on a modern meter"], "why": "Dial, then lead, then circuit. Leaving it in the 10 A socket shorts the supply."}, {"q": "Iron filings are being used to map a field.", "prompt": "What do you do?", "correct": "Keep them in the tray and under the sheet, away from eyes", "wrongs": ["Sprinkle them by hand for a finer pattern", "Blow the surplus off the paper", "Tip them back into the jar by hand"], "why": "Filings must not be handled near the eyes."}]}, "G15": {"id": "G15", "title": "Read the meter", "engine": "quiz", "what": "Eight meter faces drawn on the screen. Read them, with the unit.", "items": [{"q": "The dial is on volts.", "prompt": "How do you write this reading?", "correct": "0.047 V", "wrongs": ["0.047", "47 V", "0.047 A"], "why": "A number with no unit is not a reading.", "draw": ["face", "0.047", "V"]}, {"q": "The dial is on the kilohm range.", "prompt": "What is the resistance in ohms?", "correct": "1500 ohm", "wrongs": ["1.5 ohm", "150 ohm", "1500000 ohm"], "why": "kilo means one thousand times.", "draw": ["face", "1.500", "k ohm"]}, {"q": "The dial is on milliamps.", "prompt": "What is this in amperes?", "correct": "0.25 A", "wrongs": ["250 A", "2.5 A", "0.025 A"], "why": "Milli means one thousandth, so the answer must be smaller than an amp.", "draw": ["face", "250", "mA"]}, {"q": "The dial is on ohms and the leads are across a fuse.", "prompt": "What does OL tell you?", "correct": "The fuse is open circuit, so it has blown", "wrongs": ["The fuse is healthy", "The meter is on the wrong range", "The resistance is zero"], "why": "A healthy fuse reads close to 0 ohm. OL means the circuit is open.", "draw": ["face", "OL", "ohm"]}, {"q": "The dial is on the diode range, leads one way round.", "prompt": "What does this tell you?", "correct": "The diode is forward biased and healthy", "wrongs": ["The diode is reversed", "The diode has failed short circuit", "The meter is measuring resistance"], "why": "0.5 to 0.8 forward, OL when reversed. Anything else and it has failed.", "draw": ["face", "0.6", "diode"]}, {"q": "A cell reads this with nothing connected, and 0.6 V under load.", "prompt": "What does that tell you?", "correct": "The cell is flat", "wrongs": ["The cell is healthy", "The meter is faulty", "The load is short circuited"], "why": "A flat cell has high internal resistance and reads fine until you ask it for current.", "draw": ["face", "1.5", "V"]}, {"q": "The dial is on capacitance.", "prompt": "How is this written in farads?", "correct": "0.00000022 F", "wrongs": ["0.22 F", "0.00022 F", "220000 F"], "why": "Micro means one millionth.", "draw": ["face", "0.22", "microfarad"]}, {"q": "The dial is on the megohm range.", "prompt": "What is this in ohms?", "correct": "3300000 ohm", "wrongs": ["3300 ohm", "3.3 ohm", "0.0000033 ohm"], "why": "M is mega, one million. m is milli. The capital letter is the whole difference.", "draw": ["face", "3.3", "M ohm"]}]}},IDS=Object.keys(GAMES),KEY="u8hub2.",L=["1","2","3","4"];
+var me=null,st=null;
+function $(i){return document.getElementById(i)}
+function show(v){["vIn","vMenu","vGame","vFlash","vEnd","vRec","vTut"].forEach(function(x){
+$(x).classList.add("hidden")});$(v).classList.remove("hidden");
+$("bar").classList.toggle("hidden",v==="vIn")}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function today(){var d=new Date(),m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+return ("0"+d.getDate()).slice(-2)+" "+m[d.getMonth()]+" "+d.getFullYear()}
+function put(k,v){try{localStorage.setItem(KEY+k,v)}catch(e){}}
+function get(k){try{return localStorage.getItem(KEY+k)}catch(e){return null}}
+function rec(n){var r=get("rec."+n.toLowerCase());if(!r)return {};try{return JSON.parse(r)||{}}catch(e){return {}}}
+function save(n,r){put("rec."+n.toLowerCase(),JSON.stringify(r))}
+/* verification code: deterministic, short, and changes if the score is edited */
+function code(n,g,best,outOf){var s=(n.toLowerCase()+"|"+g+"|"+best+"|"+outOf),h=5381;
+for(var i=0;i<s.length;i++){h=((h*33)^s.charCodeAt(i))>>>0}
+return g+"-"+("0000"+(h%46656).toString(36).toUpperCase()).slice(-4)}
+
+/* ---------------------------------------------- pictures drawn in javascript */
+function svg(w,h,inner){return '<svg viewBox="0 0 '+w+' '+h+'" width="'+w+'" '+
+'xmlns="http://www.w3.org/2000/svg" role="img">'+inner+'</svg>'}
+var NV="#16335B",AM="#96610F",GR="#5A6472";
+function axes(w,h){return '<line x1="14" y1="'+(h/2)+'" x2="'+(w-8)+'" y2="'+(h/2)+
+'" stroke="'+GR+'" stroke-width="1.2"/><line x1="16" y1="10" x2="16" y2="'+(h-10)+
+'" stroke="'+GR+'" stroke-width="1.2"/>'}
+function path(d){return '<path d="'+d+'" fill="none" stroke="'+NV+'" stroke-width="3" '+
+'stroke-linecap="round" stroke-linejoin="round"/>'}
+function drawWave(amp,cyc){var w=520,h=170,mid=h/2,A=amp*26,d="";
+for(var x=0;x<=w-40;x++){var y=mid-A*Math.sin(2*Math.PI*cyc*x/(w-40));d+=(x?"L":"M")+(x+20)+" "+y.toFixed(1)}
+var lbl='<text x="26" y="'+(mid-A-6)+'" fill="'+AM+'" font-size="13" font-family="Arial">amplitude</text>'+
+'<line x1="22" y1="'+mid+'" x2="22" y2="'+(mid-A)+'" stroke="'+AM+'" stroke-width="2"/>';
+return svg(w,h,axes(w,h)+path(d)+lbl)}
+function drawDC(){var w=520,h=170,y=60;return svg(w,h,axes(w,h)+
+path("M20 "+y+" L"+(w-24)+" "+y)+'<text x="30" y="'+(y-10)+'" fill="'+AM+
+'" font-size="13" font-family="Arial">constant, one direction</text>')}
+function drawSquare(){var w=520,h=170,m=85,a=45,d="M20 "+(m+a),x=20,s=60;
+for(var i=0;i<4;i++){d+="L"+x+" "+(m-a)+"L"+(x+s)+" "+(m-a)+"L"+(x+s)+" "+(m+a)+"L"+(x+2*s)+" "+(m+a);x+=2*s}
+return svg(w,h,axes(w,h)+path(d))}
+function drawSaw(){var w=520,h=170,m=85,a=45,d="",x=20,s=110;
+for(var i=0;i<4;i++){d+="M"+x+" "+(m+a)+"L"+(x+s)+" "+(m-a)+"L"+(x+s)+" "+(m+a);x+=s}
+return svg(w,h,axes(w,h)+path(d))}
+function drawTri(){var w=520,h=170,m=85,a=45,d="M20 "+(m+a),x=20,s=55;
+for(var i=0;i<4;i++){d+="L"+(x+s)+" "+(m-a)+"L"+(x+2*s)+" "+(m+a);x+=2*s}
+return svg(w,h,axes(w,h)+path(d))}
+function drawMeter(kind){var w=520,h=190,inner="";
+inner+='<rect x="40" y="60" width="440" height="90" fill="none" stroke="'+NV+'" stroke-width="3"/>';
+inner+='<rect x="150" y="44" width="80" height="32" fill="#fff" stroke="'+NV+'" stroke-width="3"/>';
+inner+='<text x="190" y="66" fill="'+NV+'" font-size="15" font-family="Arial" text-anchor="middle">R</text>';
+inner+='<line x1="40" y1="105" x2="40" y2="105" stroke="'+NV+'"/>';
+inner+='<line x1="30" y1="92" x2="50" y2="92" stroke="'+NV+'" stroke-width="4"/>';
+inner+='<line x1="34" y1="118" x2="46" y2="118" stroke="'+NV+'" stroke-width="2.5"/>';
+if(kind==="V"){inner+='<ellipse cx="190" cy="14" rx="26" ry="14" fill="#fff" stroke="'+AM+'" stroke-width="3"/>'+
+'<text x="190" y="20" fill="'+AM+'" font-size="15" font-family="Arial" text-anchor="middle">V</text>'+
+'<line x1="150" y1="44" x2="168" y2="22" stroke="'+AM+'" stroke-width="2.5"/>'+
+'<line x1="230" y1="44" x2="212" y2="22" stroke="'+AM+'" stroke-width="2.5"/>'}
+if(kind==="A"){inner+='<ellipse cx="330" cy="150" rx="26" ry="14" fill="#fff" stroke="'+AM+'" stroke-width="3"/>'+
+'<text x="330" y="156" fill="'+AM+'" font-size="15" font-family="Arial" text-anchor="middle">A</text>'}
+if(kind==="R"){inner+='<ellipse cx="190" cy="14" rx="26" ry="14" fill="#fff" stroke="'+AM+'" stroke-width="3"/>'+
+'<text x="190" y="20" fill="'+AM+'" font-size="14" font-family="Arial" text-anchor="middle">&#937;</text>'+
+'<text x="60" y="180" fill="'+AM+'" font-size="13" font-family="Arial">supply off</text>'}
+if(kind==="short"){inner+='<ellipse cx="330" cy="105" rx="26" ry="14" fill="#fff" stroke="#B3261E" stroke-width="3"/>'+
+'<text x="330" y="111" fill="#B3261E" font-size="15" font-family="Arial" text-anchor="middle">A</text>'+
+'<line x1="304" y1="105" x2="40" y2="105" stroke="#B3261E" stroke-width="3"/>'+
+'<line x1="356" y1="105" x2="480" y2="105" stroke="#B3261E" stroke-width="3"/>'}
+return svg(w,h,inner)}
+function drawCross(out){var w=280,h=180,cx=140,cy=90,r=34,inner="";
+for(var i=1;i<=3;i++){inner+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(r+i*22)+
+'" fill="none" stroke="'+AM+'" stroke-width="2"/>'}
+inner+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#fff" stroke="'+NV+'" stroke-width="3"/>';
+if(out){inner+='<circle cx="'+cx+'" cy="'+cy+'" r="9" fill="'+NV+'"/>'}
+else{var k=r*0.66;inner+='<line x1="'+(cx-k)+'" y1="'+(cy-k)+'" x2="'+(cx+k)+'" y2="'+(cy+k)+
+'" stroke="'+NV+'" stroke-width="3"/><line x1="'+(cx+k)+'" y1="'+(cy-k)+'" x2="'+(cx-k)+'" y2="'+(cy+k)+
+'" stroke="'+NV+'" stroke-width="3"/>'}
+return svg(w,h,inner)}
+function drawMagnet(){var w=480,h=190,inner="";
+inner+='<rect x="150" y="80" width="90" height="34" fill="#C0392B"/><rect x="240" y="80" width="90" height="34" fill="#2E6DB4"/>';
+inner+='<text x="195" y="104" fill="#fff" font-size="16" font-family="Arial" text-anchor="middle">N</text>';
+inner+='<text x="285" y="104" fill="#fff" font-size="16" font-family="Arial" text-anchor="middle">S</text>';
+for(var i=1;i<=3;i++){var o=i*26;
+inner+='<path d="M170 80 C '+(170-o)+' '+(80-o)+', '+(310+o)+' '+(80-o)+', 310 80" fill="none" stroke="'+NV+'" stroke-width="2"/>';
+inner+='<path d="M170 114 C '+(170-o)+' '+(114+o)+', '+(310+o)+' '+(114+o)+', 310 114" fill="none" stroke="'+NV+'" stroke-width="2"/>'}
+return svg(w,h,inner)}
+function drawCoil(){var w=440,h=180,inner="",x=120;
+inner+='<line x1="40" y1="90" x2="120" y2="90" stroke="'+NV+'" stroke-width="3"/>';
+for(var i=0;i<5;i++){inner+='<path d="M'+x+' 90 A 20 34 0 1 1 '+(x+34)+' 90" fill="none" stroke="'+AM+'" stroke-width="3"/>';x+=34}
+inner+='<line x1="'+x+'" y1="90" x2="400" y2="90" stroke="'+NV+'" stroke-width="3"/>';
+inner+='<text x="80" y="76" fill="'+NV+'" font-size="14" font-family="Arial">I</text>';
+inner+='<text x="128" y="152" fill="'+GR+'" font-size="13" font-family="Arial">which end is north?</text>';
+return svg(w,h,inner)}
+function drawForce(){var w=420,h=200,inner="";
+inner+='<rect x="150" y="18" width="120" height="40" fill="#BFE3F5" stroke="'+NV+'"/>';
+inner+='<text x="210" y="45" fill="'+NV+'" font-size="16" font-family="Arial" text-anchor="middle">S</text>';
+inner+='<rect x="150" y="142" width="120" height="40" fill="#BFE3F5" stroke="'+NV+'"/>';
+inner+='<text x="210" y="169" fill="'+NV+'" font-size="16" font-family="Arial" text-anchor="middle">N</text>';
+for(var i=0;i<3;i++){var x=170+i*40;
+inner+='<line x1="'+x+'" y1="140" x2="'+x+'" y2="62" stroke="'+NV+'" stroke-width="2" stroke-dasharray="6 5"/>'}
+inner+='<circle cx="210" cy="100" r="26" fill="#fff" stroke="#C0392B" stroke-width="3"/>';
+inner+='<line x1="192" y1="82" x2="228" y2="118" stroke="#C0392B" stroke-width="3"/>';
+inner+='<line x1="228" y1="82" x2="192" y2="118" stroke="#C0392B" stroke-width="3"/>';
+inner+='<line x1="250" y1="100" x2="340" y2="100" stroke="'+NV+'" stroke-width="3"/>';
+inner+='<path d="M340 100 L328 94 L328 106 Z" fill="'+NV+'"/>';
+inner+='<text x="352" y="105" fill="'+NV+'" font-size="15" font-family="Arial">F</text>';
+return svg(w,h,inner)}
+function drawSym(k){var w=300,h=110,y=55,inner='<line x1="14" y1="'+y+'" x2="286" y2="'+y+
+'" stroke="'+NV+'" stroke-width="3"/>';
+function clear(x1,x2){return '<rect x="'+x1+'" y="'+(y-30)+'" width="'+(x2-x1)+'" height="60" fill="#EEF3FA"/>'}
+if(k==="resistor"){inner+=clear(108,192)+'<rect x="110" y="'+(y-18)+'" width="80" height="36" fill="#fff" stroke="'+NV+'" stroke-width="3"/>'}
+else if(k==="fuse"){inner+=clear(108,192)+'<rect x="110" y="'+(y-15)+'" width="80" height="30" fill="none" stroke="'+NV+'" stroke-width="3"/>'}
+else if(k==="capacitor"){inner+=clear(136,164)+'<line x1="140" y1="'+(y-26)+'" x2="140" y2="'+(y+26)+'" stroke="'+NV+'" stroke-width="5"/><line x1="160" y1="'+(y-26)+'" x2="160" y2="'+(y+26)+'" stroke="'+NV+'" stroke-width="5"/>'}
+else if(k==="cell"){inner+=clear(136,164)+'<line x1="140" y1="'+(y-28)+'" x2="140" y2="'+(y+28)+'" stroke="'+NV+'" stroke-width="5"/><line x1="160" y1="'+(y-14)+'" x2="160" y2="'+(y+14)+'" stroke="'+NV+'" stroke-width="3"/>'}
+else if(k==="inductor"){inner+=clear(104,196);var x=106;
+for(var i=0;i<4;i++){inner+='<path d="M'+x+' '+y+' A 11 20 0 1 1 '+(x+22)+' '+y+'" fill="none" stroke="'+NV+'" stroke-width="3"/>';x+=22}}
+else if(k==="diode"||k==="led"){inner+=clear(112,176)+'<path d="M114 '+(y-24)+' L114 '+(y+24)+' L158 '+y+' Z" fill="'+NV+'"/><line x1="158" y1="'+(y-24)+'" x2="158" y2="'+(y+24)+'" stroke="'+NV+'" stroke-width="5"/>';
+if(k==="led"){inner+='<line x1="132" y1="'+(y-30)+'" x2="146" y2="'+(y-48)+'" stroke="'+AM+'" stroke-width="3"/><path d="M146 '+(y-48)+' L138 '+(y-44)+' L144 '+(y-38)+' Z" fill="'+AM+'"/><line x1="150" y1="'+(y-30)+'" x2="164" y2="'+(y-48)+'" stroke="'+AM+'" stroke-width="3"/><path d="M164 '+(y-48)+' L156 '+(y-44)+' L162 '+(y-38)+' Z" fill="'+AM+'"/>'}}
+else if(k==="transistor"){inner+=clear(100,200)+'<circle cx="150" cy="'+y+'" r="34" fill="#fff" stroke="'+NV+'" stroke-width="3"/><line x1="138" y1="'+(y-22)+'" x2="138" y2="'+(y+22)+'" stroke="'+NV+'" stroke-width="5"/><line x1="138" y1="'+(y-10)+'" x2="176" y2="'+(y-30)+'" stroke="'+NV+'" stroke-width="3"/><line x1="138" y1="'+(y+10)+'" x2="176" y2="'+(y+30)+'" stroke="'+NV+'" stroke-width="3"/>'}
+return svg(w,h,inner)}
+function drawFace(val,dial){var w=340,h=210,inner="";
+inner+='<rect x="20" y="10" width="300" height="190" rx="18" fill="#F2B233" stroke="'+NV+'" stroke-width="3"/>';
+inner+='<rect x="45" y="30" width="250" height="62" rx="6" fill="#D9E6D2" stroke="'+NV+'" stroke-width="2"/>';
+inner+='<text x="285" y="76" fill="#16335B" font-size="40" font-family="Courier New,monospace" text-anchor="end">'+val+'</text>';
+inner+='<circle cx="170" cy="140" r="38" fill="#fff" stroke="'+NV+'" stroke-width="3"/>';
+inner+='<line x1="170" y1="140" x2="170" y2="110" stroke="'+NV+'" stroke-width="6" stroke-linecap="round"/>';
+inner+='<text x="170" y="196" fill="'+AM+'" font-size="17" font-family="Arial" text-anchor="middle" font-weight="bold">'+dial+'</text>';
+inner+='<text x="170" y="118" fill="'+GR+'" font-size="11" font-family="Arial" text-anchor="middle">dial</text>';
+return svg(w,h,inner)}
+function art(spec){if(!spec)return "";var k=spec[0];
+if(k==="face")return drawFace(spec[1],spec[2]);
+if(k==="wave")return drawWave(spec[1],spec[2]);if(k==="dc")return drawDC();
+if(k==="square")return drawSquare();if(k==="saw")return drawSaw();if(k==="tri")return drawTri();
+if(k==="meter")return drawMeter(spec[1]);if(k==="cross")return drawCross(false);
+if(k==="dot")return drawCross(true);if(k==="magnet")return drawMagnet();
+if(k==="coil")return drawCoil();if(k==="force")return drawForce();
+if(k==="sym")return drawSym(spec[1]);return ""}
+function tileArt(g){var s={G1:["sym","resistor"],G2:["sym","capacitor"],G3:["saw"],
+G4:["force"],G5:["sym","cell"],G6:["meter","R"],G7:["wave",1.6,2],G8:["meter","V"],
+G9:["magnet"],G10:["sym","transistor"],G11:["sym","inductor"],G12:["sym","diode"],
+G13:["sym","fuse"],G14:["meter","short"],G15:["face","0.047","V"]}[g];var h=art(s);
+return h.replace('width="','style="max-height:64px" width="')}
+
+/* ------------------------------------------------------------- engine */
+function shuffle(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=r[i];r[i]=r[j];r[j]=t}return r}
+function startFlash(gid){var g=GAMES[gid];st=null;
+st={gid:gid,cards:shuffle(g.items.slice()),i:0,score:0,flipped:false,
+wrong:[],outOf:g.items.length,flash:true};
+show("vFlash");renderFlash()}
+function renderFlash(){var s=st,c=s.cards[s.i];
+$("fHead").textContent=GAMES[s.gid].title+"  .  "+(s.i+1)+" of "+s.cards.length+"  .  knew: "+s.score;
+$("fpf").style.width=(100*s.i/s.cards.length)+"%";
+$("fn").textContent="CARD "+(s.i+1);
+$("fterm").textContent=c.term;$("fmean").textContent=c.meaning;
+$("fmean").classList.add("hidden");$("fjudge").classList.add("hidden");
+$("bFlip").classList.remove("hidden");s.flipped=false;$("bFlip").focus()}
+function flip(){var s=st;if(s.flipped)return;s.flipped=true;
+$("fmean").classList.remove("hidden");$("bFlip").classList.add("hidden");
+$("fjudge").classList.remove("hidden");$("bKnew").focus()}
+function judge(knew){var s=st,c=s.cards[s.i];
+if(knew)s.score++;else s.wrong.push({q:c.term,label:"",chosen:"marked not yet",
+correct:c.meaning,why:""});
+s.i++;if(s.i>=s.cards.length)end();else renderFlash()}
+function start(gid){if(GAMES[gid].engine==="flash")return startFlash(gid);
+var g=GAMES[gid];st=null;var steps=[];
+g.items.forEach(function(it,ix){
+if(g.engine==="quiz"){steps.push({q:it.q,label:it.prompt,correct:it.correct,
+options:shuffle([it.correct].concat(it.wrongs)),why:it.why||"",draw:it.draw||null})}
+else{it.steps.forEach(function(s){steps.push({q:it.q,label:s.label,correct:s.correct,
+options:shuffle([s.correct].concat(s.wrongs)),why:"",draw:null})})}});
+st={gid:gid,steps:steps,i:0,score:0,ans:false,wrong:[],outOf:steps.length};
+show("vGame");render()}
+function render(){var s=st,x=s.steps[s.i];
+$("gHead").textContent=GAMES[s.gid].title+"  .  "+(s.i+1)+" of "+s.steps.length+"  .  right: "+s.score;
+$("pf").style.width=(100*s.i/s.steps.length)+"%";
+$("qn").textContent="QUESTION "+(s.i+1);$("qt").textContent=x.q;$("qp").textContent=x.label;
+var a=$("art");if(x.draw){a.innerHTML=art(x.draw);a.classList.remove("hidden")}else{a.classList.add("hidden");a.innerHTML=""}
+var box=$("opts");box.innerHTML="";
+x.options.forEach(function(o,k){var b=document.createElement("button");b.className="opt";
+b.setAttribute("data-opt",String(k));
+b.innerHTML='<span class="key">'+L[k]+'</span><span>'+esc(o)+'</span><span class="mark"></span>';
+b.addEventListener("click",function(){answer(k)});box.appendChild(b)});
+$("fb").innerHTML="";$("bNext").classList.add("hidden");s.ans=false;
+var f=box.querySelector(".opt");if(f)f.focus()}
+function answer(k){var s=st;if(s.ans)return;s.ans=true;var x=s.steps[s.i],ch=x.options[k],ok=ch===x.correct;
+if(ok)s.score++;else s.wrong.push({q:x.q,label:x.label,chosen:ch,correct:x.correct,why:x.why});
+var bs=$("opts").querySelectorAll(".opt");
+for(var i=0;i<bs.length;i++){bs[i].setAttribute("disabled","disabled");
+if(x.options[i]===x.correct){bs[i].classList.add("right");bs[i].querySelector(".mark").textContent="right answer"}
+if(i===k&&!ok){bs[i].classList.add("wrong");bs[i].querySelector(".mark").textContent="not this one"}}
+var f=$("fb");f.className="fb "+(ok?"right":"wrong");
+f.innerHTML="<b>"+(ok?"Right.":"Not this time.")+"</b>"+(ok?"":"The answer is: "+esc(x.correct)+". ")+esc(x.why||"");
+$("bNext").classList.remove("hidden");
+$("bNext").textContent=(s.i+1>=s.steps.length)?"See your score":"Next";$("bNext").focus()}
+function next(){st.i++;if(st.i>=st.steps.length)end();else render()}
+function end(){var s=st,r=rec(me),g=r[s.gid]||{best:0,outOf:s.outOf,plays:0,last:""};
+g.plays++;g.outOf=s.outOf;if(s.score>g.best)g.best=s.score;g.last=today();
+g.code=code(me,s.gid,g.best,g.outOf);r[s.gid]=g;save(me,r);
+$("eT").textContent=GAMES[s.gid].title+" finished";
+$("eS").textContent=s.score+" of "+s.outOf;
+$("eM").textContent=(s.flash?"You knew "+s.score+" of "+s.outOf+" straight off. ":"")+
+"Your best on this game is "+g.best+" of "+g.outOf+", from "+g.plays+" "+
+(g.plays===1?"go":"goes")+". Nothing here is marked.";
+$("eC").textContent=g.code;$("bSend").setAttribute("data-g",s.gid);
+$("bCopy1").setAttribute("data-g",s.gid);$("bAgain").setAttribute("data-game",s.gid);
+var rv=$("eR");
+if(!s.wrong.length){rv.innerHTML='<div class="panel"><h3>Nothing to go back over</h3><p>'+
+(s.flash?"You knew every card.":"Every one right.")+'</p></div>'}
+else{var h='<div class="panel amber"><h3>Worth going back over</h3><ul>';
+s.wrong.forEach(function(w){h+="<li><b>"+esc(w.q)+"</b><br>"+
+(s.flash?"":"You picked: "+esc(w.chosen)+"<br>")+
+(s.flash?"":"The answer is: ")+esc(w.correct)+(w.why?"<br>"+esc(w.why):"")+"</li>"});
+rv.innerHTML=h+"</ul></div>"}
+st=null;show("vEnd")}
+
+/* ------------------------------------------------------------ records */
+function line(n,gid){var g=rec(n)[gid];if(!g)return null;
+return [n,gid,g.best+" of "+g.outOf,g.plays,g.code||code(n,gid,g.best,g.outOf),g.last].join("\t")}
+function allLines(n){var o=[];IDS.forEach(function(g){var l=line(n,g);if(l)o.push(l)});return o}
+function formTpl(){var t=get("furl");return (t&&t.trim())?t.trim():(FORM_PREFILL||"").trim()}
+function formUrl(n,gid){var t=formTpl();if(!t)return null;var g=rec(n)[gid];if(!g)return null;
+return t.replace(/NAMEHERE/g,encodeURIComponent(n))
+.replace(/GAMEHERE/g,encodeURIComponent(gid))
+.replace(/SCOREHERE/g,encodeURIComponent(g.best+" of "+g.outOf))
+.replace(/PLAYSHERE/g,encodeURIComponent(String(g.plays)))
+.replace(/CODEHERE/g,encodeURIComponent(g.code||code(n,gid,g.best,g.outOf)))}
+function send(gid,msg){var u=formUrl(me,gid);
+if(!u){msg.textContent="No form link saved yet. Copy your result and send it to your tutor instead.";return}
+window.open(u,"_blank");msg.textContent="The form opened in a new tab. Press Submit there."}
+function copyText(t,msg){var ok=false;try{var a=document.createElement("textarea");a.value=t;
+document.body.appendChild(a);a.select();ok=document.execCommand("copy");document.body.removeChild(a)}catch(e){ok=false}
+msg.textContent=ok?"Copied. Now paste it.":"Copy did not work. Select the block and copy it yourself."}
+function tiles(){var r=rec(me),h="";
+IDS.forEach(function(g){var x=r[g];
+h+='<button class="tile'+(x?" done":"")+'" data-game="'+g+'"><span class="art">'+tileArt(g)+
+'</span><span class="body"><span class="tno">'+g+'</span><span class="ttl">'+esc(GAMES[g].title)+
+'</span><span class="twhat">'+esc(GAMES[g].what)+'</span><span class="trec">'+
+(x?("best "+x.best+" of "+x.outOf+", played "+x.plays):"not played yet")+'</span></span></button>'});
+$("tiles").innerHTML=h;
+var t=document.querySelectorAll(".tile");
+for(var i=0;i<t.length;i++){t[i].addEventListener("click",function(){start(this.getAttribute("data-game"))})}}
+function paintRec(){var r=rec(me),h="<tr><th>Game</th><th>What it is</th><th>Best</th><th>Plays</th><th>Code</th><th>Last</th></tr>";
+IDS.forEach(function(g){var x=r[g];
+h+="<tr><td><b>"+g+"</b></td><td>"+esc(GAMES[g].title)+"</td>"+
+(x?("<td>"+x.best+" of "+x.outOf+"</td><td>"+x.plays+"</td><td>"+esc(x.code||"")+"</td><td>"+esc(x.last)+"</td>")
+:'<td class="no">not played</td><td class="no">0</td><td class="no">-</td><td class="no">-</td>')+"</tr>"});
+$("rT").innerHTML=h;var l=allLines(me);
+$("rL").textContent=l.length?l.join("\n"):"Nothing to send yet. Play a game first."}
+function names(){var raw=get("cls");
+if(!raw||!raw.trim()){raw=(CLASS_LIST||"").split("|").join("\n")}
+return raw.split(/\r?\n/).map(function(s){return s.trim()}).filter(function(s){return s})}
+function paintIn(){var ns=names(),b=$("nbs");b.innerHTML="";
+$("pick").classList.toggle("hidden",!ns.length);
+ns.forEach(function(n){var x=document.createElement("button");x.className="namebtn";x.textContent=n;
+x.addEventListener("click",function(){signIn(n)});b.appendChild(x)})}
+function signIn(n){n=String(n||"").trim().replace(/\s+/g," ");
+if(n.length<2){$("msgIn").textContent="Type your name first.";return}
+me=n;st=null;$("who").textContent="Signed in as "+me;tiles();show("vMenu")}
+function signOut(){me=null;st=null;$("nm").value="";$("msgIn").textContent="";paintIn();show("vIn");$("nm").focus()}
+function prefs(){var p=get("pref")||"";if(p.indexOf("big")>=0)document.body.classList.add("big");
+if(p.indexOf("cream")>=0)document.body.classList.add("cream")}
+function savePrefs(){var p=[];if(document.body.classList.contains("big"))p.push("big");
+if(document.body.classList.contains("cream"))p.push("cream");put("pref",p.join(","))}
+
+document.addEventListener("DOMContentLoaded",function(){
+prefs();paintIn();show("vIn");
+$("bIn").addEventListener("click",function(){signIn($("nm").value)});
+$("nm").addEventListener("keydown",function(e){if(e.key==="Enter")signIn($("nm").value)});
+$("bMenu").addEventListener("click",function(){tiles();show("vMenu")});
+$("bRec").addEventListener("click",function(){paintRec();show("vRec")});
+$("bTut").addEventListener("click",function(){$("furl").value=get("furl")||FORM_PREFILL||"";
+$("cls").value=get("cls")||((CLASS_LIST||"").split("|").join("\n"));show("vTut")});
+$("bOut").addEventListener("click",signOut);
+$("bBig").addEventListener("click",function(){document.body.classList.toggle("big");savePrefs()});
+$("bCream").addEventListener("click",function(){document.body.classList.toggle("cream");savePrefs()});
+$("bNext").addEventListener("click",next);
+$("bFlip").addEventListener("click",flip);
+$("bKnew").addEventListener("click",function(){judge(true)});
+$("bNotYet").addEventListener("click",function(){judge(false)});
+$("bFQuit").addEventListener("click",function(){st=null;tiles();show("vMenu")});
+$("bQuit").addEventListener("click",function(){st=null;tiles();show("vMenu")});
+$("bAgain").addEventListener("click",function(){start(this.getAttribute("data-game"))});
+$("bBack").addEventListener("click",function(){tiles();show("vMenu")});
+$("bSend").addEventListener("click",function(){send(this.getAttribute("data-g"),$("mSend"))});
+$("bCopy1").addEventListener("click",function(){var l=line(me,this.getAttribute("data-g"));
+copyText(l||"",$("mSend"))});
+$("bCopyAll").addEventListener("click",function(){copyText($("rL").textContent,$("mAll"))});
+$("bPack").addEventListener("click",function(){var t=packRec(me);
+$("packL").textContent=t||"Nothing to transfer yet.";copyText(t,$("mPack"))});
+$("bUnpack").addEventListener("click",function(){restore($("unpack").value,$("mUnpack"))});
+$("bSendAll").addEventListener("click",function(){var l=allLines(me);
+if(!l.length){$("mAll").textContent="Play a game first.";return}
+if(!formTpl()){$("mAll").textContent="No form link set. Copy the block and send it to your tutor instead.";return}
+var n=0;IDS.forEach(function(g){if(rec(me)[g]){var u=formUrl(me,g);if(u){window.open(u,"_blank");n++}}});
+$("mAll").textContent=n+" tab"+(n===1?"":"s")+" opened. Submit each one."});
+$("bSaveUrl").addEventListener("click",function(){put("furl",$("furl").value.trim());
+$("mUrl").textContent="Saved on this device."});
+$("bTestUrl").addEventListener("click",function(){var t=$("furl").value;
+var miss=["NAMEHERE","GAMEHERE","SCOREHERE","PLAYSHERE","CODEHERE"].filter(function(m){return t.indexOf(m)<0});
+$("mUrl").textContent=miss.length?("These markers are missing from the link: "+miss.join(", ")):
+"All five markers found. The link will fill itself in."});
+$("bSaveCls").addEventListener("click",function(){put("cls",$("cls").value);
+$("mCls").textContent="Saved. "+names().length+" names.";paintIn()});
+document.addEventListener("keydown",function(e){
+if(!$("vFlash").classList.contains("hidden")&&st&&st.flash){
+if(e.key==="Enter"||e.key===" "){e.preventDefault();if(!st.flipped)flip()}
+else if(st.flipped&&(e.key==="1"||e.key.toLowerCase()==="y"))judge(true);
+else if(st.flipped&&(e.key==="2"||e.key.toLowerCase()==="n"))judge(false);
+return}
+if($("vGame").classList.contains("hidden"))return;
+if(e.key>="1"&&e.key<="4"){var k=parseInt(e.key,10)-1;
+if(st&&!st.ans&&st.steps[st.i].options[k]!==undefined)answer(k)}
+else if(e.key==="Enter"&&st&&st.ans)next()})});
+function packRec(n){try{return "U8-"+btoa(unescape(encodeURIComponent(
+JSON.stringify({n:n,r:rec(n)}))))}catch(e){return ""}}
+function unpackRec(t){t=String(t||"").trim();
+if(t.indexOf("U8-")!==0)return null;
+try{var o=JSON.parse(decodeURIComponent(escape(atob(t.slice(3)))));
+if(!o||!o.n||!o.r)return null;return o}catch(e){return null}}
+function restore(t,msg){var o=unpackRec(t);
+if(!o){msg.textContent="That code was not recognised. Copy the whole thing, including the U8 at the start.";return}
+var cur=rec(o.n),n=0;
+IDS.forEach(function(g){var incoming=o.r[g];if(!incoming)return;
+var have=cur[g];
+if(!have||incoming.best>have.best||incoming.plays>have.plays){cur[g]=incoming;n++}});
+save(o.n,cur);
+msg.textContent=n+" game record"+(n===1?"":"s")+" brought across for "+o.n+
+". Sign in as "+o.n+" to see them.";
+if(me&&me.toLowerCase()===o.n.toLowerCase()){paintRec()}}
+window.__hub={GAMES:GAMES,IDS:IDS,flip:flip,judge:judge,packRec:packRec,unpackRec:unpackRec,restore:restore,
+formTpl:formTpl,start:start,answer:answer,next:next,
+getState:function(){return st},signIn:signIn,line:line,allLines:allLines,
+formUrl:formUrl,code:code,art:art};
+</script></body></html>

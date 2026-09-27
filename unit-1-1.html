@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16335B">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Unit 1.1 games">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Unit 1.1 games hub</title>
+<style>
+:root{--navy:#16335B;--navy2:#22497D;--amber:#E8A33D;--amb:#96610F;--green:#0B6E4F;--red:#B3261E;
+--ink:#1F2F4D;--head:#16335B;--muted:#5A6472;--line:#D8E2EE;--bg:#F4F7FB;--card:#FFFFFF;--tint:#EEF3FA;
+--goodbg:#E7F4EE;--badbg:#FBEAEA;--ambbg:#FFF6E5;--btn:#16335B;--btnh:#22497D;--art:#16335B;--r:14px;--scale:1;
+--shadow:0 1px 2px rgba(22,51,91,.06),0 3px 10px rgba(22,51,91,.05)}
+[data-theme="cream"]{--bg:#F6EFE1;--card:#FFFDF8;--line:#E4D9C4;--tint:#F2EADB;--ambbg:#FBEFD6}
+[data-theme="dark"]{--bg:#0E1A2B;--card:#16263D;--ink:#E4ECF7;--head:#D3E3F8;--muted:#A6B4C7;--line:#2B3F5E;--tint:#1C3050;
+--goodbg:#123A2D;--badbg:#401E1E;--ambbg:#3A2E14;--btn:#2F5E9C;--btnh:#3A6DB0;--art:#BFD4F2;--green:#63D3A8;--red:#FF8F86;--amb:#F2C879;
+--shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#0E1A2B;--card:#16263D;--ink:#E4ECF7;--head:#D3E3F8;--muted:#A6B4C7;--line:#2B3F5E;--tint:#1C3050;
+--goodbg:#123A2D;--badbg:#401E1E;--ambbg:#3A2E14;--btn:#2F5E9C;--btnh:#3A6DB0;--art:#BFD4F2;--green:#63D3A8;--red:#FF8F86;--amb:#F2C879;--shadow:none}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:Arial,"Liberation Sans",Helvetica,sans-serif;
+font-size:calc(17px * var(--scale));line-height:1.5;-webkit-tap-highlight-color:transparent}
+[data-theme="cream"] body{letter-spacing:.01em;word-spacing:.06em;line-height:1.6}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+[tabindex="-1"]:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.muted{color:var(--muted)} .small{font-size:.86em}
+h2,h3{color:var(--head);line-height:1.25}
+
+/* header: full on the menu, compact while playing */
+.hdr{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;
+padding:calc(18px + env(safe-area-inset-top)) 18px 16px}
+.hdr .kick{color:var(--amber);font-weight:700;font-size:.8em}
+.hdr h1{margin:3px 0 2px;font-size:1.5em;line-height:1.2}
+.hdr .sub{color:#C3D3EA;font-size:.86em}
+.rule{height:4px;background:var(--amber)}
+.hdr.compact{display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 10px 8px}
+.hdr.compact .t{flex:1;min-width:0;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hdr.compact .n{font-size:.86em;color:#C3D3EA;white-space:nowrap;padding-right:6px}
+.iconbtn{flex:none;width:46px;height:46px;border-radius:12px;border:0;background:rgba(255,255,255,.14);color:#fff;
+display:inline-flex;align-items:center;justify-content:center}
+.iconbtn.plain{background:var(--tint);color:var(--head)}
+.pbar{height:6px;background:var(--line)} .pbar i{display:block;height:100%;background:var(--amber);transition:width .35s}
+svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px calc(100px + env(safe-area-inset-bottom))}
+body.playing .wrap{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.stack>*+*{margin-top:12px}
+.sec{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:24px 2px 10px}
+.sec h2{margin:0;font-size:1.1em}
+.panel{border-radius:var(--r);padding:14px 16px;background:var(--card);border:1px solid var(--line)}
+.panel.amber{background:var(--ambbg);border-color:transparent;border-left:5px solid var(--amber)}
+.panel h3{margin:0 0 4px;font-size:1em}
+.panel p{margin:.35em 0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:12px;
+border:2px solid var(--btn);background:var(--btn);color:#fff;font-weight:700;text-decoration:none;text-align:center;line-height:1.2}
+.btn:hover{background:var(--btnh);border-color:var(--btnh)}
+.btn.amber{background:var(--amber);border-color:var(--amber);color:#241802}
+.btn.amber:hover{filter:brightness(1.05)}
+.btn.ghost{background:transparent;color:var(--head);border-color:var(--line)}
+.btn.ghost:hover{background:var(--tint)}
+.btn.small{min-height:42px;padding:0 14px;font-size:.9em}
+.btn.block{width:100%}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>.btn{flex:1 1 150px}
+.link{background:none;border:0;padding:10px 4px;color:var(--head);text-decoration:underline;text-underline-offset:3px;font-weight:700;min-height:44px}
+.dock{position:sticky;bottom:0;padding:14px 0 calc(10px + env(safe-area-inset-bottom));margin-top:8px;
+background:linear-gradient(to top,var(--bg) 72%,rgba(0,0,0,0));z-index:5}
+
+/* me strip */
+.me{display:flex;gap:14px;align-items:center}
+.avatar{flex:none;width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:1.05em;
+display:flex;align-items:center;justify-content:center;border:3px solid var(--amber)}
+.me h2{margin:0;font-size:1.2em}
+.me .lvl{color:var(--muted);font-size:.88em}
+.meter{height:10px;border-radius:999px;background:var(--tint);overflow:hidden;margin-top:10px}
+.meter i{display:block;height:100%;background:var(--amber);border-radius:999px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:var(--tint);font-size:.84em;color:var(--head);font-weight:700}
+.chip svg.i{width:18px;height:18px}
+
+/* game tiles */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.tile{position:relative;display:flex;flex-direction:column;text-align:left;background:var(--card);border:1px solid var(--line);
+border-radius:var(--r);overflow:hidden;padding:0;box-shadow:var(--shadow);transition:transform .12s,border-color .12s}
+.tile:hover{border-color:var(--amber)}
+.tile:active{transform:scale(.98)}
+.tile .art{height:80px;background:var(--tint);display:flex;align-items:center;justify-content:center}
+.tile .art svg{width:128px;height:64px}
+.tile .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:3px;flex:1}
+.tile .ttl{font-weight:700;color:var(--head);line-height:1.25}
+.tile .what{font-size:.82em;color:var(--muted);line-height:1.35}
+.tile .rec{margin-top:auto;padding-top:8px;font-size:.8em;color:var(--muted)}
+.tile .rec.good{color:var(--green);font-weight:700}
+.badge{align-self:flex-start;margin-bottom:3px;background:var(--amber);color:#241802;font-weight:700;font-size:.72em;padding:3px 9px;border-radius:999px}
+.tick{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center}
+.tick svg.i{width:18px;height:18px;stroke-width:3}
+.rows{display:flex;flex-direction:column;gap:10px}
+.rowbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);
+border-radius:var(--r);padding:12px 14px;min-height:66px;box-shadow:var(--shadow)}
+.rowbtn:hover{border-color:var(--amber)}
+.rowbtn .ic{flex:none;width:42px;height:42px;border-radius:11px;background:var(--tint);color:var(--head);display:flex;align-items:center;justify-content:center}
+.rowbtn .tx{flex:1;min-width:0}
+.rowbtn .tx b{color:var(--head);display:block}
+.rowbtn .tx span{display:block;color:var(--muted);font-size:.84em;line-height:1.35}
+.pill{flex:none;font-size:.76em;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--goodbg);color:var(--green)}
+.pill.amber{background:var(--ambbg);color:var(--amb)}
+.foot{margin:28px 4px 0;color:var(--muted);font-size:.8em;line-height:1.5}
+
+/* tab bar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);
+display:grid;grid-template-columns:repeat(3,1fr);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar button{background:none;border:0;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.76em;color:var(--muted)}
+.tabbar button[aria-current="page"]{color:var(--head);font-weight:700}
+.tabbar button[aria-current="page"] svg.i{color:var(--amber);stroke-width:2.4}
+body.playing .tabbar, body.out .tabbar{display:none}
+
+/* questions */
+.qno{color:var(--amb);font-weight:700;font-size:.86em}
+.qtext{font-size:1.2em;font-weight:700;color:var(--head);line-height:1.35;margin:4px 0 6px}
+.qprompt{color:var(--muted);margin:8px 0 12px}
+.qart{background:var(--tint);border-radius:12px;padding:10px;margin:12px 0;display:flex;justify-content:center}
+.qart svg{width:100%;max-width:340px;height:auto}
+.stepnote{background:var(--goodbg);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:.9em}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opts.two{display:grid;grid-template-columns:1fr 1fr}
+.opt{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:10px 12px;border-radius:12px;
+border:2px solid var(--line);background:var(--card);text-align:left;line-height:1.35}
+.opt .k{flex:none;width:30px;height:30px;border-radius:8px;background:var(--tint);color:var(--head);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.88em}
+.opt .l{flex:1;min-width:0}
+.opt .s{flex:none;font-size:.76em;font-weight:700;text-align:right;max-width:5.5em;line-height:1.2}
+.opt:not(:disabled):hover{border-color:var(--amber)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--green);background:var(--goodbg)} .opt.correct .s{color:var(--green)}
+.opt.wrong{border-color:var(--red);background:var(--badbg)} .opt.wrong .s{color:var(--red)}
+.opt.dim{opacity:.6}
+.opts.two .opt .s{display:none}
+.fb{margin-top:14px;padding:12px 14px;border-radius:12px;border-left:5px solid var(--green);background:var(--goodbg)}
+.fb.bad{border-left-color:var(--red);background:var(--badbg)}
+.fb.info{border-left-color:var(--amber);background:var(--ambbg)}
+.fb strong{display:block;margin-bottom:2px}
+.fb ol{margin:.4em 0 0 1.2em;padding:0}
+
+/* spot the error */
+.chunks{display:flex;flex-wrap:wrap;gap:8px}
+.chunk{padding:10px 12px;border:2px dashed var(--line);border-radius:10px;background:var(--card);text-align:left;min-height:48px;line-height:1.35}
+.chunk:not(:disabled):hover{border-color:var(--amber)}
+.chunk.is-error{border:2px solid var(--red);background:var(--badbg)}
+.chunk.wrong-pick{border:2px solid var(--amber);background:var(--ambbg)}
+.chunk.fine{opacity:.55}
+.chunk:disabled{cursor:default}
+
+/* brief or spec swipe */
+.deck{position:relative;height:230px;margin:6px 0 16px;touch-action:pan-y;overflow:hidden;border-radius:20px}
+.scard{position:absolute;inset:4px;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;
+border-radius:18px;background:var(--card);border:2px solid var(--head);font-size:1.12em;font-weight:700;color:var(--head);
+box-shadow:0 8px 24px rgba(22,51,91,.12);transition:transform .25s,opacity .25s;user-select:none}
+.scard.back{transform:translateY(10px) scale(.96);opacity:.5;color:transparent;border-color:var(--line)}
+.scard .hint{position:absolute;top:12px;font-size:.72em;padding:3px 10px;border-radius:999px;opacity:0;font-weight:700}
+.scard .hint.l{left:12px;background:var(--tint);color:var(--head)}
+.scard .hint.r{right:12px;background:var(--amber);color:#241802}
+
+/* sequence */
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.chip2{min-height:46px;padding:8px 12px;border-radius:10px;border:2px solid var(--head);background:var(--card);color:var(--head);font-weight:700;text-align:left}
+.slots{display:flex;flex-direction:column;gap:8px}
+.slot{display:flex;gap:10px;align-items:center;min-height:50px;border:2px dashed var(--line);border-radius:10px;padding:6px 10px;background:var(--card);text-align:left;width:100%}
+.slot b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--tint);color:var(--head);display:flex;align-items:center;justify-content:center;font-size:.85em}
+.slot.filled{border-style:solid;border-color:var(--head)}
+.slot.ok{border-color:var(--green);background:var(--goodbg)} .slot.no{border-color:var(--red);background:var(--badbg)}
+
+/* ladder */
+.rungs{display:flex;gap:5px;margin:0 0 12px}
+.rungs i{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.rungs i.done{background:var(--green)} .rungs i.miss{background:var(--red)} .rungs i.now{background:var(--amber)}
+.numrow{display:flex;gap:10px;align-items:center}
+.textin{width:100%;min-height:52px;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:var(--card);font-size:1.05em}
+.textin:focus{border-color:var(--amber);outline:none}
+.numrow .textin{flex:1;font-size:1.2em;font-weight:700}
+.unit{font-weight:700;color:var(--head)}
+.worked{background:var(--tint);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.92em}
+.worked ol{margin:.3em 0 0 1.2em;padding:0}
+
+/* flash cards */
+.flip{display:block;perspective:1200px;width:100%;border:0;background:none;padding:0;margin:4px 0 14px}
+.flip .inner{display:block;position:relative;height:250px;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;text-align:center}
+.face.front{background:var(--card);border:2px solid var(--head)}
+.face.front strong{font-size:1.45em;color:var(--head);line-height:1.25}
+.face.back{background:var(--navy);color:#fff;transform:rotateY(180deg);font-size:1.02em;line-height:1.45}
+.face.back .muted{color:#C3D3EA}
+
+/* results */
+.result{text-align:center;padding:22px 16px}
+.big{font-size:3.2em;font-weight:700;color:var(--head);line-height:1.1}
+.big small{font-size:.38em;color:var(--muted);font-weight:700}
+.seal{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:6px 14px;border-radius:999px;background:var(--goodbg);color:var(--green);font-weight:700}
+.seal.pop{animation:pop .5s ease-out}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.code{display:inline-block;font-weight:700;letter-spacing:.08em;background:var(--card);border:2px solid var(--amber);border-radius:8px;padding:4px 10px;color:var(--head)}
+.review{margin:0;padding-left:1.1em} .review li{margin:.55em 0}
+.copyline{width:100%;min-height:90px;font-size:.84em;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--tint)}
+
+/* record */
+.recard{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.recard b{color:var(--head)} .recard .meta{grid-column:1/2;color:var(--muted);font-size:.84em}
+.recard .act{grid-row:1/3;grid-column:2/3}
+
+/* check-ins and exit ticket */
+.q{margin:18px 0}
+.q > p, .q > label, .q legend{display:block;font-weight:700;color:var(--head);margin-bottom:8px}
+fieldset.q{border:0;padding:0;margin-left:0;margin-right:0}
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:2px solid var(--line);border-radius:10px;margin:6px 0;background:var(--card);min-height:48px;font-weight:400;color:var(--ink)}
+.check input{width:22px;height:22px;margin-top:1px;flex:none;accent-color:var(--navy)}
+textarea.textin{min-height:96px;resize:vertical}
+.rag{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rag button{min-height:48px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:.9em}
+.rag button[aria-pressed="true"].r{background:var(--badbg);border-color:var(--red);color:var(--red)}
+.rag button[aria-pressed="true"].a{background:var(--ambbg);border-color:var(--amber);color:var(--amb)}
+.rag button[aria-pressed="true"].g{background:var(--goodbg);border-color:var(--green);color:var(--green)}
+
+/* sign in */
+.card label[for="code"]{display:block}
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:8px}
+.names button{min-height:50px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:700;color:var(--head);text-align:left;padding:8px 12px}
+.names button:hover{border-color:var(--amber)}
+.codebox{display:block;margin:6px auto 0;text-transform:uppercase;letter-spacing:.3em;font-size:1.5em;font-weight:700;text-align:center;max-width:260px}
+
+/* settings */
+.seg{display:grid;gap:6px;margin:6px 0 14px}
+.seg button{min-height:46px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:.9em}
+.seg button[aria-pressed="true"]{border-color:var(--head);background:var(--tint);color:var(--head)}
+details.tut{margin-top:12px}
+details.tut summary{cursor:pointer;font-weight:700;color:var(--head);min-height:48px;display:flex;align-items:center}
+.tut table{width:100%;border-collapse:collapse;font-size:.86em;margin:8px 0}
+.tut td,.tut th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+
+/* data card */
+.modal{position:fixed;inset:0;background:rgba(14,26,43,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.modal .sheet{background:var(--card);width:100%;max-width:640px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom))}
+@media (min-width:700px){.modal{align-items:center}.modal .sheet{border-radius:18px}}
+.dtable{width:100%;border-collapse:collapse;font-size:.92em;font-variant-numeric:tabular-nums}
+.dtable th,.dtable td{border:1px solid var(--line);padding:8px;text-align:right}
+.dtable th:first-child,.dtable td:first-child{text-align:left}
+.dtable thead th{background:var(--tint);color:var(--head)}
+.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--navy);color:#fff;
+padding:10px 16px;border-radius:12px;z-index:60;max-width:90vw;font-size:.9em}
+
+/* tile and question art */
+.a-i{fill:none;stroke:var(--art);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.a-a{fill:none;stroke:var(--amber);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.a-f{fill:var(--card);stroke:var(--art);stroke-width:2.2;stroke-linejoin:round}
+.a-fa{fill:var(--amber);stroke:none}
+.a-fi{fill:var(--art);stroke:none}
+.a-d{fill:none;stroke:var(--amber);stroke-width:2;stroke-dasharray:6 5}
+.a-t{fill:var(--art);font:700 13px Arial,sans-serif}
+
+@media (min-width:900px){.wrap{max-width:980px}.grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+[data-motion="reduce"] *{transition:none!important;animation:none!important}
+</style>
+</head>
+<body class="out">
+<div id="app"></div>
+<nav class="tabbar" id="tabs" aria-label="Main">
+  <button data-tab="games">Games</button>
+  <button data-tab="record">My record</button>
+  <button data-tab="help">Help</button>
+</nav>
+<div id="live" class="sr" aria-live="polite"></div>
+<script>
+"use strict";
+/* ==========================================================================
+   TUTOR SETTINGS. These are the only two lines in this file you need to edit.
+   Open this file in Notepad, change what is between the quotes, save, then
+   upload it to the class team. Every learner who opens it gets these.
+
+   1. FORM_PREFILL
+      Paste the prefill link from your Unit 1.1 results form between the
+      quotes. It must contain all six markers:
+      LEARNERHERE GAMEHERE SCOREHERE MAXHERE CHECKHERE DETAILHERE
+      Leave it empty and learners copy their result instead of sending it.  */
+
+var FORM_PREFILL = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=4OQOG2ZRykO0ZwI86bscxERjzzfGEWpBoSzhUqBjoRRUQjdaSElFVVVVN0hXUklUR09PNFBWREpHNC4u&r55f06b7e98224dee9c34e081cd054a1b=LEARNERHERE&rc4438b288ad444a19b80b96d20699c9d=GAMEHERE&r72a05ef8182c463aa1f1023051d96428=SCOREHERE&r7349b853bd2341768847b5f08dcb2b97=MAXHERE&re4db8330621e4a00b81aa78fff773893=CHECKHERE&r09f12d86275941adacbfe46f5acb3755=DETAILHERE";
+
+/*    2. CLASS_LIST
+      Each learner's name and hub code joined by an equals sign, separated
+      by a vertical bar. The tracker writes this line for you: Start here
+      sheet, cell B7. Example:
+      var CLASS_LIST = "Alex Example=K7PM|Bea Example=X2Q9";
+      Names only ever show on the learner's own phone. Results carry the
+      code, never the name. Leave it empty and learners type their code.
+      IMPORTANT: if this hub is on a public website, leave CLASS_LIST
+      empty so no names are published. Learners then type their code, or
+      open their personal link from the tracker, which signs them in.     */
+
+var CLASS_LIST = "";
+
+/* ======================= nothing below here needs editing ================ */
+
+var HUB_CONFIG = {
+  hubName: "Unit 1.1 games hub",
+  kicker: "Engineering Common Core (300), Core Paper 2",
+  unitLabel: "1.1 Design principles and methodologies",
+  endpoint: "",            /* only for the optional Google Apps Script route */
+  defaultFocus: ["family","errors"],
+  defaultTarget: 150
+};
+var CONTENT = {"families":["Forming","Shaping","Casting","Wasting","Joining","Finishing","Additive"],"family":[{"id":"F01","op":"Rolling","ok":["Forming"],"why":"Bulk forming. The shape changes by compression and no material is removed."},{"id":"F02","op":"Extrusion","ok":["Forming"],"why":"Bulk forming. Material is pushed through a die to make a profile."},{"id":"F03","op":"Wire drawing","ok":["Forming"],"why":"Bulk forming. Wire is pulled through a die, so tension does the work."},{"id":"F04","op":"Deep drawing","ok":["Forming"],"why":"Sheet metal forming. A flat sheet is drawn into a cup or box shape."},{"id":"F05","op":"Bending sheet steel","ok":["Forming"],"why":"Sheet metal forming. The sheet changes shape but keeps its mass."},{"id":"F06","op":"Die casting","ok":["Casting","Shaping"],"why":"Casting with a permanent mould. Casting is one of the four categories of shaping, so both answers are fair."},{"id":"F07","op":"Sand casting","ok":["Casting","Shaping"],"why":"Casting with an expendable mould. Casting sits inside shaping, so both answers are fair."},{"id":"F08","op":"Investment casting","ok":["Casting","Shaping"],"why":"Casting with an expendable mould. Casting sits inside shaping, so both answers are fair."},{"id":"F09","op":"Pressing","ok":["Shaping","Forming"],"why":"A manipulative shaping process that also counts as forming, because plastic deformation changes the shape."},{"id":"F10","op":"Forging","ok":["Forming","Shaping"],"why":"Bulk forming, and also a manipulative shaping process. Say which family you mean and why."},{"id":"F11","op":"Compacting powder into a die","ok":["Shaping","Forming"],"why":"Shaping (powder techniques). It overlaps powder metal forming, so forming is also fair."},{"id":"F12","op":"Grinding a shaft to final size","ok":["Shaping","Wasting"],"why":"Shaping (cutting and grinding). The removed material becomes swarf, so it also counts as wasting."},{"id":"F13","op":"Guillotining","ok":["Wasting"],"why":"Wasting. A blade chops through sheet material."},{"id":"F14","op":"Laser cutting","ok":["Wasting"],"why":"Wasting. Material is cut away to leave the shape."},{"id":"F15","op":"CNC routing","ok":["Wasting"],"why":"Wasting. A spinning cutter follows a programmed route."},{"id":"F16","op":"Drilling","ok":["Wasting"],"why":"Wasting. The metal from the hole comes away as swarf."},{"id":"F17","op":"MIG welding","ok":["Joining"],"why":"Joining. A permanent joint."},{"id":"F18","op":"Brazing","ok":["Joining"],"why":"Joining. A filler metal bonds the parts."},{"id":"F19","op":"Bolting","ok":["Joining"],"why":"Joining, and a temporary joint because it can be taken apart."},{"id":"F20","op":"Riveting","ok":["Joining"],"why":"Joining. Parts are fixed together with rivets."},{"id":"F21","op":"Adhesive bonding","ok":["Joining"],"why":"Joining. Glue holds the parts together."},{"id":"F22","op":"Anodising","ok":["Finishing"],"why":"Finishing, adding and altering. A new surface layer is formed."},{"id":"F23","op":"Polishing","ok":["Finishing"],"why":"Finishing, removing and reshaping. A thin layer comes off."},{"id":"F24","op":"Electroplating","ok":["Finishing"],"why":"Finishing, adding and altering. A metal layer goes on."},{"id":"F25","op":"Powder coating","ok":["Finishing"],"why":"Finishing, adding and altering. Charged powder is baked on."},{"id":"F26","op":"Laser ablation","ok":["Finishing"],"why":"Finishing, removing and reshaping. Not the same as laser cutting, which is wasting."},{"id":"F27","op":"Powder bed fusion","ok":["Additive"],"why":"Additive. A laser or electron beam melts one layer of powder at a time."},{"id":"F28","op":"Vat photopolymerisation","ok":["Additive"],"why":"Additive. Liquid resin is set hard by UV light, layer by layer."},{"id":"F29","op":"3D printing with filament (material extrusion)","ok":["Additive"],"why":"Additive. Hot filament is laid through a nozzle. Not the same as extrusion, which is forming."},{"id":"F30","op":"Binder jetting","ok":["Additive"],"why":"Additive. Binder is printed onto powder, then the part is sintered."}],"errors":[{"id":"E01","chunks":["Shaping has four categories:","casting, manipulative processes,","powder techniques,","and welding."],"wrong":3,"fix":"The fourth category is cutting and grinding. Welding is joining."},{"id":"E02","chunks":["Forming changes the shape","using tension, compression or shear,","and removes a small amount of material."],"wrong":2,"fix":"No material is removed in forming, so the mass stays the same."},{"id":"E03","chunks":["A sand mould is expendable,","so it is reused","for every casting."],"wrong":1,"fix":"An expendable mould is destroyed to remove each casting."},{"id":"E04","chunks":["A part must be 40 mm after sintering","and it shrinks by 20%,","so it should be printed at 48 mm."],"wrong":2,"fix":"Print it at 40 ÷ 0.8 = 50 mm. Check: 20% of 50 is 10, and 50 − 10 = 40 mm."},{"id":"E05","chunks":["Sintering heats the powder","above its melting point","so the particles bond together."],"wrong":1,"fix":"Sintering happens below the melting point. The metal never melts."},{"id":"E06","chunks":["Polishing is a finishing process","that adds a new layer","to the surface."],"wrong":1,"fix":"Polishing removes a thin layer. It is removing and reshaping."},{"id":"E07","chunks":["The design brief is written by the client,","in their own words,","and every line in it is measurable."],"wrong":2,"fix":"The brief is not yet measurable. The product design specification makes it measurable."},{"id":"E08","chunks":["In the linear design process,","testing comes","before manufacturing."],"wrong":2,"fix":"Testing is step 7, after manufacturing at step 6."},{"id":"E09","chunks":["Controls must be within reach of","the largest user,","so everyone else can reach them too."],"wrong":1,"fix":"Reach is designed for the smallest user, using the 5th percentile."},{"id":"E10","chunks":["Doorway height is a clearance problem,","so it is based on","the 5th percentile stature."],"wrong":2,"fix":"Clearance uses the 95th percentile, then adds footwear and head clearance."},{"id":"E11","chunks":["Environmental requirements mean the product","must stand up to where it is used,","and nothing else."],"wrong":2,"fix":"They also cover the product's effect on the environment: visual impact and pollution."},{"id":"E12","chunks":["User centred design","is a form of linear design","that involves users at every stage."],"wrong":1,"fix":"User centred design is a form of iterative design. It cannot be run in one pass."},{"id":"E13","chunks":["Design for assembly aims to","increase the number of parts","so each one is simpler."],"wrong":1,"fix":"It aims to reduce the number of parts, which is called component elimination."},{"id":"E14","chunks":["The 6Rs are applied","only when a product is thrown away."],"wrong":1,"fix":"The 6Rs are applied at the design stage, before any material is bought."},{"id":"E15","chunks":["Qualitative research uses","words and opinions,","such as timed trials."],"wrong":2,"fix":"Timed trials give numbers, which is quantitative. Qualitative examples are interviews and open questions."},{"id":"E16","chunks":["A non-technical audience needs","plain language and images,","and plenty of jargon."],"wrong":2,"fix":"A non-technical audience needs no jargon."},{"id":"E17","chunks":["Additive manufacturing","builds a part layer by layer","and produces a lot of swarf."],"wrong":2,"fix":"Additive manufacturing has minimal waste. Swarf comes from wasting."},{"id":"E18","chunks":["A reusable mould needs a draft angle","so the user can grip the part."],"wrong":1,"fix":"The draft angle is there for the process: it lets the part release from the mould."},{"id":"E19","chunks":["Hanging holes in sheet metal parts","let every face be coated at once,","and are added for the user."],"wrong":2,"fix":"Hanging holes are there for the process, not the user."},{"id":"E20","chunks":["A product is fit for purpose","when it looks attractive,","judged against stated requirements."],"wrong":1,"fix":"It is fit for purpose when it meets the purpose it was intended for."},{"id":"E21","chunks":["A product that meets every desirable requirement","but misses one essential requirement","is still fit for purpose."],"wrong":2,"fix":"Missing one essential requirement means it is not fit for purpose."},{"id":"E22","chunks":["Fatigue testing checks","how a product performs","under one very large load."],"wrong":2,"fix":"Fatigue testing uses fluctuating loads repeated many thousands of times."}],"briefspec":[{"id":"B01","s":"The client wants a lightweight folding stool for festival use.","ans":"Brief","why":"Client's words, not measurable."},{"id":"B02","s":"It must survive being left out in the rain.","ans":"Brief","why":"A need, but not yet measurable."},{"id":"B03","s":"It should be comfortable to sit on.","ans":"Brief","why":"How would you measure comfortable? Not yet a specification."},{"id":"B04","s":"Easy to carry.","ans":"Brief","why":"The worked example on the slide turns this into a mass limit."},{"id":"B05","s":"It should look good in a modern kitchen.","ans":"Brief","why":"A matter of opinion, so it belongs in the brief."},{"id":"B06","s":"Cheap enough for students to buy.","ans":"Brief","why":"No price is given, so it is not measurable yet."},{"id":"B07","s":"Safe for children to use.","ans":"Brief","why":"A need. The specification would name the tests and limits."},{"id":"B08","s":"The handle should feel nice to hold.","ans":"Brief","why":"Everyday words, not a measurable target."},{"id":"S01","s":"Mass not greater than 2.5 kg.","ans":"Spec","why":"A measurable limit."},{"id":"S02","s":"Must withstand a static load of 120 kg without permanent deformation.","ans":"Spec","why":"Gives a load and a test."},{"id":"S03","s":"Folded thickness not greater than 90 mm.","ans":"Spec","why":"A measurable limit."},{"id":"S04","s":"Seat height 430 mm plus or minus 10 mm.","ans":"Spec","why":"A dimension with a tolerance."},{"id":"S05","s":"Retail price not greater than £25.","ans":"Spec","why":"A measurable limit."},{"id":"S06","s":"All external corners to have a radius of at least 2 mm.","ans":"Spec","why":"Measurable, and it turns 'safe' into something you can check."},{"id":"S07","s":"No red rust after a 48 hour salt spray test.","ans":"Spec","why":"Names a test and a pass condition."},{"id":"S08","s":"Handle grip diameter between 30 mm and 40 mm.","ans":"Spec","why":"A measurable range."}],"expert":[{"id":"D01","q":"A one-off replacement bracket for a machine. Low risk, needed this week. Which process suits it?","opts":["Linear design","Iterative design","User centred design","Inclusive design"],"ans":0,"why":"A low-risk one-off may not justify prototyping, so one pass is sensible."},{"id":"D02","q":"A new electric toothbrush for the mass market. Which process suits it?","opts":["Iterative design","Linear design","Design for assembly only","No design process"],"ans":0,"why":"A new consumer product almost always needs prototypes, testing and improvement."},{"id":"D03","q":"Users are interviewed and watched at every stage, and the design changes after each round. Which approach?","opts":["User centred design","Linear design","Design for manufacture","Ergonomic design"],"ans":0,"why":"User centred design keeps going back to users at every phase."},{"id":"D04","q":"A museum joins its rooms with shallow ramps so everyone uses the same route. Which approach?","opts":["Inclusive design","Design for assembly","Linear design","Sustainable design"],"ans":0,"why":"One design that the widest range of people can use."},{"id":"D05","q":"A workbench height is set from elbow height data. Which approach?","opts":["Ergonomic design","Inclusive design","Design for manufacture","Iterative design"],"ans":0,"why":"Design based on measured body dimensions is ergonomic design."},{"id":"D06","q":"A casting is given a slight taper so it releases from a reusable mould. Which approach?","opts":["Design for manufacture","Design for assembly","User centred design","Inclusive design"],"ans":0,"why":"The draft angle is there for the process. That is design for manufacture."},{"id":"D07","q":"A 24-part assembly is redesigned to use 2 parts. Which approach?","opts":["Design for assembly","Ergonomic design","Linear design","Sustainable design"],"ans":0,"why":"Component elimination. Most of the saving is in the parts themselves."},{"id":"D08","q":"Fixing holes are made asymmetric so a panel can only fit one way. Which approach?","opts":["Design for assembly","Design for manufacture","Inclusive design","User centred design"],"ans":0,"why":"A part that only fits one way cannot be fitted wrongly."},{"id":"D09","q":"A kettle is redesigned to use less plastic, less energy and to be easy to repair. Which approach?","opts":["Sustainable design","Design for assembly","Linear design","Ergonomic design"],"ans":0,"why":"Reduce and repair are two of the 6Rs of sustainable design."},{"id":"D10","q":"Legroom under a workshop desk. Which percentile?","opts":["95th percentile","5th percentile","50th percentile","Adjustable, 5th to 95th"],"ans":0,"why":"Clearance: design for the largest user."},{"id":"D11","q":"An emergency stop button on a machine. Which percentile?","opts":["5th percentile","50th percentile","95th percentile","Adjustable, 5th to 95th"],"ans":0,"why":"Reach: design for the smallest user."},{"id":"D12","q":"The seat height of an office chair. Which percentile?","opts":["Adjustable, 5th to 95th","5th percentile","50th percentile","95th percentile"],"ans":0,"why":"One chair must suit everyone, so it adjusts across the span."},{"id":"D13","q":"Why not design a doorway for the 50th percentile?","opts":["Half of users would have to stoop","It would cost too much","Doors are always adjustable","The 50th is the smallest user"],"ans":0,"why":"The 50th is the middle. Half the users are taller than it."},{"id":"D14","q":"A cycle helmet is checked against the standard it must meet to be sold. Which testing methodology?","opts":["Compliance","Functional","User experience","Fatigue"],"ans":0,"why":"Compliance asks: can it legally be sold?"},{"id":"D15","q":"Riders wear the helmet for a week and say whether the strap is easy to use. Which testing methodology?","opts":["User experience","Compliance","Functional","Fastener stress"],"ans":0,"why":"Does it work for real people? Field tests in plain language."},{"id":"D16","q":"The helmet is crash tested to see whether it could fail and hurt the rider. Which testing methodology?","opts":["Safety","User experience","Compliance","Qualitative research"],"ans":0,"why":"Safety asks: could it hurt anyone?"},{"id":"D17","q":"A bolted joint is loaded until the connectors fail. Which test method?","opts":["Fastener stress","Fatigue","Temperature and pressure","User experience"],"ans":0,"why":"A joint is often the weak point, so bolts and connectors are tested under stress."},{"id":"D18","q":"A bracket is loaded and unloaded 100,000 times. Which test method?","opts":["Fatigue","Fastener stress","Compliance","Temperature and pressure"],"ans":0,"why":"Fatigue is failure under fluctuating loads, like bending a paperclip back and forth."},{"id":"D19","q":"You present a new design to the client's finance director. What do you lead with?","opts":["What it does for them, in plain words","The full tolerance table","The wiring schematic","The material specification codes"],"ans":0,"why":"A non-technical audience needs the message summarised, with no jargon."},{"id":"D20","q":"A lift brake clamps on when the power fails. What does this show?","opts":["Failing safely","Component elimination","Design for manufacture","Linear design"],"ans":0,"why":"If something goes wrong, it should go wrong in the safest way."},{"id":"D21","q":"Market research asks 200 people to rate a handle from 1 to 5. What kind of research?","opts":["Quantitative","Qualitative","Mixed methods","Compliance"],"ans":0,"why":"Rated questions give numbers you can measure."},{"id":"D22","q":"A timed trial is followed by an interview about it. What kind of research?","opts":["Mixed methods","Quantitative","Qualitative","Functional testing"],"ans":0,"why":"Numbers from the trial plus words from the interview."}],"sequences":[{"id":"Q1","title":"The linear design process","steps":["Client brief","Product design specification","Investigation","Ideas","Development","Manufacturing","Testing","Evaluation"],"why":"One pass, one solution. The common slip is putting testing before manufacturing."},{"id":"Q2","title":"Sand casting, pattern to part","steps":["Make the pattern","Pack sand round the pattern to make the mould","Pour in the molten metal","Let it cool and solidify","Break the mould to get the casting out"],"why":"The sand mould is expendable, so it is broken every time."},{"id":"Q3","title":"Binder jetting","steps":["Print binder onto the powder, layer by layer","Lift the green part out of the powder bed","De-bind the part","Sinter it in an oven","Part is dense and hard, and about 20 to 25% smaller"],"why":"This is why the part is printed oversize."},{"id":"Q4","title":"The iterative cycle (after the brief and PDS)","steps":["Investigation","Ideas","Development","Make a model or prototype","Test the prototype","Evaluate","Feed improvements back to investigation"],"why":"The loop repeats until the design meets every requirement."},{"id":"Q5","title":"User centred design","steps":["Understand the context of use","Specify the user requirements","Produce design solutions","Evaluate against the user requirements"],"why":"Then round again until the design succeeds."}],"flash":[{"id":"K01","term":"Manufacturing process","def":"A way of turning raw material into a useful part or product."},{"id":"K02","term":"Wasting","def":"Making a shape by cutting material away. The bits removed are waste, called swarf."},{"id":"K03","term":"Forming","def":"Changing the shape by force (bending, squeezing, stretching) without removing any material."},{"id":"K04","term":"Shaping","def":"The family of processes that change a part's size and shape. It has four categories, and casting is one."},{"id":"K05","term":"Casting","def":"Pouring liquid material into a mould and letting it set."},{"id":"K06","term":"Joining","def":"Fixing parts together, for good (like welding) or so they come apart (like bolting)."},{"id":"K07","term":"Finishing","def":"Treating the surface, taking a layer off or putting one on, to protect it or improve it."},{"id":"K08","term":"Additive manufacturing","def":"Building a part layer by layer from a 3D computer model. Industrial 3D printing."},{"id":"K09","term":"Fit for purpose","def":"It does the job it was made for, judged against the stated requirements."},{"id":"K10","term":"Functional requirements","def":"What the product must do: its features and functions."},{"id":"K11","term":"Design brief","def":"The client's description of what they need, in their own words."},{"id":"K12","term":"Product design specification","def":"The list of measurable targets the design must meet. Often shortened to PDS."},{"id":"K13","term":"Linear design","def":"One pass through the design steps, giving one final solution."},{"id":"K14","term":"Iterative design","def":"A loop of prototype, test, evaluate and improve, repeated until the design meets the brief."},{"id":"K15","term":"Anthropometric data","def":"Measurements of the human body, used to size products so they fit people."},{"id":"K16","term":"Percentile","def":"A position in a group. The 5th percentile means 5 in every 100 people are smaller."},{"id":"K17","term":"Design for manufacture","def":"Designing a part so it is easy and cheap to make."},{"id":"K18","term":"Design for assembly","def":"Designing so parts go together quickly and easily, often by using fewer parts."},{"id":"K19","term":"The 6Rs","def":"Reduce, refuse, rethink, repair, reuse, recycle. Six questions for greener design."},{"id":"K20","term":"Qualitative and quantitative","def":"Research using words and opinions, and research using numbers and measurements."},{"id":"K21","term":"Draft angle","def":"A slight taper that lets a part release from a reusable mould. It is there for the process, not the user."},{"id":"K22","term":"Swarf","def":"The chips of material removed by wasting processes such as drilling and milling."},{"id":"K23","term":"Sintering","def":"Heating compacted powder below its melting point so the particles bond. The part shrinks."},{"id":"K24","term":"Green compact","def":"Pressed or printed powder that has not been sintered yet, like clay before it is fired."},{"id":"K25","term":"Component elimination","def":"Reducing the number of separate parts in an assembly."},{"id":"K26","term":"Fail safe","def":"If the product does fail, it fails in the safest way, like a lift brake that clamps on."}],"sixr":[{"id":"R01","q":"A designer cuts the wall thickness of a moulded case from 3 mm to 2 mm.","ans":"Reduce","why":"Using less material for the same job is reduce."},{"id":"R02","q":"A factory switches to a process that needs a lower furnace temperature.","ans":"Reduce","why":"Less energy in manufacture is reduce."},{"id":"R03","q":"A client asks for a single-use plastic cup. The designer says no and offers another option.","ans":"Refuse","why":"Saying no to an unsustainable product or material is refuse."},{"id":"R04","q":"The designer will not specify any material that cannot be recycled.","ans":"Refuse","why":"Turning down a material on sustainability grounds is refuse."},{"id":"R05","q":"Before sketching anything, the team asks whether the product is needed at all.","ans":"Rethink","why":"Questioning whether the product is essential, or could be done differently, is rethink."},{"id":"R06","q":"A kettle is redesigned from scratch so it lasts ten years instead of three.","ans":"Rethink","why":"Changing the whole approach to give a longer life is rethink."},{"id":"R07","q":"A drill is sold with spare motor brushes and a guide to fitting them.","ans":"Repair","why":"Spare parts that let the owner fix it are repair."},{"id":"R08","q":"A phone is built so a cracked screen can be swapped without replacing the phone.","ans":"Repair","why":"Replacing one part rather than the whole product is repair."},{"id":"R09","q":"Old car tyres are cut up and used as playground surfacing.","ans":"Reuse","why":"Using a product or its parts again, in the same or a new way, is reuse."},{"id":"R10","q":"A chair is held together with bolts, not glue, so the frame can go into a new chair.","ans":"Reuse","why":"Easy dismantling so parts can be used again is reuse."},{"id":"R11","q":"A bracket is specified in aluminium made from melted-down drinks cans.","ans":"Recycle","why":"Using material that has been reprocessed is recycle."},{"id":"R12","q":"Every plastic part is marked with its material code so it can be sorted at end of life.","ans":"Recycle","why":"Making the product easy to reprocess into new material is recycle."},{"id":"R13","q":"Customers walk away from a product with wasteful packaging, so the designer drops it.","ans":"Refuse","why":"Consumers and designers refusing unsustainable designs is refuse."},{"id":"R14","q":"Packaging is cut to a card sleeve with no plastic window.","ans":"Reduce","why":"Less waste and packaging is reduce."}],"datacard":[{"dim":"Stature (height)","m":[1630,1745,1860],"f":[1510,1620,1730]},{"dim":"Eye height","m":[1520,1640,1760],"f":[1410,1515,1620]},{"dim":"Shoulder height","m":[1340,1445,1550],"f":[1240,1330,1420]},{"dim":"Elbow height","m":[1020,1100,1180],"f":[950,1020,1090]},{"dim":"Sitting elbow height","m":[210,250,290],"f":[190,235,280]},{"dim":"Popliteal height","m":[410,450,490],"f":[370,410,450]},{"dim":"Buttock to popliteal length","m":[450,510,570],"f":[440,500,560]},{"dim":"Thigh thickness","m":[130,155,180],"f":[120,150,180]},{"dim":"Shoulder breadth","m":[440,485,530],"f":[390,440,490]},{"dim":"Hip breadth","m":[350,390,430],"f":[350,405,460]},{"dim":"Hand length","m":[170,190,210],"f":[160,175,190]},{"dim":"Forward grip reach","m":[720,790,860],"f":[660,725,790]},{"dim":"Vertical reach standing","m":[1950,2100,2250],"f":[1810,1940,2070]}],"quick":[{"id":"K1-01","q":"What is the goal of any manufacturing process?","opts":["A product with a useful form","The lowest possible cost","The fastest production rate","Zero waste material"],"ans":0},{"id":"K1-02","q":"Which is NOT one of the three stages of a manufacturing process?","opts":["Test the product with users","Change the physical properties","Change the shape and size","Achieve the required accuracy"],"ans":0},{"id":"K1-03","q":"In which family is no material removed, so the mass stays the same?","opts":["Forming","Wasting","Finishing","Additive"],"ans":0},{"id":"K1-04","q":"Rolling, extrusion and forging are examples of which type of forming?","opts":["Bulk forming","Sheet metal forming","Powder metal forming","Additive forming"],"ans":0},{"id":"K1-05","q":"Casting is one of the four categories of which family?","opts":["Shaping","Forming","Joining","Wasting"],"ans":0},{"id":"K1-06","q":"Which shaping category is the only one that starts from a liquid?","opts":["Casting","Manipulative processes","Powder techniques","Cutting and grinding"],"ans":0},{"id":"K1-07","q":"Which shaping category also counts as wasting?","opts":["Cutting and grinding","Casting","Powder techniques","Manipulative processes"],"ans":0},{"id":"K1-08","q":"Sand casting uses which type of mould?","opts":["Expendable","Permanent","Reusable metal die","Gravity die"],"ans":0},{"id":"K1-09","q":"Why does a permanent mould need a draft angle?","opts":["So the part releases from the mould","To make the part stronger","So the user can grip the part","To stop the part shrinking"],"ans":0},{"id":"K1-10","q":"What is the waste from drilling and milling called?","opts":["Swarf","Slag","Flash","Sprue"],"ans":0},{"id":"K1-11","q":"Butt, tee, corner, lap and which other joint type?","opts":["Edge","Mitre","Dovetail","Scarf"],"ans":0},{"id":"K1-12","q":"Powder coating is which category of finishing?","opts":["Adding and altering","Removing and reshaping","Joining","Wasting"],"ans":0},{"id":"K1-13","q":"Which additive process lays heated filament through a nozzle?","opts":["Material extrusion","Powder bed fusion","Binder jetting","Sheet lamination"],"ans":0},{"id":"K1-14","q":"A part must be 40 mm after sintering and shrinks by 20%. What length do you print?","opts":["50 mm","48 mm","45 mm","32 mm"],"ans":0},{"id":"K1-15","q":"Hanging holes in sheet metal parts are there so that...","opts":["Every face can be coated at once","The user can hang it on a wall","The part weighs less","Air can cool the part"],"ans":0},{"id":"K1-16","q":"MIG welding belongs to which family?","opts":["Joining","Finishing","Forming","Additive"],"ans":0},{"id":"K2-01","q":"A product is fit for purpose when it...","opts":["Meets its purpose, judged against requirements","Looks better than its rivals","Is the cheapest option","Uses sustainable materials"],"ans":0},{"id":"K2-02","q":"It meets every desirable need but misses one essential one. Is it fit for purpose?","opts":["No","Yes","Yes, if it is cheap enough","Yes, if the client likes it"],"ans":0},{"id":"K2-03","q":"Which is an ESSENTIAL requirement for a sofa bed?","opts":["Works as a seat and as a bed","Provides storage","Comes in six colours","Costs under £200"],"ans":0},{"id":"K2-04","q":"Environmental requirements cover two things. Which pair is right?","opts":["Stands up to conditions, and its impact","Price and weight","Colour and texture","Recycling and reuse only"],"ans":0},{"id":"K2-05","q":"Untreated wood rotting in a damp place is a failure of which requirement?","opts":["Environmental","Functional","User","Aesthetic"],"ans":0},{"id":"K2-06","q":"Who writes the design brief?","opts":["The client","The design engineer","The machine operator","The quality inspector"],"ans":0},{"id":"K2-07","q":"Who turns the brief into the product design specification?","opts":["Design engineers, agreed with the client","The client alone","The sales team","The end user"],"ans":0},{"id":"K2-08","q":"Which statement belongs in the product design specification?","opts":["Mass not greater than 2.5 kg","Easy to carry","Light and folds up","Comfortable to sit on"],"ans":0},{"id":"K2-09","q":"'It must survive being left out in the rain' belongs in the...","opts":["Design brief","Product design specification","Test report","Evaluation"],"ans":0},{"id":"K2-10","q":"Measuring the human body is called...","opts":["Anthropometry","Ergonomics","Biometrics","Physiology"],"ans":0},{"id":"K2-11","q":"5th percentile female elbow height is 950 mm. Add female footwear. Total?","opts":["995 mm","975 mm","1000 mm","950 mm"],"ans":0},{"id":"K2-12","q":"Which influence on design is about how attractive a product looks?","opts":["Aesthetics","Performance","Obsolescence","Target market"],"ans":0},{"id":"K2-13","q":"A better performing material usually pulls against which influence?","opts":["Economics","Aesthetics","Fashion and trends","Niche market"],"ans":0},{"id":"K2-14","q":"What do poorly written user requirements usually cause?","opts":["Confusion, wasted time and money","Faster manufacture","Lower material costs","Better test results"],"ans":0},{"id":"K3-01","q":"How many steps are in the linear design process?","opts":["8","5","6","10"],"ans":0},{"id":"K3-02","q":"In the linear process, what comes straight after manufacturing?","opts":["Testing","Evaluation","Development","Ideas"],"ans":0},{"id":"K3-03","q":"What is the main weakness of linear design?","opts":["The first developed idea gets made","It has no client brief","It takes too long to prototype","It cannot use a specification"],"ans":0},{"id":"K3-04","q":"Iterative design adds which step before manufacture?","opts":["Make and test a prototype","Write a brief","Evaluate once at the end","Skip investigation"],"ans":0},{"id":"K3-05","q":"In iterative design, improvements feed back into which stage?","opts":["Investigation","Manufacturing","Client brief","Testing"],"ans":0},{"id":"K3-06","q":"User centred design is a form of...","opts":["Iterative design","Linear design","Design for assembly","Sustainable design"],"ans":0},{"id":"K3-07","q":"One product designed to be usable by as many people as possible is...","opts":["Inclusive design","Ergonomic design","Design for manufacture","Linear design"],"ans":0},{"id":"K3-08","q":"Design based on measured body dimensions is called...","opts":["Ergonomic design","Inclusive design","User centred design","Sustainable design"],"ans":0},{"id":"K3-09","q":"A doorway is a clearance problem. Which percentile do you design for?","opts":["95th","5th","50th","5th to 95th"],"ans":0},{"id":"K3-10","q":"A control button must be within reach. Which percentile do you design for?","opts":["5th","50th","95th","99th"],"ans":0},{"id":"K3-11","q":"Doorway: 1860 mm stature + 25 mm footwear + 50 mm head clearance = ?","opts":["1935 mm","1885 mm","1910 mm","1860 mm"],"ans":0},{"id":"K3-12","q":"Reducing a 24-part assembly to 2 parts is called...","opts":["Component elimination","Draft angle","Sintering","Tolerancing"],"ans":0},{"id":"K3-13","q":"Which of the 6Rs asks 'Is this product essential?'","opts":["Rethink","Reduce","Refuse","Reuse"],"ans":0},{"id":"K3-14","q":"Interviews and open questions give which kind of data?","opts":["Qualitative","Quantitative","Mixed methods","Statistical"],"ans":0},{"id":"K3-15","q":"Checking a product meets the standards so it can legally be sold is...","opts":["Compliance testing","Functional testing","User experience testing","Fatigue testing"],"ans":0},{"id":"K3-16","q":"What does a non-technical audience need?","opts":["Plain language, images, no jargon","Full tolerances and test data","Detailed schematics","Technical abbreviations"],"ans":0},{"id":"K3-17","q":"Loading a part thousands of times to see if it cracks is a test for...","opts":["Fatigue","Fastener stress","Compliance","Temperature"],"ans":0}],"exit":{"q1":"Name a manufacturing process and one design feature it forces onto a product.","q2":{"q":"Casting is one of the four categories of which manufacturing process?","opts":["Forming","Wasting","Shaping","Finishing"],"ans":2},"q2b":{"q":"Tick the other three categories of that process.","opts":["Sheet metal forming","Manipulative processes","Joining","Powder techniques","Anodising","Cutting and grinding"],"ans":[1,3,5]},"q3":{"q":"Which is a difference between linear and iterative design?","opts":["Linear design has no client brief","Iterative design makes and tests a prototype before manufacture","Linear design tests before it manufactures","Iterative design does not use a specification"],"ans":1},"q4":{"q":"A shelf must be reachable by nearly everyone. Which percentile do you design for?","opts":["95th percentile, the largest user","50th percentile, the average user","Adjustable, 5th to 95th","5th percentile, the smallest user"],"ans":3},"q4b":"Why? Give your reason in one sentence.","rag":["Name the seven manufacturing processes, and the four categories of shaping.","Explain, with an example, how a manufacturing process changes a design.","Define fitness for purpose and tell the brief apart from the specification.","Name the eight steps of the linear design process in order.","State the two differences between linear and iterative design.","Read a value from the anthropometric table and justify the percentile you chose.","Name the three research methodologies and the four testing methodologies.","State two things a non-technical audience needs that a technical audience does not."]},"checkin":{"p1":{"title":"Part 1 check-in: manufacturing processes","lines":["State the three stages of a manufacturing process.","Name the seven types of manufacturing process.","Name the three types of forming.","Name the four categories of shaping and say which one starts from a liquid.","State the difference between an expendable and a permanent mould.","Name the two categories of finishing and the five joint types.","Explain, with an example, how a process forces a feature onto a design."]},"p2":{"title":"Part 2 check-in: fitness for purpose","lines":["Define fitness for purpose in one sentence.","State the difference between an essential and a desirable requirement.","Give the two meanings of environmental requirements.","State who writes the design brief and who writes the specification.","Name two influences on design and explain how they pull against each other.","Read the 5th percentile female elbow height from the data card."]}},"fault":[{"id":"D01","q":"Tall staff keep hitting their heads on a new mezzanine doorway.","steps":[{"label":"Name the cause","correct":"The height was set from 50th percentile stature, not the 95th","wrongs":["Footwear was added to the stature value","The door was sized from 5th percentile reach","The doorway was made too wide"]},{"label":"Pick the fix","correct":"Use 95th percentile male stature, then add footwear and head clearance","wrongs":["Use 5th percentile female stature","Average the male and female 50th percentiles","Add a warning sign above the door"]}]},{"id":"D02","q":"Shorter staff cannot reach the top shelf in the new store room.","steps":[{"label":"Name the cause","correct":"The shelf was sized for an average user, not the smallest","wrongs":["Footwear was left out of the 95th percentile","The shelf depth was too shallow","The 95th percentile was used for clearance"]},{"label":"Pick the fix","correct":"Set the top shelf from 5th percentile female vertical reach, plus footwear","wrongs":["Set it from 95th percentile male vertical reach","Set it from 50th percentile stature","Fit a step and keep the same height"]}]},{"id":"D03","q":"A sand cast bracket tears the mould every time the pattern is lifted out.","steps":[{"label":"Name the cause","correct":"There is no draft angle on the vertical faces","wrongs":["The metal was poured too hot","The pattern was made from wood","There are too many holes in the part"]},{"label":"Pick the fix","correct":"Add a small taper, a draft angle, to every vertical face","wrongs":["Make the walls thicker","Switch the pattern to metal","Polish the finished casting"]}]},{"id":"D04","q":"Binder jetted parts come out of the sintering oven too small to fit.","steps":[{"label":"Name the cause","correct":"They were printed at final size, with no allowance for about 20% shrinkage","wrongs":["The binder was the wrong colour","They were sintered for too long","The powder bed was too deep"]},{"label":"Pick the fix","correct":"Print them larger: printed size = final size divided by 0.8","wrongs":["Print them 20% smaller","Add 20 mm to every dimension","Machine them up to size afterwards"]}]},{"id":"D05","q":"A product passed every lab test, but users cannot work out how to open the battery cover.","steps":[{"label":"Name the cause","correct":"Real users were never involved in testing the design","wrongs":["The materials were too weak","The specification had no size limits","The cover was made by casting"]},{"label":"Pick the fix","correct":"Take a user centred approach: test prototypes with real users and feed back","wrongs":["Test it again in the lab","Add a longer instruction booklet","Make the cover a brighter colour"]}]},{"id":"D06","q":"The product meets our specification, but the client says it is not what they asked for.","steps":[{"label":"Name the cause","correct":"The specification did not reflect the client brief","wrongs":["The product was tested too late","The wrong percentile was used","The product was too expensive to make"]},{"label":"Pick the fix","correct":"Agree the specification with the client and trace each requirement to the brief","wrongs":["Write a longer brief without the client","Add more desirable features","Skip the specification next time"]}]},{"id":"D07","q":"A hire company's drills keep coming back broken and cannot be fixed at a sensible cost.","steps":[{"label":"Name the cause","correct":"The casing is glued shut, so parts cannot be replaced","wrongs":["The drill is too light","The battery lasts too long","The styling is too plain"]},{"label":"Pick the fix","correct":"Use screws and standard parts so it can be repaired, which is repair from the 6Rs","wrongs":["Make it cheaper so it can be thrown away","Glue it with a stronger adhesive","Recycle every returned drill"]}]},{"id":"D08","q":"The spec says the case must be light. At review nobody can say whether the prototype passed.","steps":[{"label":"Name the cause","correct":"The requirement is not measurable","wrongs":["The prototype was too heavy","The client wrote the specification","The case was additive manufactured"]},{"label":"Pick the fix","correct":"Rewrite it with a value and a test: mass no more than 1.2 kg, checked on scales","wrongs":["Write that it must be very light","Remove the requirement","Ask users if it feels light"]}]},{"id":"D09","q":"A linear design went straight to manufacture. Final testing found a fault in all 5,000 units.","steps":[{"label":"Name the cause","correct":"Testing only happened after manufacture, with no prototype stage","wrongs":["Too many ideas were generated","The client brief was too short","The evaluation was too detailed"]},{"label":"Pick the fix","correct":"Use an iterative approach: prototype and test before manufacture","wrongs":["Test a larger batch after manufacture","Skip testing to save time","Change the manufacturing process only"]}]},{"id":"D10","q":"Powder coated brackets have bare patches exactly where they hung on the rack.","steps":[{"label":"Name the cause","correct":"The design gave nowhere to hang the part except a show face","wrongs":["The powder was too thick","The oven was too cool","The brackets were cast, not formed"]},{"label":"Pick the fix","correct":"Add a hanging hole in a hidden position so every face can be coated","wrongs":["Coat them twice","Polish the bare patches","Switch to anodising"]}]}],"parts":[{"id":"P01","draw":"cast","q":"Tapered walls, a line running round the middle and rounded inside corners.","correct":"Casting","wrongs":["Extrusion","Additive","Sheet metal forming"],"why":"The taper is a draft angle and the line is where the mould split. Both are marks of casting."},{"id":"P02","draw":"extrude","q":"The same cross section all the way along, with a flat cut end.","correct":"Extrusion","wrongs":["Casting","Milling","Powder bed fusion"],"why":"A constant profile is pushed through a die. That is extrusion, a bulk forming process."},{"id":"P03","draw":"sheet","q":"Even thickness everywhere, bent corners with a radius, punched holes.","correct":"Sheet metal forming","wrongs":["Casting","Turning","Additive"],"why":"Uniform thickness and bend radii come from bending sheet, which is forming."},{"id":"P04","draw":"weld","q":"Two plates meeting at a right angle, with a triangular bead along the joint.","correct":"Joining","wrongs":["Casting","Finishing","Forming"],"why":"The triangular bead is a fillet weld. Welding is a joining process."},{"id":"P05","draw":"turn","q":"A round shaft stepping down in diameter, with chamfered ends.","correct":"Wasting","wrongs":["Casting","Forming","Additive"],"why":"Steps and chamfers on a round part are cut on a lathe. Turning removes material, so it is wasting."},{"id":"P06","draw":"lattice","q":"An open lattice inside the part that no mould or cutter could reach.","correct":"Additive","wrongs":["Casting","Wasting","Forming"],"why":"Internal lattices are built layer by layer. Only additive manufacturing can make them."},{"id":"P07","draw":"cup","q":"A seamless cup with thin, even walls and a rounded base.","correct":"Forming","wrongs":["Casting","Joining","Wasting"],"why":"A flat blank pushed into a die makes a seamless cup. That is deep drawing, a forming process."},{"id":"P08","draw":"mill","q":"A flat plate with a pocket cut into it. The pocket has rounded inside corners.","correct":"Wasting","wrongs":["Casting","Forming","Additive"],"why":"The corner radius matches the cutter. Milling removes material, so it is wasting."}],"body":[{"id":"M01","fig":"stand","dim":"stature","correct":"Stature (height)","wrongs":["Eye height","Shoulder height","Vertical reach standing"],"why":"Floor to the top of the head. Used for door and headroom clearance."},{"id":"M02","fig":"stand","dim":"eye","correct":"Eye height","wrongs":["Stature (height)","Shoulder height","Elbow height"],"why":"Floor to the eye. Used to place displays and sight lines."},{"id":"M03","fig":"stand","dim":"shoulder","correct":"Shoulder height","wrongs":["Elbow height","Eye height","Stature (height)"],"why":"Floor to the top of the shoulder. Used for shelf and control heights."},{"id":"M04","fig":"stand","dim":"elbow","correct":"Elbow height","wrongs":["Shoulder height","Hand length","Popliteal height"],"why":"Floor to the underside of the elbow. Used to set worktop heights."},{"id":"M05","fig":"stand","dim":"reach","correct":"Vertical reach standing","wrongs":["Stature (height)","Shoulder height","Forward grip reach"],"why":"Floor to the fingertips of the raised arm. Used for top shelves and overhead controls."},{"id":"M06","fig":"side","dim":"grip","correct":"Forward grip reach","wrongs":["Hand length","Vertical reach standing","Shoulder breadth"],"why":"Back to the centre of the gripping hand. Used to place controls within reach."},{"id":"M07","fig":"sit","dim":"popliteal","correct":"Popliteal height","wrongs":["Sitting elbow height","Thigh thickness","Buttock to popliteal length"],"why":"Floor to the underside of the thigh behind the knee. Used to set seat height."},{"id":"M08","fig":"sit","dim":"selbow","correct":"Sitting elbow height","wrongs":["Popliteal height","Elbow height","Thigh thickness"],"why":"Seat to the underside of the elbow. Used to set armrest and desk heights."},{"id":"M09","fig":"sit","dim":"bpl","correct":"Buttock to popliteal length","wrongs":["Forward grip reach","Popliteal height","Hip breadth"],"why":"Back of the buttocks to the back of the knee. Used to set seat depth."}],"words":[{"id":"W01","q":"Fitness for purpose","correct":"It meets the requirements it was designed for, judged against the specification","wrongs":["It works well and looks good","It is the best product on the market"],"why":"Fitness for purpose is judged against stated requirements, not taste."},{"id":"W02","q":"A good specification point","correct":"Maximum mass 1.2 kg, checked on scales","wrongs":["The product should be light","The product must be as light as possible"],"why":"A specification point needs a value and a way to test it."},{"id":"W03","q":"The 95th percentile","correct":"95% of the population is at or below this value","wrongs":["The size of the biggest person","The average of the tallest people"],"why":"A percentile is a proportion of the population, not one person."},{"id":"W04","q":"Iterative design","correct":"A prototype is made, tested and evaluated, and the results feed into the next version","wrongs":["The design is started again from scratch each time","The design is done faster by skipping stages"],"why":"The feedback loop through a tested prototype is the point."},{"id":"W05","q":"Wasting","correct":"Material is removed to create the shape","wrongs":["Material is wasted during manufacture","The part is made from scrap material"],"why":"Wasting names the method: cutting material away."},{"id":"W06","q":"Forming","correct":"The shape changes without adding or removing material, so the mass stays the same","wrongs":["The material is formed into a shape","Heat is used to shape the part"],"why":"Say what happens to the material and the mass."},{"id":"W07","q":"Draft angle","correct":"A slight taper on vertical faces so the part or pattern releases from the mould","wrongs":["An angle drawn on the design","The angle of the cutting tool"],"why":"Name what the taper is for: release from the mould."},{"id":"W08","q":"User centred design","correct":"Users are involved at every stage, from requirements to evaluation","wrongs":["The product is designed to look nice for users","The designer imagines what users want"],"why":"Involvement of real users at each stage is the defining feature."},{"id":"W09","q":"Anthropometric data","correct":"Measurements of the human body, used to size a product","wrongs":["The study of how people feel about products","Data about how many people buy a product"],"why":"Anthropometric means body measurement."},{"id":"W10","q":"Destructive testing","correct":"The sample is tested until it fails, so it cannot be used again","wrongs":["Testing that damages the product by accident","Testing that is not very careful"],"why":"The sample is deliberately taken to failure."},{"id":"W11","q":"The design brief","correct":"A short statement of the problem and the client's needs, written with the client","wrongs":["A detailed list of measurable targets","The drawings used for manufacture"],"why":"The brief states the need; the specification makes it measurable."}],"command":[{"id":"C01","q":"Give the meaning of a term, precisely.","correct":"Define","wrongs":["Describe","Explain","State"],"why":"Define asks for the meaning, nothing more."},{"id":"C02","q":"Give a short answer with no reasoning. For example, name two joining processes.","correct":"State","wrongs":["Explain","Evaluate","Discuss"],"why":"State or identify: a short fact is enough."},{"id":"C03","q":"Say what something is like or what happens, in detail, without giving reasons.","correct":"Describe","wrongs":["Explain","Justify","Define"],"why":"Describe is the what. Explain adds the why."},{"id":"C04","q":"Give reasons, linking a cause to its effect. Words like because and so that do the work.","correct":"Explain","wrongs":["Describe","State","Identify"],"why":"Explain needs the because."},{"id":"C05","q":"Weigh up strengths and weaknesses, then reach a judgement.","correct":"Evaluate","wrongs":["Describe","Compare","State"],"why":"Evaluate must end with a judgement."},{"id":"C06","q":"Give reasons that support a choice or decision you have made.","correct":"Justify","wrongs":["Describe","Define","Identify"],"why":"Justify defends a choice with evidence."},{"id":"C07","q":"Say what is the same and what is different about two things.","correct":"Compare","wrongs":["Describe","Explain","Justify"],"why":"Compare needs both similarities and differences."},{"id":"C08","q":"Work out a value and show the method.","correct":"Calculate","wrongs":["Estimate","State","Describe"],"why":"Calculate: formula, substitution, answer with a unit."},{"id":"C09","q":"Put forward a sensible idea or solution based on what you know.","correct":"Suggest","wrongs":["Define","State","Calculate"],"why":"Suggest invites a reasoned idea, not a fact from memory."},{"id":"C10","q":"Evaluate the use of iterative design for a new drill. How must your answer end?","correct":"With a judgement, supported by reasons","wrongs":["With a list of the design stages","With a definition of iterative design"],"why":"An evaluate question is only complete with a supported judgement."}]};
+var VERSION = "2.1";
+
+/* ---------- small helpers ---------- */
+function $(s, el){ return (el||document).querySelector(s); }
+function $$(s, el){ return Array.prototype.slice.call((el||document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function shuffle(a){ a = a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+function uid(){ return (Date.now().toString(36) + Math.random().toString(36).slice(2,8)).toUpperCase(); }
+function todayKey(d){ d = d || new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function niceDate(d){ d = d ? new Date(d) : new Date(); return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}); }
+function say(msg){ var l=$("#live"); if(l){ l.textContent=""; setTimeout(function(){ l.textContent=msg; },30);} }
+function toast(msg){ var t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(function(){ t.remove(); },2600); }
+var ICON = {
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  games:'<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',
+  record:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
+  exit:'<path d="M14 4h5v16h-5"/><path d="M10 8l-4 4 4 4M6 12h9"/>',
+  check:'<path d="M5 12l4 4 10-10"/>',
+  flash:'<rect x="4" y="7" width="13" height="12" rx="2"/><path d="M8 4h11a1 1 0 0 1 1 1v10"/>',
+  card:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M9 10v9"/>',
+  flame:'<path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/>',
+  close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  send:'<path d="M4 12l16-8-6 16-3-7z"/>',
+  copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+  chev:'<path d="M9 5l7 7-7 7"/>'
+};
+function icon(k){ return '<svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+(ICON[k]||"")+'</svg>'; }
+
+/* ---------- storage that never throws (private browsing falls back to memory) ---------- */
+var Store = (function(){
+  var mem = {}, ok = false;
+  try { localStorage.setItem("__t","1"); localStorage.removeItem("__t"); ok = true; } catch(e) { ok = false; }
+  return {
+    get: function(k, d){ try{ var v = ok ? localStorage.getItem("u11hub."+k) : mem[k]; return v==null ? d : JSON.parse(v);}catch(e){ return d; } },
+    set: function(k, v){ var s = JSON.stringify(v); try{ if(ok) localStorage.setItem("u11hub."+k, s); else mem[k]=s; }catch(e){ mem[k]=s; } },
+    del: function(k){ try{ if(ok) localStorage.removeItem("u11hub."+k); delete mem[k]; }catch(e){} },
+    persistent: function(){ return ok; }
+  };
+})();
+
+/* ---------- class list: "Name=CODE|Name=CODE" ---------- */
+var CLASS = String(CLASS_LIST||"").split("|").map(function(x){
+  var p = x.split("="); return {name:(p[0]||"").trim(), code:(p[1]||"").trim().toUpperCase()};
+}).filter(function(x){ return x.name && /^[A-Z0-9]{4}$/.test(x.code); });
+
+/* ---------- state ---------- */
+function freshProg(){ return {xp:0, best:{}, raw:{}, plays:{}, last:{}, stamps:{}, days:[], done:{}}; }
+var S = {
+  me: Store.get("me", null) || (function(){ try { var m = JSON.parse(localStorage.getItem("tlhub.me")); return (m && /^[A-Z0-9]{4}$/.test(m.code||"")) ? m : null; } catch(e) { return null; } })(),
+  prog: null,
+  prefs: Store.get("prefs", {theme:"auto", scale:1, motion:"auto"}),
+  server: {state:"unknown", focus:null, target:null, week:null, message:"", nameOnly:false},
+  device: Store.get("device", null) || (function(){ var d=uid(); Store.set("device", d); return d; })(),
+  tab: "games"
+};
+function loadProg(){ var p = Store.get("prog."+(S.me?S.me.code:"none"), null); S.prog = Object.assign(freshProg(), p||{}); }
+function saveProg(){ if (S.me) Store.set("prog."+S.me.code, S.prog); }
+loadProg();
+function applyPrefs(){
+  var r=document.documentElement;
+  if (S.prefs.theme==="auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", S.prefs.theme);
+  r.style.setProperty("--scale", S.prefs.scale);
+  if (S.prefs.motion==="reduce") r.setAttribute("data-motion","reduce"); else r.removeAttribute("data-motion");
+}
+
+/* ---------- transport: Microsoft Forms (main route), Google Apps Script (optional), or this phone only ---------- */
+var Net = {
+  mode: function(){
+    if (window.google && google.script && google.script.run) return "gas";
+    if (HUB_CONFIG.endpoint) return "remote";
+    if (FORM_PREFILL) return "forms";
+    return "local";
+  },
+  call: function(action, payload){
+    var m = this.mode();
+    return new Promise(function(resolve, reject){
+      if (m === "gas") {
+        google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).api(action, payload || {});
+      } else if (m === "remote") {
+        var ctrl = ("AbortController" in window) ? new AbortController() : null;
+        var timer = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 15000);
+        fetch(HUB_CONFIG.endpoint, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"},
+          body: JSON.stringify(Object.assign({action:action}, payload||{})), signal: ctrl ? ctrl.signal : undefined})
+          .then(function(r){ return r.json(); }).then(function(j){ clearTimeout(timer); resolve(j); })
+          .catch(function(e){ clearTimeout(timer); reject(e); });
+      } else reject(new Error("no_server"));
+    });
+  }
+};
+/* Only used by the Google route: results queue on the phone until they send. */
+var Sync = {
+  q: Store.get("queue", []), busy:false,
+  add: function(ev){ this.q.push(ev); Store.set("queue", this.q); this.flush(); },
+  flush: function(){
+    var self = this, m = Net.mode();
+    if (self.busy || !self.q.length || (m!=="gas" && m!=="remote")) return;
+    if (navigator.onLine === false) return;
+    self.busy = true;
+    var batch = self.q.slice(0, 25);
+    Net.call("log", {events: batch}).then(function(res){
+      if (res && res.ok) {
+        var sent = {}; batch.forEach(function(e){ sent[e.id]=1; });
+        self.q = self.q.filter(function(e){ return !sent[e.id]; }); Store.set("queue", self.q); S.server.state = "ok";
+      } else if (res && res.error === "unknown_code") {
+        var bad = S.me ? S.me.code : ""; self.q = self.q.filter(function(e){ return e.code !== bad; }); Store.set("queue", self.q);
+        toast("Your code was not recognised. Please sign in again."); signOut(true);
+      } else { S.server.state = "error"; }
+    }).catch(function(){ S.server.state = "offline"; }).then(function(){
+      self.busy = false; updateSyncLine();
+      if (self.q.length && S.server.state==="ok") setTimeout(function(){ self.flush(); }, 400);
+    });
+  }
+};
+window.addEventListener("online", function(){ Sync.flush(); });
+setInterval(function(){ Sync.flush(); }, 30000);
+function logEvent(type, game, data){
+  data = data || {};
+  var m = Net.mode(); if (m!=="gas" && m!=="remote") return null;
+  var ev = { id: uid(), t: new Date().toISOString(), code: S.me ? S.me.code : "", name: "", dev: S.device, type: type, game: game ? sentName(game) : "",
+    score: data.score == null ? "" : data.score, max: data.max == null ? "" : data.max, secs: data.secs == null ? "" : data.secs,
+    items: data.items || [], extra: data.extra ? JSON.stringify(data.extra) : "", v: VERSION };
+  Sync.add(ev); return ev;
+}
+function syncText(){
+  var m = Net.mode();
+  if (m==="forms") return "Your results reach your tutor when you press Send my result.";
+  if (m==="local") return "Your tutor has not linked this hub to a form yet. Copy your result instead.";
+  if (Sync.q.length) return Sync.q.length + " result" + (Sync.q.length>1?"s":"") + " waiting to send. They go as soon as you are online.";
+  return "All results sent to your tutor.";
+}
+function updateSyncLine(){ $$("[data-sync]").forEach(function(el){ el.textContent = syncText(); }); }
+
+/* ---------- verification code: short, and it changes if the code, game or score is edited ----------
+   The tracker works out the same number in Excel, so an edited score shows up there.   */
+/* The game name the tracker sees: unit prefix, a space, then the title, e.g. 1.1 Family Finder.
+   Every unit hub sends to the same form, so the prefix keeps the units apart.            */
+function sentName(title){ title = String(title||""); return /^\d/.test(title) ? title : "1.1 " + title; }
+function checkCode(code, game, score, max){
+  var s = String(code).toUpperCase()+"|"+sentName(game)+"|"+score+"|"+max, h = 0;
+  for (var k=0;k<s.length;k++) h += s.charCodeAt(k)*(k+1)*7;
+  h += 11*Number(score) + 13*Number(max);
+  return String(h % 9973).padStart(4,"0");
+}
+function formsLink(game, score, max, detail){
+  var u = FORM_PREFILL;
+  function rep(tok, val){ u = u.split(tok).join(encodeURIComponent(val)); }
+  rep("LEARNERHERE", S.me ? S.me.code : "");
+  rep("GAMEHERE", sentName(game)); rep("SCOREHERE", String(score)); rep("MAXHERE", String(max));
+  rep("CHECKHERE", checkCode(S.me ? S.me.code : "", game, score, max));
+  rep("DETAILHERE", String(detail||"").slice(0, 900));
+  return u;
+}
+function resultLine(game, score, max, when){
+  var code = S.me ? S.me.code : "";
+  return code + " | " + sentName(game) + " | " + score + " of " + max + " | check " + checkCode(code, game, score, max) + " | " + niceDate(when);
+}
+function copyText(text, done){
+  function fallback(){
+    var t = document.createElement("textarea"); t.value = text; t.setAttribute("readonly",""); t.style.position="fixed"; t.style.opacity="0";
+    document.body.appendChild(t); t.select(); var ok=false; try { ok = document.execCommand("copy"); } catch(e) {} t.remove(); done(ok);
+  }
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function(){ done(true); }, fallback); else fallback();
+}
+</script>
+<script>
+"use strict";
+/* ---------- drawings, made in code so the file needs no images ---------- */
+function svgWrap(vb, inner, label){ return '<svg viewBox="'+vb+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+esc(label||"")+'">'+inner+'</svg>'; }
+function arrowV(x, y1, y2){ /* vertical dimension arrow with heads at both ends */
+  var a = y1 < y2 ? 1 : -1;
+  return '<line class="a-a" x1="'+x+'" y1="'+y1+'" x2="'+x+'" y2="'+y2+'"/>'+
+    '<path class="a-fa" d="M'+(x-6)+' '+(y1+10*a)+' L'+x+' '+y1+' L'+(x+6)+' '+(y1+10*a)+' Z"/>'+
+    '<path class="a-fa" d="M'+(x-6)+' '+(y2-10*a)+' L'+x+' '+y2+' L'+(x+6)+' '+(y2-10*a)+' Z"/>';
+}
+function arrowH(y, x1, x2){
+  return '<line class="a-a" x1="'+x1+'" y1="'+y+'" x2="'+x2+'" y2="'+y+'"/>'+
+    '<path class="a-fa" d="M'+(x1+10)+' '+(y-6)+' L'+x1+' '+y+' L'+(x1+10)+' '+(y+6)+' Z"/>'+
+    '<path class="a-fa" d="M'+(x2-10)+' '+(y-6)+' L'+x2+' '+y+' L'+(x2-10)+' '+(y+6)+' Z"/>';
+}
+function ext(x1,y1,x2,y2){ return '<line class="a-d" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'"/>'; }
+
+var TILE_ART = {
+  family: '<rect class="a-i" x="18" y="44" width="36" height="24" rx="3"/><rect class="a-i" x="62" y="44" width="36" height="24" rx="3"/><rect class="a-i" x="106" y="44" width="36" height="24" rx="3"/><path class="a-a" d="M80 8l9 5v10l-9 5-9-5V13z"/><path class="a-a" d="M80 31v8M76 35l4 4 4-4"/>',
+  errors: '<path class="a-i" d="M16 20h70M16 34h40M16 48h58"/><path class="a-a" d="M60 34h32" /><path class="a-a" d="M60 40q4-4 8 0t8 0 8 0 8 0"/><circle class="a-i" cx="120" cy="36" r="16"/><path class="a-i" d="M131 48l14 14"/>',
+  ladder: '<path class="a-i" d="M60 6v68M100 6v68M60 18h40M60 32h40M60 60h40"/><path class="a-a" d="M60 46h40"/><path class="a-i" d="M120 70v-8M128 70v-5M136 70v-8M144 70v-5M116 70h32"/>',
+  briefspec: '<path class="a-i" d="M14 14h56a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6H38l-12 10v-10h-12a6 6 0 0 1-6-6V20a6 6 0 0 1 6-6z"/><rect class="a-i" x="96" y="10" width="46" height="60" rx="4"/><path class="a-a" d="M104 26l4 4 7-8M104 44l4 4 7-8M104 62l4 4 7-8"/><path class="a-i" d="M120 28h14M120 46h14"/>',
+  expert: '<circle class="a-i" cx="80" cy="12" r="5"/><path class="a-i" d="M77 16L56 70M83 16l21 54"/><path class="a-a" d="M56 70q24 12 48 0"/><path class="a-i" d="M66 44h28"/>',
+  sequence: '<rect class="a-i" x="8" y="28" width="26" height="24" rx="4"/><rect class="a-i" x="46" y="28" width="26" height="24" rx="4"/><rect class="a-i" x="84" y="28" width="26" height="24" rx="4"/><rect class="a-a" x="122" y="28" width="26" height="24" rx="4"/><path class="a-i" d="M35 40h9M73 40h9M111 40h9"/>',
+  sixr: '<path class="a-i" d="M58 30a24 24 0 0 1 42-10"/><path class="a-i" d="M96 12l5 9-10 2"/><path class="a-i" d="M102 50a24 24 0 0 1-42 10"/><path class="a-i" d="M64 68l-5-9 10-2"/><text class="a-t" x="72" y="46" style="fill:var(--amb);font-size:18px">6R</text>',
+  quick: '<circle class="a-i" cx="80" cy="44" r="26"/><path class="a-i" d="M74 12h12M80 12v6"/><path class="a-a" d="M80 44l12-12"/><circle class="a-fa" cx="80" cy="44" r="3"/>',
+  fault: '<path class="a-i" d="M30 16v48h70"/><path class="a-i" d="M42 16v36h58"/><path class="a-a" d="M30 36l6-4-4-6 6-4"/><path class="a-i" d="M122 20l18 32h-36z"/><path class="a-a" d="M122 32v9M122 46v1"/>',
+  parts: '<path class="a-f" d="M44 66h72l-8-52H52z"/><path class="a-d" d="M34 40h92"/><path class="a-a" d="M52 14l-4 16"/>',
+  body: '<circle class="a-i" cx="70" cy="14" r="7"/><path class="a-i" d="M70 21v26M70 30l-12 12M70 30l12 12M70 47l-9 24M70 47l9 24"/><path class="a-i" d="M40 74h80"/><path class="a-a" d="M104 7v67"/><path class="a-fa" d="M99 15l5-8 5 8zM99 66l5 8 5-8z"/>',
+  words: '<path class="a-i" d="M12 12h60a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H36l-12 10V44h-12a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6z"/><path class="a-a" d="M84 28h60a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6h-12v10l-12-10H84a6 6 0 0 1-6-6V34a6 6 0 0 1 6-6z"/><path class="a-a" d="M104 44l6 6 12-12"/>',
+  command: '<rect class="a-i" x="32" y="8" width="60" height="66" rx="4"/><path class="a-i" d="M42 22h40M42 34h40M42 46h26"/><path class="a-a" d="M104 68l30-44 8 6-30 44-10 4z"/>',
+  flash: '<rect class="a-i" x="46" y="18" width="62" height="42" rx="6"/><rect class="a-f" x="56" y="26" width="62" height="42" rx="6"/><path class="a-a" d="M72 48h30"/>'
+};
+function tileArt(key){ return svgWrap("0 0 160 80", TILE_ART[key] || TILE_ART.quick, ""); }
+
+/* ---------- Read the part: side and plan views of real features ---------- */
+function partArt(kind){
+  var s = "";
+  if (kind === "cast") {
+    s = '<path class="a-f" d="M80 140 L220 140 L204 44 L96 44 Z"/>'+
+        '<path class="a-i" d="M120 44 v-10 q0-6 6-6 h48 q6 0 6 6 v10"/>'+
+        '<path class="a-d" d="M60 92 H240"/>';
+  } else if (kind === "extrude") {
+    var P=[[40,140],[40,74],[62,74],[62,118],[118,118],[118,140]], dx=130, dy=-44;
+    s = '<path class="a-i" d="'+P.map(function(p,i){ return (i?"L":"M")+(p[0]+dx)+" "+(p[1]+dy); }).join(" ")+' Z"/>';
+    [[40,74],[62,74],[118,118],[118,140]].forEach(function(p){ s += '<line class="a-i" x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+dx)+'" y2="'+(p[1]+dy)+'"/>'; });
+    s += '<path class="a-f" style="fill:var(--ambbg)" d="'+P.map(function(p,i){ return (i?"L":"M")+p[0]+" "+p[1]; }).join(" ")+' Z"/>';
+  } else if (kind === "sheet") {
+    s = '<path d="M50 40 V118 Q50 138 70 138 H210 Q230 138 230 118 V72" style="fill:none;stroke:var(--art);stroke-width:10;stroke-linecap:butt"/>'+
+        '<ellipse class="a-a" cx="110" cy="138" rx="9" ry="3"/><ellipse class="a-a" cx="170" cy="138" rx="9" ry="3"/>';
+  } else if (kind === "weld") {
+    s = '<rect class="a-f" x="40" y="118" width="220" height="18"/><rect class="a-f" x="141" y="30" width="18" height="88"/>'+
+        '<path class="a-fa" d="M141 118 L122 118 L141 99 Z"/><path class="a-fa" d="M159 118 L178 118 L159 99 Z"/>';
+  } else if (kind === "turn") {
+    s = '<path class="a-f" d="M40 58 L46 52 H130 V64 H198 V74 H246 L252 80 V90 L246 96 H198 V106 H130 V118 H46 L40 112 Z"/>'+
+        '<path class="a-d" d="M26 85 H266"/>';
+  } else if (kind === "lattice") {
+    var id = "cl"+Math.random().toString(36).slice(2,7);
+    s = '<defs><clipPath id="'+id+'"><rect x="64" y="36" width="172" height="100" rx="14"/></clipPath></defs>'+
+        '<rect class="a-f" x="56" y="28" width="188" height="116" rx="18"/><g clip-path="url(#'+id+')">';
+    for (var x=0; x<=300; x+=26){ s += '<line class="a-a" x1="'+(x-100)+'" y1="140" x2="'+x+'" y2="36"/><line class="a-a" x1="'+x+'" y1="140" x2="'+(x-100)+'" y2="36"/>'; }
+    s += '</g><rect class="a-i" x="64" y="36" width="172" height="100" rx="14"/>';
+  } else if (kind === "cup") {
+    s = '<path class="a-i" d="M88 36 V118 Q88 142 112 142 H188 Q212 142 212 118 V36"/>'+
+        '<path class="a-i" d="M96 36 V116 Q96 134 114 134 H186 Q204 134 204 116 V36"/>'+
+        '<path class="a-i" d="M76 36 H96 M204 36 H224"/><path class="a-d" d="M150 20 V156"/>';
+  } else if (kind === "mill") {
+    s = '<rect class="a-f" x="40" y="36" width="220" height="104" rx="4"/>'+
+        '<rect class="a-a" x="96" y="60" width="108" height="56" rx="14"/>'+
+        '<circle class="a-i" cx="62" cy="58" r="8"/><circle class="a-i" cx="238" cy="58" r="8"/><circle class="a-i" cx="62" cy="118" r="8"/><circle class="a-i" cx="238" cy="118" r="8"/>';
+  }
+  return svgWrap("0 0 300 170", s, "Drawing of a manufactured part");
+}
+
+/* ---------- Body measures: standing front, standing side and seated side figures ---------- */
+function bodyArt(fig, dim){
+  var s = '<line class="a-i" x1="30" y1="205" x2="280" y2="205"/>';
+  if (fig === "stand") {
+    var raise = dim === "reach";
+    s += '<circle class="a-f" cx="140" cy="54" r="14"/><circle class="a-fi" cx="135" cy="52" r="1.8"/><circle class="a-fi" cx="145" cy="52" r="1.8"/>'+
+         '<path class="a-f" d="M122 74 H158 L154 136 H126 Z"/>'+
+         '<path class="a-i" d="M140 68 V74 M130 136 L127 205 M150 136 L153 205 M122 76 L114 112 L111 142"/>'+
+         (raise ? '<path class="a-i" d="M158 76 L164 40 L168 12"/>' : '<path class="a-i" d="M158 76 L166 112 L169 142"/>');
+    var ys = {stature:40, eye:52, shoulder:75, elbow:112, reach:12}, y = ys[dim];
+    var fromX = {stature:154, eye:147, shoulder:160, elbow:168, reach:170}[dim];
+    s += ext(fromX, y, 238, y) + arrowV(232, 205, y);
+  } else if (fig === "side") {
+    s += '<line class="a-i" x1="104" y1="20" x2="104" y2="205"/>'+
+         '<circle class="a-f" cx="126" cy="54" r="14"/><path class="a-f" d="M108 72 H142 L140 136 H110 Z"/>'+
+         '<path class="a-i" d="M118 136 L118 205 M132 136 L134 205 M140 80 L208 86"/><circle class="a-a" cx="214" cy="86" r="7"/>';
+    s += ext(214, 93, 214, 150) + arrowH(146, 104, 214);
+  } else if (fig === "sit") {
+    s += '<path class="a-i" d="M92 136 H196 M100 136 V205 M186 136 V205 M92 136 V70"/>'+
+         '<circle class="a-f" cx="112" cy="40" r="14"/><path class="a-f" d="M98 58 H126 L124 128 H100 Z"/>'+
+         '<path class="a-f" d="M100 112 H192 Q200 112 200 120 V128 H100 Z"/>'+
+         '<path class="a-i" d="M194 128 V204 H214 M114 66 L118 104 L168 104"/>';
+    if (dim === "popliteal") s += ext(196, 128, 248, 128) + arrowV(242, 205, 128);
+    if (dim === "selbow") s += ext(118, 104, 58, 104) + ext(92, 136, 58, 136) + arrowV(64, 136, 104);
+    if (dim === "bpl") s += ext(100, 128, 100, 172) + ext(194, 128, 194, 172) + arrowH(166, 100, 194);
+  }
+  return svgWrap("0 0 300 215", s, "Figure with one body measurement marked in amber");
+}
+</script>
+<script>
+"use strict";
+/* ---------- the games, in the order they appear ---------- */
+var GAMES = [
+  {key:"family",   title:"Family Finder",       what:"Which of the seven families does each operation belong to?"},
+  {key:"parts",    title:"Read the part",       what:"A drawn part. Read its features and name the process family."},
+  {key:"errors",   title:"Spot the Error",      what:"One part of each statement is wrong. Tap it, then see the fix."},
+  {key:"sequence", title:"Sequence It",         what:"Put design and manufacturing processes in the right order."},
+  {key:"briefspec",title:"Brief or Spec?",      what:"Swipe each statement: client brief or measurable specification?"},
+  {key:"body",     title:"Body measures",       what:"Which body measurement is marked on the figure?"},
+  {key:"ladder",   title:"Calculation Ladder",  what:"Eight rungs of data card and shrinkage sums, easy to hard."},
+  {key:"fault",    title:"Design fault finder", what:"Something went wrong. Name the cause, then pick the fix."},
+  {key:"expert",   title:"Design Expert",       what:"Real design calls: which approach, which percentile, which test?"},
+  {key:"sixr",     title:"Six Rs Sort",         what:"Match each design decision to one of the 6Rs."},
+  {key:"words",    title:"Say it carefully",    what:"Pick the wording that earns the mark in the exam."},
+  {key:"command",  title:"Command words",       what:"What is each exam command word really asking for?"},
+  {key:"quick",    title:"Quick 10",            what:"Ten mixed questions from the whole lesson. New set every time."}
+];
+var TITLE = {flash:"Key word cards", exit:"Exit ticket"};
+GAMES.forEach(function(g){ TITLE[g.key] = g.title; });
+if (CONTENT) { TITLE.checkin1 = CONTENT.checkin.p1.title; TITLE.checkin2 = CONTENT.checkin.p2.title; }
+var LEVELS = [{name:"Apprentice",at:0},{name:"Engineering Technician",at:400},{name:"Incorporated Engineer",at:1000},{name:"Chartered Engineer",at:2000}];
+function levelOf(xp){ var i=0; while (i<LEVELS.length-1 && xp>=LEVELS[i+1].at) i++; return {i:i, name:LEVELS[i].name, next:LEVELS[i+1]||null, from:LEVELS[i].at}; }
+function streak(){
+  var d = S.prog.days.slice().sort(), n = 0, day = new Date();
+  if (d.indexOf(todayKey(day)) < 0) day.setDate(day.getDate()-1);
+  while (d.indexOf(todayKey(day)) >= 0) { n++; day.setDate(day.getDate()-1); }
+  return n;
+}
+function firstName(){ if (!S.me) return ""; var n = S.me.name || S.me.code; return n.split(" ")[0]; }
+function initials(){ var n = (S.me && (S.me.name || S.me.code)) || "?"; var p = n.trim().split(/\s+/); return (p[0][0] + (p[1] ? p[1][0] : (p[0][1]||""))).toUpperCase(); }
+
+/* ---------- screen frame ---------- */
+function fullHeader(){
+  return '<header class="hdr"><div class="kick">'+esc(HUB_CONFIG.kicker)+'</div><h1>'+esc(HUB_CONFIG.hubName)+'</h1><div class="sub">'+esc(HUB_CONFIG.unitLabel)+'</div></header><div class="rule"></div>';
+}
+function gameHeader(title, i, n){
+  var pct = n ? Math.round(100*i/n) : 100;
+  return '<header class="hdr compact"><button class="iconbtn" data-act="back" aria-label="Back to the games">'+icon("back")+'</button>'+
+    '<div class="t">'+esc(title)+'</div>'+(n ? '<div class="n">'+(i+1)+' of '+n+'</div>' : '')+'</header>'+
+    '<div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'"><i style="width:'+pct+'%"></i></div>';
+}
+var inGame = false;
+function screen(html, opts){
+  opts = opts || {};
+  inGame = !!opts.game;
+  document.body.classList.toggle("playing", !!opts.game);
+  document.body.classList.toggle("out", !!opts.out);
+  var app = $("#app"); app.innerHTML = html;
+  if (!opts.keep) window.scrollTo(0, 0);
+  $$("#tabs button").forEach(function(b){ if (b.dataset.tab === opts.tab) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current"); });
+  var f = $(".qtext", app) || $("h1", app) || $("h2", app);
+  if (f && !opts.keep) { f.setAttribute("tabindex","-1"); try { f.focus({preventScroll:true}); } catch(e){} }
+  $$('[data-act="back"]', app).forEach(function(b){ b.onclick = function(){
+    if (inGame && !confirm("Leave this game? This round will not be saved.")) return;
+    home();
+  }; });
+}
+
+/* ---------- sign in ---------- */
+function signIn(msg){
+  var list = CLASS.length > 0;
+  screen(fullHeader() + '<div class="wrap stack">' +
+    '<div class="card stack"><h2 style="margin:0">Sign in</h2>' +
+    (list ? '<p class="muted" style="margin:0">Tap your name.</p><div class="names">' + CLASS.map(function(c,i){ return '<button data-i="'+i+'">'+esc(c.name)+'</button>'; }).join("") + '</div><p class="muted small" style="margin:6px 0 0">Name not there? Type your code instead.</p>' : '') +
+    '<label for="code"><b>Your hub code</b><br><span class="small muted">Four letters and numbers, on the slip from your tutor.</span></label>' +
+    '<input id="code" class="textin codebox" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="err">' +
+    '<button class="btn amber block" id="go">Start</button>' +
+    '<p id="err" class="small" role="alert" style="color:var(--red);margin:0">' + esc(msg||"") + '</p></div>' +
+    '<div class="panel amber"><h3>Nothing here is marked</h3><p>These games are for practice. Your scores stay on this phone until you choose to send them to your tutor.</p></div>' +
+    '<p class="foot">Your tutor sees your code, your scores, what you write in the exit ticket and when you played, so they know what to go over again. Nothing else is collected.</p></div>', {out:true});
+  var inp = $("#code"), go = $("#go");
+  inp.addEventListener("input", function(){ inp.value = inp.value.toUpperCase().replace(/[^A-Z0-9]/g,""); });
+  inp.addEventListener("keydown", function(e){ if (e.key === "Enter") go.click(); });
+  function finish(code, name){
+    S.me = {code:code, name:name || code}; Store.set("me", S.me); try { localStorage.setItem("tlhub.me", JSON.stringify(S.me)); } catch(e) {} loadProg(); logEvent("open","hub"); home();
+  }
+  function tryCode(code, name){
+    if (!/^[A-Z0-9]{4}$/.test(code)) { $("#err").textContent = "Your code has four letters and numbers."; return; }
+    var m = Net.mode();
+    if (m === "gas" || m === "remote") {
+      go.disabled = true; go.textContent = "Checking";
+      Net.call("hello", {code:code}).then(function(r){
+        if (r && r.ok) finish(code, name || r.first);
+        else { go.disabled=false; go.textContent="Start"; $("#err").textContent = "That code is not on the list. Check your slip, or ask your tutor."; }
+      }).catch(function(){ go.disabled=false; go.textContent="Start"; $("#err").textContent = "Cannot reach the hub right now. Check your wifi or data and try again."; });
+      return;
+    }
+    if (CLASS.length && !name) {
+      var hit = CLASS.filter(function(c){ return c.code === code; })[0];
+      if (!hit) { $("#err").textContent = "That code is not on the list. Check your slip, or ask your tutor."; return; }
+      name = hit.name;
+    }
+    finish(code, name);
+  }
+  go.onclick = function(){ tryCode(inp.value.trim()); };
+  $$(".names button").forEach(function(b){ b.onclick = function(){ var c = CLASS[+b.dataset.i]; tryCode(c.code, c.name); }; });
+  if (!list) setTimeout(function(){ try { inp.focus(); } catch(e){} }, 60);
+}
+function signOut(silent){
+  if (!silent && !confirm("Sign out on this phone? Your record stays here for next time.")) return;
+  S.me = null; Store.del("me"); try { localStorage.removeItem("tlhub.me"); } catch(e) {} loadProg(); signIn();
+}
+
+/* ---------- home ---------- */
+async function loadServer(){
+  var m = Net.mode(); if (m !== "gas" && m !== "remote") return;
+  try {
+    var r = await Net.call("stats", {});
+    if (r && r.ok) Object.assign(S.server, {state:"ok", focus:r.focus, target:r.target, week:r.week, message:r.message||"", nameOnly:!!r.nameOnly});
+  } catch(e) { S.server.state = "offline"; }
+}
+function home(){
+  if (!S.me) return signIn();
+  S.tab = "games";
+  var p = S.prog, lv = levelOf(p.xp), focus = S.server.focus || HUB_CONFIG.defaultFocus;
+  var toNext = lv.next ? lv.next.at - p.xp : 0, span = lv.next ? lv.next.at - lv.from : 1, fill = lv.next ? Math.round(100*(p.xp-lv.from)/span) : 100;
+  var checked = Object.keys(p.stamps).length, played = Object.keys(p.plays).reduce(function(a,k){ return a + p.plays[k]; }, 0);
+  function tile(g){
+    var best = p.best[g.key], n = p.plays[g.key]||0, isF = focus.indexOf(g.key) >= 0, good = best >= 80;
+    var rec = n ? "Best " + best + "%, played " + n + (n>1 ? " times" : " time") : "Not played yet";
+    return '<button class="tile" data-game="'+g.key+'" aria-label="'+esc(g.title+". "+g.what+" "+rec+(isF?". Set for this week":""))+'">' +
+      '<div class="art">'+tileArt(g.key)+'</div>' +
+      (good ? '<span class="tick" aria-hidden="true">'+icon("check")+'</span>' : '') +
+      '<div class="body">' + (isF ? '<span class="badge">This week</span>' : '') + '<span class="ttl">'+esc(g.title)+'</span><span class="what">'+esc(g.what)+'</span><span class="rec'+(good?' good':'')+'">'+rec+'</span></div></button>';
+  }
+  var order = GAMES.slice().sort(function(a,b){ return (focus.indexOf(b.key)>=0) - (focus.indexOf(a.key)>=0); });
+  var cls = (S.server.week != null && S.server.target) ?
+    '<div class="card"><div class="row" style="justify-content:space-between;align-items:baseline"><b style="color:var(--head)">Class total this week</b><span class="muted small">'+S.server.week+' of '+S.server.target+'</span></div>' +
+    '<div class="meter"><i style="width:'+Math.min(100, Math.round(100*S.server.week/S.server.target))+'%"></i></div><p class="small muted" style="margin:8px 0 0">Every game anyone in the group finishes counts towards this.</p></div>' : '';
+  function row(act, ic, title, sub, pill){
+    return '<button class="rowbtn" data-go="'+act+'"><span class="ic">'+icon(ic)+'</span><span class="tx"><b>'+esc(title)+'</b><span>'+esc(sub)+'</span></span>'+(pill||'<span aria-hidden="true" class="muted">'+icon("chev")+'</span>')+'</button>';
+  }
+  var done = p.done;
+  screen(fullHeader() + '<div class="wrap">' +
+    '<div class="card"><div class="me"><span class="avatar" aria-hidden="true">'+esc(initials())+'</span><div><h2>Hello, '+esc(firstName())+'</h2>' +
+    '<div class="lvl">'+esc(lv.name)+', '+p.xp+' points</div></div></div>' +
+    '<div class="meter" aria-hidden="true"><i style="width:'+fill+'%"></i></div>' +
+    '<div class="small muted" style="margin-top:6px">'+(lv.next ? toNext+' points to '+esc(lv.next.name) : 'Top level reached. Keep your scores sharp.')+'</div>' +
+    '<div class="chips"><span class="chip">'+icon("flame")+streak()+' day streak</span><span class="chip">'+icon("check")+checked+' checked</span><span class="chip">'+icon("games")+played+' played</span></div></div>' +
+    (S.server.message ? '<div class="panel amber" style="margin-top:12px"><p>'+esc(S.server.message)+'</p></div>' : '') +
+    (cls ? '<div style="margin-top:12px">'+cls+'</div>' : '') +
+    '<div class="sec"><h2>Games</h2><button class="link" data-act="datacard">Data card</button></div>' +
+    '<div class="grid">' + order.map(tile).join("") + '</div>' +
+    '<div class="sec"><h2>After the lesson</h2></div><div class="rows">' +
+      row("exit", "exit", "Exit ticket", "Four questions and a check of all eight goals. Five minutes.", done.exit ? '<span class="pill">Handed in</span>' : '<span class="pill amber">To do</span>') +
+      row("checkin1", "check", "Part 1 check-in", "Rate yourself on manufacturing processes.", done.checkin1 ? '<span class="pill">Sent</span>' : '') +
+      row("checkin2", "check", "Part 2 check-in", "Rate yourself on fitness for purpose.", done.checkin2 ? '<span class="pill">Sent</span>' : '') +
+      row("flash", "flash", "Key word cards", "26 flip cards. Keep going until you know them all.") +
+    '</div><p class="foot">This is formative. Nothing here is marked or graded. <span data-sync>'+esc(syncText())+'</span></p></div>', {tab:"games"});
+  $$(".tile").forEach(function(t){ t.onclick = function(){ startGame(t.dataset.game); }; });
+  $$("[data-go]").forEach(function(b){ b.onclick = function(){ var g=b.dataset.go;
+    if (g==="exit") runExit(); else if (g==="checkin1") runCheckin("p1","checkin1"); else if (g==="checkin2") runCheckin("p2","checkin2"); else startGame("flash"); }; });
+  $('[data-act="datacard"]').onclick = function(){ openDataCard(); };
+}
+
+/* ---------- my record ---------- */
+var RECORD_KEYS = GAMES.map(function(g){ return g.key; }).concat(["flash","exit","checkin1","checkin2"]);
+function recordLines(){
+  var p = S.prog;
+  return RECORD_KEYS.filter(function(k){ return p.raw[k]; }).map(function(k){ return resultLine(TITLE[k], p.raw[k][0], p.raw[k][1], p.last[k]); });
+}
+function record(){
+  S.tab = "record";
+  var p = S.prog, mode = Net.mode();
+  var played = RECORD_KEYS.filter(function(k){ return (p.plays[k]||0) > 0 || p.raw[k]; });
+  var notYet = RECORD_KEYS.filter(function(k){ return played.indexOf(k) < 0; });
+  var cards = played.map(function(k){
+    var r = p.raw[k], t = TITLE[k], n = p.plays[k]||1;
+    var meta = (r ? "Best " + r[0] + " of " + r[1] : "Best " + (p.best[k]||0) + "%") + ", played " + n + (n>1?" times":" time") + (p.last[k] ? ", last " + niceDate(p.last[k]) : "");
+    var send = (mode === "forms" && r) ? '<a class="btn small amber act" target="_blank" rel="noopener" href="'+esc(formsLink(t, r[0], r[1], "Sent from My record"))+'">'+icon("send")+'Send</a>' : '';
+    return '<div class="card recard"><b>'+esc(t)+'</b>'+send+'<span class="meta">'+esc(meta)+(r ? '. Check code <span class="code">'+checkCode(S.me.code, t, r[0], r[1])+'</span>' : '')+'</span></div>';
+  }).join("");
+  var lines = recordLines().join("\n");
+  screen(fullHeader() + '<div class="wrap">' +
+    '<div class="sec" style="margin-top:6px"><h2>My record</h2><span class="muted small">'+esc(S.me.name || S.me.code)+'</span></div>' +
+    (cards ? '<div class="stack">'+cards+'</div>' : '<div class="panel"><p>Nothing played yet. Your best score for each game appears here.</p></div>') +
+    (notYet.length ? '<p class="small muted" style="margin:14px 2px">Not played yet: '+notYet.map(function(k){ return esc(TITLE[k]); }).join(", ")+'.</p>' : '') +
+    '<div class="sec"><h2>Copy all my results</h2></div>' +
+    '<div class="card stack"><p style="margin:0">One line per game, with its check code. Paste it into the class chat if the form will not open.</p>' +
+    '<textarea class="copyline" id="block" readonly aria-label="All my results">'+esc(lines || "Nothing to copy yet.")+'</textarea>' +
+    '<button class="btn ghost block" id="copyAll">'+icon("copy")+'Copy the block</button></div>' +
+    '<div class="sec"><h2>Moving to another phone</h2></div>' +
+    '<div class="card stack"><p style="margin:0">Your record lives on this phone. To move it, copy your transfer code here, then paste it on the other phone and press Bring it across.</p>' +
+    '<button class="btn ghost block" id="pack">'+icon("copy")+'Copy my transfer code</button>' +
+    '<label for="unpack"><b>Coming from another phone? Paste the code here</b></label><textarea class="textin" id="unpack" placeholder="U11-..."></textarea>' +
+    '<button class="btn block" id="bring">Bring it across</button><p class="small" id="mUnpack" role="status" style="margin:0"></p></div>' +
+    '<p class="foot">Clearing your browser data clears this record. Send your results first.</p></div>', {tab:"record"});
+  $("#copyAll").onclick = function(){ copyText(lines, function(ok){ toast(ok ? "Copied. Paste it into the class chat." : "Select the text and copy it."); }); };
+  $("#pack").onclick = function(){
+    var code = "U11-" + btoa(unescape(encodeURIComponent(JSON.stringify({me:S.me, prog:S.prog}))));
+    copyText(code, function(ok){ toast(ok ? "Transfer code copied." : "Could not copy. Try again."); });
+  };
+  $("#bring").onclick = function(){
+    var v = $("#unpack").value.trim(), msg = $("#mUnpack");
+    try {
+      if (v.indexOf("U11-") !== 0) throw 0;
+      var d = JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));
+      if (!d.me || !d.prog) throw 0;
+      var cur = S.prog, inc = Object.assign(freshProg(), d.prog);
+      cur.xp = Math.max(cur.xp, inc.xp);
+      Object.keys(inc.best).forEach(function(k){ if ((inc.best[k]||0) > (cur.best[k]||-1)) { cur.best[k] = inc.best[k]; if (inc.raw[k]) cur.raw[k] = inc.raw[k]; } });
+      Object.keys(inc.plays).forEach(function(k){ cur.plays[k] = Math.max(cur.plays[k]||0, inc.plays[k]); });
+      Object.keys(inc.last).forEach(function(k){ if (!cur.last[k] || inc.last[k] > cur.last[k]) cur.last[k] = inc.last[k]; });
+      Object.assign(cur.stamps, inc.stamps); Object.assign(cur.done, inc.done);
+      inc.days.forEach(function(x){ if (cur.days.indexOf(x) < 0) cur.days.push(x); });
+      saveProg(); toast("Record brought across."); record();
+    } catch(e) { msg.style.color = "var(--red)"; msg.textContent = "That does not look like a transfer code. Copy it again on the other phone."; }
+  };
+}
+
+/* ---------- help, settings and the tutor tools ---------- */
+function help(){
+  S.tab = "help";
+  var P = S.prefs;
+  function seg(name, opts, cur){ return '<div class="seg" role="group" aria-label="'+esc(name)+'" style="grid-template-columns:repeat('+opts.length+',1fr)">' +
+    opts.map(function(o){ return '<button data-pref="'+name+'" data-v="'+o[0]+'" aria-pressed="'+(String(cur)===String(o[0]))+'">'+o[1]+'</button>'; }).join("") + '</div>'; }
+  screen(fullHeader() + '<div class="wrap">' +
+    '<div class="sec" style="margin-top:6px"><h2>How it works</h2></div>' +
+    '<div class="card stack"><p style="margin:0">Play any game as often as you like. Your best score and the number of times you played are kept on this phone.</p>' +
+    '<p style="margin:0" data-sync>'+esc(syncText())+'</p>' +
+    '<p style="margin:0">Keyboard: press 1, 2, 3 or 4 to answer and Enter to move on.</p>' +
+    '<button class="btn ghost block" data-act="datacard">Open the data card</button></div>' +
+    '<div class="sec"><h2>Put the hub on your home screen</h2></div>' +
+    '<div class="card stack"><p style="margin:0"><b>iPhone:</b> in Safari, tap the Share button, then Add to Home Screen.</p>' +
+    '<p style="margin:0"><b>Android:</b> in Chrome, tap the three dots, then Add to home screen.</p>' +
+    '<p class="small muted" style="margin:0">It then opens like an app. On an iPhone it also stops your record being cleared if you have not played for a week or so.</p></div>' +
+    '<div class="sec"><h2>Colours and text</h2></div><div class="card">' +
+    '<b style="color:var(--head)">Colours</b>' + seg("theme", [["auto","Auto"],["light","Light"],["dark","Dark"],["cream","Cream"]], P.theme) +
+    '<p class="small muted" style="margin:-6px 0 12px">Cream uses a softer background and wider spacing, which many people find easier to read.</p>' +
+    '<b style="color:var(--head)">Text size</b>' + seg("scale", [[1,"Normal"],[1.15,"Large"],[1.3,"Largest"]], P.scale) +
+    '<b style="color:var(--head)">Movement</b>' + seg("motion", [["auto","Normal"],["reduce","Reduced"]], P.motion) + '</div>' +
+    '<div style="margin-top:16px"><button class="btn ghost block" id="out">Sign out on this phone</button></div>' +
+    '<p class="foot">'+esc(HUB_CONFIG.hubName)+', version '+VERSION+'. This is formative. Nothing here is marked or graded.</p></div>', {tab:"help"});
+  $$("[data-pref]").forEach(function(b){ b.onclick = function(){
+    var k = b.dataset.pref, v = b.dataset.v; S.prefs[k] = (k === "scale") ? Number(v) : v; Store.set("prefs", S.prefs); applyPrefs(); help();
+    var again = $('[data-pref="'+k+'"][data-v="'+v+'"]'); if (again) again.focus();
+  }; });
+  $('[data-act="datacard"]').onclick = function(){ openDataCard(); };
+  $("#out").onclick = function(){ signOut(); };
+}
+
+/* ---------- data card ---------- */
+function openDataCard(sex){
+  sex = sex || Store.get("dcsex", "m");
+  var L = sex === "m" ? "Male" : "Female";
+  var rows = CONTENT.datacard.map(function(r){ return '<tr><th scope="row">'+esc(r.dim)+'</th>'+r[sex].map(function(v){ return '<td>'+v+'</td>'; }).join("")+'</tr>'; }).join("");
+  var old = $(".modal"); if (old) old.remove();
+  var m = document.createElement("div"); m.className = "modal"; m.setAttribute("role","dialog"); m.setAttribute("aria-modal","true"); m.setAttribute("aria-label","Data card");
+  m.innerHTML = '<div class="sheet stack"><div class="row" style="justify-content:space-between;align-items:center;flex-wrap:nowrap"><h2 style="margin:0">Data card</h2>' +
+    '<button class="iconbtn plain" data-close aria-label="Close">'+icon("close")+'</button></div>' +
+    '<p class="small" style="margin:0">UK adults aged 19 to 65. Millimetres, no footwear. Add about 25 mm for male footwear and about 45 mm for female footwear.</p>' +
+    '<div class="seg" role="group" aria-label="Show male or female data" style="grid-template-columns:1fr 1fr;margin:0">' +
+    '<button data-dc="m" aria-pressed="'+(sex==="m")+'">Male</button><button data-dc="f" aria-pressed="'+(sex==="f")+'">Female</button></div>' +
+    '<div style="overflow-x:auto"><table class="dtable"><caption class="sr">'+L+' measurements, 5th, 50th and 95th percentiles, millimetres</caption>' +
+    '<thead><tr><th scope="col">'+L+'</th><th scope="col">5th</th><th scope="col">50th</th><th scope="col">95th</th></tr></thead><tbody>'+rows+'</tbody></table></div>' +
+    '<p class="small muted" style="margin:0">Indicative data for teaching, not for detailed design.</p></div>';
+  document.body.appendChild(m);
+  function close(){ m.remove(); document.removeEventListener("keydown", onKey); }
+  function onKey(e){ if (e.key === "Escape") close(); }
+  document.addEventListener("keydown", onKey);
+  m.addEventListener("click", function(e){ if (e.target === m) close(); });
+  $("[data-close]", m).onclick = close;
+  $$("[data-dc]", m).forEach(function(b){ b.onclick = function(){ Store.set("dcsex", b.dataset.dc); close(); openDataCard(b.dataset.dc); var x = $('[data-dc="'+b.dataset.dc+'"]'); if (x) x.focus(); }; });
+  $("[data-close]", m).focus();
+}
+
+/* ---------- navigation ---------- */
+function startGame(key){
+  var run = {family:runFamily, parts:runParts, errors:runErrors, sequence:runSequence, briefspec:runBriefSpec, body:runBody, ladder:runLadder,
+    fault:runFault, expert:runExpert, sixr:runSixR, words:runWords, command:runCommand, quick:runQuick, flash:runFlash}[key];
+  if (run) run();
+}
+document.addEventListener("keydown", function(e){
+  var t = e.target, tag = (t && t.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (/^[1-9]$/.test(e.key)) {
+    var b = $$(".opt:not([disabled]), .chunk:not([disabled]), [data-ans]:not([disabled])")[Number(e.key)-1];
+    if (b) { e.preventDefault(); b.click(); }
+  } else if (e.key === "Enter" && tag !== "BUTTON" && tag !== "A") {
+    var n = $("#next"); if (n) { e.preventDefault(); n.click(); }
+  }
+});
+</script>
+<script>
+"use strict";
+/* ---------- results ---------- */
+function resultMessage(pct){
+  if (pct >= 90) return "Excellent. That is exam ready.";
+  if (pct >= 70) return "Good work. Check the ones below, then go again.";
+  if (pct >= 40) return "Getting there. Read the fixes, then play it again.";
+  return "Early days. Read each fix below and try again. It gets easier every round.";
+}
+function sendPanel(title, score, max, detail){
+  var m = Net.mode(), code = S.me ? S.me.code : "", chk = checkCode(code, title, score, max);
+  if (m === "forms") return '<div class="panel amber stack" style="margin-top:12px"><h3>Send this to your tutor</h3>' +
+    '<p>One tap opens the form with your code, the game and your score already filled in. Press Submit on the form.</p>' +
+    '<p>Check code <span class="code">'+chk+'</span></p>' +
+    '<div class="row"><a class="btn amber" id="send" target="_blank" rel="noopener" href="'+esc(formsLink(title, score, max, detail))+'">'+icon("send")+'Send my result</a>' +
+    '<button class="btn ghost" id="copy1">'+icon("copy")+'Copy it instead</button></div></div>';
+  if (m === "local") return '<div class="panel amber stack" style="margin-top:12px"><h3>Keep a copy</h3>' +
+    '<p>This hub is not linked to your tutor&#39;s form yet. Copy this line and paste it where your tutor asks.</p>' +
+    '<p class="small"><b>'+esc(resultLine(title, score, max))+'</b></p><button class="btn ghost" id="copy1">'+icon("copy")+'Copy it</button></div>';
+  return '<p class="small muted" style="margin:12px 2px" data-sync>'+esc(syncText())+'</p>';
+}
+function wireSend(title, score, max){
+  var c = $("#copy1"); if (c) c.onclick = function(){ copyText(resultLine(title, score, max), function(ok){ toast(ok ? "Copied. Paste it into the class chat." : "Select the line and copy it."); }); };
+  var s = $("#send"); if (s) s.addEventListener("click", function(){ toast("The form is opening. Press Submit on it."); });
+}
+function finishGame(key, score, max, items, started, review, extra){
+  extra = extra || {};
+  var p = S.prog, title = TITLE[key], pct = max ? Math.round(100*score/max) : 0, secs = Math.round((Date.now()-started)/1000);
+  var prev = p.best[key], newBest = prev == null || pct > prev;
+  if (newBest) { p.best[key] = pct; p.raw[key] = [score, max]; }
+  p.plays[key] = (p.plays[key]||0) + 1; p.last[key] = new Date().toISOString();
+  var gain = 20 + score*10 + (extra.bonus||0); p.xp += gain;
+  var stamp = pct >= 80, firstStamp = stamp && !p.stamps[key]; if (stamp) p.stamps[key] = true;
+  var t = todayKey(); if (p.days.indexOf(t) < 0) p.days.push(t);
+  saveProg();
+  logEvent("finish", title, {score:score, max:max, secs:secs, items:items});
+  var missed = items.filter(function(x){ return !x.ok; }).map(function(x){ return x.l; });
+  var detail = missed.length ? "To go over: " + missed.slice(0,6).join("; ") : "All correct";
+  screen(gameHeader(title, 0, 0) + '<div class="wrap">' +
+    '<div class="card result"><p class="muted" style="margin:0 0 4px">'+esc(title)+'</p><div class="big">'+score+'<small> of '+max+'</small></div>' +
+    '<p style="margin:10px 0 4px">'+resultMessage(pct)+'</p><p class="small muted" style="margin:0">+'+gain+' points'+(newBest && prev != null ? ', a new best' : '')+'</p>' +
+    (stamp ? '<span class="seal'+(firstStamp?' pop':'')+'">'+icon("check")+'Checked</span>' : '') + '</div>' +
+    sendPanel(title, score, max, detail) +
+    (review.length ? '<div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">What to fix</h3><ol class="review">' +
+      review.map(function(r){ return '<li><b>'+esc(r.q)+'</b><br>The answer: '+esc(r.right)+(r.why ? '. <span class="muted">'+esc(r.why)+'</span>' : '')+'</li>'; }).join("") + '</ol></div>'
+      : '<div class="panel" style="margin-top:12px"><p>Nothing to fix this round.</p></div>') +
+    '<div class="dock"><div class="row"><button class="btn amber" id="again">Play again</button><button class="btn ghost" id="hub">Back to the games</button></div></div></div>', {game:true, done:true});
+  wireSend(title, score, max);
+  $("#again").onclick = function(){ startGame(key); };
+  $("#hub").onclick = function(){ home(); };
+  say(score + " out of " + max + ". " + resultMessage(pct));
+}
+
+/* ---------- one engine for every multiple choice game ---------- */
+function optButtons(opts){ return opts.map(function(o,k){ return '<button class="opt" data-k="'+k+'"><span class="k">'+(k+1)+'</span><span class="l">'+esc(o)+'</span><span class="s"></span></button>'; }).join(""); }
+function markOpts(correct, chosen){
+  var ok = correct.indexOf(chosen) >= 0;
+  $$(".opt").forEach(function(b){
+    var j = +b.dataset.k; b.disabled = true;
+    if (correct.indexOf(j) >= 0) { b.classList.add("correct"); $(".s", b).textContent = (j === chosen || !ok) ? "Right answer" : "Also right"; }
+    else if (j === chosen) { b.classList.add("wrong"); $(".s", b).textContent = "Not this one"; }
+    else b.classList.add("dim");
+  });
+  return ok;
+}
+function showFeedback(ok, rightText, why, nextLabel, onNext){
+  var fb = $("#fb");
+  fb.className = "fb" + (ok ? "" : " bad");
+  fb.innerHTML = '<strong>' + (ok ? pick(["Right.","Yes, that is it.","Correct."]) : "Not this time.") + '</strong>' +
+    (ok ? "" : "The answer is: " + esc(rightText) + ". ") + esc(why || "");
+  $("#dock").innerHTML = '<button class="btn amber block" id="next">'+nextLabel+'</button>';
+  $("#next").onclick = onNext;
+  say(ok ? "Right." : "Not this time. The answer is " + rightText);
+  try { fb.scrollIntoView({block:"nearest", behavior:"smooth"}); } catch(e) {}
+}
+function runMCQ(key, items, opts){
+  opts = opts || {};
+  var i = 0, score = 0, bonus = 0, log = [], review = [], started = Date.now(), shownAt = 0;
+  function show(){
+    var it = items[i];
+    screen(gameHeader(TITLE[key], i, items.length) + '<div class="wrap"><div class="card">' +
+      '<div class="qno">'+(opts.label || "Question")+' '+(i+1)+'</div>' +
+      (it.lead ? '<p class="qprompt" style="margin:4px 0 0">'+esc(it.lead)+'</p>' : '') +
+      '<p class="qtext">'+esc(it.prompt)+'</p>' +
+      (it.art ? '<div class="qart">'+it.art+'</div>' : '') +
+      (it.sub ? '<p class="qprompt">'+esc(it.sub)+'</p>' : '') +
+      '<div class="opts'+(opts.cols === 2 ? ' two' : '')+'">' + optButtons(it.options) + '</div>' +
+      '<div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true});
+    shownAt = Date.now();
+    $$(".opt").forEach(function(b){ b.onclick = function(){ answer(+b.dataset.k); }; });
+  }
+  function answer(k){
+    var it = items[i], ok = markOpts(it.correct, k), right = it.correct.map(function(c){ return it.options[c]; }).join(" or ");
+    if (ok) { score++; if (opts.speed && Date.now() - shownAt < 6000) bonus += 5; }
+    else review.push({q:it.prompt, right:right, why:it.why});
+    log.push({i:it.id, ok:ok?1:0, l:String(it.label || it.prompt).slice(0,90)});
+    var last = i === items.length - 1;
+    showFeedback(ok, right, it.why, last ? "See my score" : "Next", function(){ if (last) finishGame(key, score, items.length, log, started, review, {bonus:bonus}); else { i++; show(); } });
+  }
+  show();
+}
+function mix(correct, wrongs){ var o = shuffle([correct].concat(wrongs)); return {options:o, correct:[o.indexOf(correct)]}; }
+function runFamily(){
+  var fam = CONTENT.families;
+  runMCQ("family", shuffle(CONTENT.family).slice(0,12).map(function(x){
+    return {id:x.id, label:x.op, lead:"Which family does this operation belong to?", prompt:x.op, options:fam, correct:x.ok.map(function(f){ return fam.indexOf(f); }), why:x.why};
+  }), {cols:2, speed:true});
+}
+function runExpert(){
+  runMCQ("expert", shuffle(CONTENT.expert).slice(0,10).map(function(x){ var m = mix(x.opts[x.ans], x.opts.filter(function(_,k){ return k !== x.ans; }));
+    return {id:x.id, prompt:x.q, options:m.options, correct:m.correct, why:x.why}; }));
+}
+function runQuick(){
+  runMCQ("quick", shuffle(CONTENT.quick).slice(0,10).map(function(x){ var m = mix(x.opts[0], x.opts.slice(1));
+    return {id:x.id, prompt:x.q, options:m.options, correct:m.correct, why:""}; }), {speed:true});
+}
+function runSixR(){
+  var R = ["Reduce","Refuse","Rethink","Repair","Reuse","Recycle"];
+  runMCQ("sixr", shuffle(CONTENT.sixr).slice(0,8).map(function(x){
+    return {id:x.id, lead:"Which of the 6Rs is this?", prompt:x.q, options:R, correct:[R.indexOf(x.ans)], why:x.why}; }), {cols:2});
+}
+function runParts(){
+  runMCQ("parts", shuffle(CONTENT.parts).map(function(x){ var m = mix(x.correct, x.wrongs);
+    return {id:x.id, label:x.q, prompt:"Which process made this part?", art:partArt(x.draw), sub:x.q, options:m.options, correct:m.correct, why:x.why}; }), {label:"Part"});
+}
+function runBody(){
+  runMCQ("body", shuffle(CONTENT.body).slice(0,8).map(function(x){ var m = mix(x.correct, x.wrongs);
+    return {id:x.id, label:x.correct, prompt:"Which measurement is marked in amber?", art:bodyArt(x.fig, x.dim), options:m.options, correct:m.correct, why:x.why}; }));
+}
+function runWords(){
+  runMCQ("words", shuffle(CONTENT.words).slice(0,10).map(function(x){ var m = mix(x.correct, x.wrongs);
+    return {id:x.id, label:x.q, lead:"Which wording earns the mark?", prompt:x.q, options:m.options, correct:m.correct, why:x.why}; }));
+}
+function runCommand(){
+  runMCQ("command", shuffle(CONTENT.command).map(function(x){ var m = mix(x.correct, x.wrongs);
+    return {id:x.id, label:x.q, lead:"Which command word, or which answer?", prompt:x.q, options:m.options, correct:m.correct, why:x.why}; }));
+}
+
+/* ---------- design fault finder: two steps per case (cause, then fix) ---------- */
+function runFault(){
+  var items = shuffle(CONTENT.fault).slice(0,6), i = 0, s = 0, score = 0, log = [], review = [], started = Date.now();
+  function show(){
+    var it = items[i], st = it.steps[s], m = mix(st.correct, st.wrongs);
+    screen(gameHeader(TITLE.fault, i*2+s, items.length*2) + '<div class="wrap"><div class="card">' +
+      '<div class="qno">Case '+(i+1)+' of '+items.length+'. Step '+(s+1)+' of 2</div>' +
+      '<p class="qtext">'+esc(it.q)+'</p>' +
+      (s === 1 ? '<div class="stepnote"><b>The cause:</b> '+esc(it.steps[0].correct)+'</div>' : '') +
+      '<p class="qprompt"><b style="color:var(--head)">'+esc(st.label)+'</b></p>' +
+      '<div class="opts">'+optButtons(m.options)+'</div><div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true});
+    $$(".opt").forEach(function(b){ b.onclick = function(){
+      var ok = markOpts(m.correct, +b.dataset.k);
+      if (ok) score++; else review.push({q:it.q + " (" + st.label.toLowerCase() + ")", right:st.correct, why:""});
+      log.push({i:it.id+"-"+(s+1), ok:ok?1:0, l:(st.label+": "+it.q).slice(0,90)});
+      var last = i === items.length-1 && s === 1;
+      showFeedback(ok, st.correct, "", s === 0 ? "Next step" : (last ? "See my score" : "Next case"), function(){
+        if (last) return finishGame("fault", score, items.length*2, log, started, review);
+        if (s === 0) s = 1; else { s = 0; i++; } show();
+      });
+    }; });
+  }
+  show();
+}
+
+/* ---------- spot the error: tap the wrong chunk ---------- */
+function runErrors(){
+  var items = shuffle(CONTENT.errors).slice(0,8), i = 0, score = 0, log = [], review = [], started = Date.now();
+  function show(){
+    var it = items[i];
+    screen(gameHeader(TITLE.errors, i, items.length) + '<div class="wrap"><div class="card">' +
+      '<div class="qno">Statement '+(i+1)+'</div><p class="qprompt" style="margin:4px 0 12px">One part of this statement is wrong. Tap it.</p>' +
+      '<div class="chunks">' + it.chunks.map(function(c,k){ return '<button class="chunk" data-k="'+k+'">'+esc(c)+'</button>'; }).join("") + '</div>' +
+      '<div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true});
+    $$(".chunk").forEach(function(b){ b.onclick = function(){
+      var k = +b.dataset.k, ok = k === it.wrong;
+      $$(".chunk").forEach(function(c){ var j = +c.dataset.k; c.disabled = true;
+        if (j === it.wrong) c.classList.add("is-error"); else if (j === k) c.classList.add("wrong-pick"); else c.classList.add("fine"); });
+      if (ok) score++; else review.push({q:it.chunks.join(" "), right:"the wrong part is \u201c"+it.chunks[it.wrong]+"\u201d", why:it.fix});
+      log.push({i:it.id, ok:ok?1:0, l:it.chunks.join(" ").slice(0,90)});
+      var fb = $("#fb"); fb.className = "fb" + (ok ? "" : " bad");
+      fb.innerHTML = '<strong>'+(ok ? "Spotted it." : "Not that part. The wrong part is outlined in red.")+'</strong>'+esc(it.fix);
+      var last = i === items.length-1;
+      $("#dock").innerHTML = '<button class="btn amber block" id="next">'+(last ? "See my score" : "Next")+'</button>';
+      $("#next").onclick = function(){ if (last) finishGame("errors", score, items.length, log, started, review); else { i++; show(); } };
+      try { fb.scrollIntoView({block:"nearest", behavior:"smooth"}); } catch(e) {}
+    }; });
+  }
+  show();
+}
+
+/* ---------- brief or spec: swipe or tap ---------- */
+function runBriefSpec(){
+  var items = shuffle(CONTENT.briefspec).slice(0,12), i = 0, score = 0, log = [], review = [], started = Date.now();
+  function show(){
+    var it = items[i], nxt = items[i+1];
+    screen(gameHeader(TITLE.briefspec, i, items.length) + '<div class="wrap">' +
+      '<p class="qprompt" style="margin:0 0 8px">Swipe left for the client&#39;s brief, right for the measurable specification. Or tap a button.</p>' +
+      '<div class="deck">' + (nxt ? '<div class="scard back" aria-hidden="true">.</div>' : '') +
+      '<div class="scard" id="sc"><span class="hint l">Brief</span><span class="hint r">Specification</span><span class="qtext" style="color:inherit;font-size:1em;margin:0">'+esc(it.s)+'</span></div></div>' +
+      '<div class="row"><button class="btn ghost" data-ans="brief">Brief</button><button class="btn" data-ans="spec">Specification</button></div>' +
+      '<div id="fb" role="status"></div><div class="dock" id="dock"></div></div>', {game:true});
+    var card = $("#sc"), x0 = null, dx = 0, done = false;
+    function answer(a){
+      if (done) return; done = true;
+      var isBrief = /^brief/i.test(it.ans), ok = (a === "brief") === isBrief, right = isBrief ? "Brief" : "Specification";
+      card.style.transform = "translateX(" + (a === "brief" ? "-" : "") + "60%) rotate(" + (a === "brief" ? "-" : "") + "8deg)"; card.style.opacity = "0";
+      $$("[data-ans]").forEach(function(b){ b.disabled = true; });
+      if (ok) score++; else review.push({q:it.s, right:right, why:it.why});
+      log.push({i:it.id, ok:ok?1:0, l:it.s.slice(0,90)});
+      var last = i === items.length-1;
+      showFeedback(ok, right, it.why, last ? "See my score" : "Next", function(){ if (last) finishGame("briefspec", score, items.length, log, started, review); else { i++; show(); } });
+    }
+    $$("[data-ans]").forEach(function(b){ b.onclick = function(){ answer(b.dataset.ans); }; });
+    card.addEventListener("pointerdown", function(e){ x0 = e.clientX; dx = 0; card.style.transition = "none"; try { card.setPointerCapture(e.pointerId); } catch(err) {} });
+    card.addEventListener("pointermove", function(e){ if (x0 == null || done) return; dx = e.clientX - x0;
+      card.style.transform = "translateX(" + dx + "px) rotate(" + (dx/20) + "deg)";
+      $(".hint.l", card).style.opacity = Math.min(1, Math.max(0, -dx/80)); $(".hint.r", card).style.opacity = Math.min(1, Math.max(0, dx/80)); });
+    function end(){ if (x0 == null) return; x0 = null; card.style.transition = "";
+      if (Math.abs(dx) > 90) answer(dx < 0 ? "brief" : "spec"); else { card.style.transform = ""; $$(".hint", card).forEach(function(h){ h.style.opacity = 0; }); } }
+    card.addEventListener("pointerup", end); card.addEventListener("pointercancel", end);
+  }
+  show();
+}
+
+/* ---------- sequence it: tap the steps in order, one mark per step in the right place ---------- */
+function runSequence(){
+  var seqs = CONTENT.sequences, first = seqs.filter(function(q){ return q.id === "Q1"; })[0] || seqs[0];
+  var set = [first].concat(shuffle(seqs.filter(function(q){ return q !== first; })).slice(0,2));
+  var i = 0, score = 0, max = 0, log = [], review = [], started = Date.now();
+  set.forEach(function(q){ max += q.steps.length; });
+  function show(){
+    var it = set[i], n = it.steps.length, pool = shuffle(it.steps.map(function(_,k){ return k; })), placed = [], checked = false;
+    function draw(keepScroll){
+      var left = pool.filter(function(k){ return placed.indexOf(k) < 0; });
+      screen(gameHeader(TITLE.sequence, i, set.length) + '<div class="wrap"><div class="card">' +
+        '<div class="qno">Sequence '+(i+1)+' of '+set.length+'</div><p class="qtext">'+esc(it.title)+'</p>' +
+        '<p class="qprompt">Tap the steps in the order they happen. Tap a numbered step to send it back.</p>' +
+        '<div class="pool">' + (left.length ? left.map(function(k){ return '<button class="chip2" data-step="'+k+'">'+esc(it.steps[k])+'</button>'; }).join("") : '<span class="small muted">All placed.</span>') + '</div>' +
+        '<div class="slots">' + it.steps.map(function(_,k){ var v = placed[k];
+          var cls = v == null ? "" : (checked ? (v === k ? " filled ok" : " filled no") : " filled");
+          return '<button class="slot'+cls+'" data-slot="'+k+'" '+((v == null || checked) ? "disabled" : "")+' aria-label="Step '+(k+1)+(v == null ? ", empty" : ": "+esc(it.steps[v]))+'"><b>'+(k+1)+'</b><span>'+(v == null ? '<span class="muted small">empty</span>' : esc(it.steps[v]))+'</span></button>'; }).join("") + '</div>' +
+        '<div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true, keep:!!keepScroll});
+      $$(".chip2").forEach(function(b){ b.onclick = function(){ if (checked) return; var free = -1; for (var k=0;k<n;k++){ if (placed[k] == null) { free = k; break; } }
+        if (free >= 0) { placed[free] = +b.dataset.step; draw(true); } }; });
+      $$(".slot").forEach(function(b){ b.onclick = function(){ if (checked) return; placed[+b.dataset.slot] = null; draw(true); }; });
+      var full = placed.filter(function(v){ return v != null; }).length === n;
+      if (checked) {
+        var got = 0; for (var k=0;k<n;k++) if (placed[k] === k) got++;
+        var fb = $("#fb"); fb.className = "fb" + (got === n ? "" : " bad");
+        fb.innerHTML = '<strong>'+got+' of '+n+' in the right place.</strong>The order: <ol>'+it.steps.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join("")+'</ol>'+esc(it.why||"");
+        var last = i === set.length-1;
+        $("#dock").innerHTML = '<button class="btn amber block" id="next">'+(last ? "See my score" : "Next sequence")+'</button>';
+        $("#next").onclick = function(){ if (last) finishGame("sequence", score, max, log, started, review); else { i++; show(); } };
+      } else {
+        $("#dock").innerHTML = '<button class="btn amber block" id="chk" '+(full ? "" : "disabled")+'>'+(full ? "Check my order" : "Place every step first")+'</button>';
+        $("#chk").onclick = function(){
+          checked = true; var got = 0;
+          for (var k=0;k<n;k++){ var ok = placed[k] === k; if (ok) got++; log.push({i:it.id+"-"+(k+1), ok:ok?1:0, l:(it.title+": step "+(k+1)).slice(0,90)}); }
+          score += got; if (got < n) review.push({q:it.title, right:it.steps.join(", "), why:it.why});
+          draw(true);
+        };
+      }
+    }
+    draw(false);
+  }
+  show();
+}
+
+/* ---------- calculation ladder: numbers typed in, a hint, then a second go ---------- */
+const DC = () => Object.fromEntries(CONTENT.datacard.map(r=>[r.dim, r]));
+const PCT = {5:0, 50:1, 95:2};
+function normTail(z){ // P(Z > z), Abramowitz and Stegun 26.2.17
+  const t = 1/(1+0.2316419*Math.abs(z)), d = 0.3989422804014327*Math.exp(-z*z/2);
+  const p = d*t*(0.319381530+t*(-0.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));
+  return z>=0 ? p : 1-p;
+}
+function ladderRungs(){
+  const d = DC(), fw = {male:25, female:45}, r = [];
+  { const dims = ["Stature (height)","Eye height","Shoulder height","Elbow height","Popliteal height","Forward grip reach","Hand length"];
+    const dim = pick(dims), sex = pick(["male","female"]), pc = pick([5,50,95]), v = d[dim][sex==="male"?"m":"f"][PCT[pc]];
+    r.push({id:"L1", lvl:"Low", q:`Use the data card. What is the ${pc}th percentile ${sex} ${dim.replace(" (height)","").toLowerCase()}?`, ans:v, tol:0, unit:"mm",
+      hint:`Go across to the ${dim} row, then find the ${sex==="male"?"M":"F"} ${pc}th column.`, work:[`Row: ${dim}. Column: ${sex==="male"?"M":"F"} ${pc}th.`, `Answer: ${v} mm.`]}); }
+  { const dims = ["Stature (height)","Eye height","Shoulder height","Elbow height"];
+    const dim = pick(dims), sex = pick(["male","female"]), pc = pick([5,95]), v = d[dim][sex==="male"?"m":"f"][PCT[pc]], a = v+fw[sex];
+    r.push({id:"L2", lvl:"Low", q:`The ${pc}th percentile ${sex} ${dim.replace(" (height)","").toLowerCase()} is ${v} mm with no footwear. What is it with ${sex} footwear added?`, ans:a, tol:0, unit:"mm",
+      hint:"Male footwear adds about 25 mm. Female footwear adds about 45 mm.", work:[`${sex==="male"?"Male":"Female"} footwear adds ${fw[sex]} mm.`, `${v} + ${fw[sex]} = ${a} mm.`]}); }
+  { const pop = pick([["adult male workers","male"],["staff of any sex","male"],["a team of female technicians","female"]]), c = pick([50,75,100]);
+    const s95 = d["Stature (height)"][pop[1]==="male"?"m":"f"][2], a = s95 + fw[pop[1]] + c;
+    r.push({id:"L3", lvl:"Low", q:`A doorway must let ${pop[0]} through without stooping, with ${c} mm head clearance. Find the minimum clear height.`, ans:a, tol:0, unit:"mm",
+      hint:"Clearance means the largest user: 95th percentile stature of the taller group. Add footwear, then head clearance.",
+      work:[`Clearance, so design for the largest user.`, `95th percentile ${pop[1]} stature = ${s95} mm.`, `Add ${pop[1]} footwear: ${s95} + ${fw[pop[1]]} = ${s95+fw[pop[1]]} mm.`, `Add head clearance: ${s95+fw[pop[1]]} + ${c} = ${a} mm.`]}); }
+  { const v = pick([["everyone who works in the store, male or female","female"],["an all-male maintenance crew","male"]]);
+    const reach = d["Vertical reach standing"][v[1]==="male"?"m":"f"][0], a = reach + fw[v[1]];
+    r.push({id:"L4", lvl:"Moderate", q:`A top shelf must be reachable by ${v[0]}, wearing shoes. What is the highest the shelf can be? Use vertical reach standing.`, ans:a, tol:0, unit:"mm",
+      hint:"Reach means the smallest user: 5th percentile of the shorter group. Then add their footwear.",
+      work:[`Reach, so design for the smallest user.`, `5th percentile ${v[1]} vertical reach standing = ${reach} mm.`, `Add ${v[1]} footwear: ${reach} + ${fw[v[1]]} = ${a} mm.`]}); }
+  const b1 = pick([50,75]), b2 = pick([100,125,150]);
+  const lowElbow = d["Elbow height"].f[0] + 45, low = lowElbow - b2, highElbow = d["Elbow height"].m[2] + 25, high = highElbow - b1;
+  r.push({id:"L5", lvl:"Moderate", q:`An adjustable bench must suit the 5th percentile female to the 95th percentile male. The work sits ${b1} to ${b2} mm below the elbow. What is the lowest setting?`, ans:low, tol:0, unit:"mm",
+    hint:"Lowest setting: smallest user, 5th percentile female elbow height plus her footwear, then the most below the elbow.",
+    work:[`5th percentile female elbow height = ${d["Elbow height"].f[0]} mm.`, `Add 45 mm footwear: ${lowElbow} mm.`, `Most below the elbow, ${b2} mm: ${lowElbow} - ${b2} = ${low} mm.`]});
+  r.push({id:"L6", lvl:"Moderate", q:`Same bench, work ${b1} to ${b2} mm below the elbow. The lowest setting is ${low} mm. How much travel (adjustment range) does the bench need?`, ans:high-low, tol:0, unit:"mm",
+    hint:"Find the highest setting first: 95th percentile male elbow plus 25 mm footwear, minus the least below the elbow. Then subtract the lowest setting.",
+    work:[`95th percentile male elbow height = ${d["Elbow height"].m[2]} mm, plus 25 mm footwear = ${highElbow} mm.`, `Least below the elbow, ${b1} mm: ${highElbow} - ${b1} = ${high} mm.`, `Travel = ${high} - ${low} = ${high-low} mm.`]});
+  { const L = pick([30,35,40,45,50,60,70,80,90,100,120]), s = pick([20,22,25]); const a = Math.round(10*L/(1-s/100))/10;
+    r.push({id:"L7", lvl:"Advanced", q:`A binder jetted part must be ${L} mm long after sintering. It shrinks by ${s}%. How long should it be printed? Give one decimal place.`, ans:a, tol:0.15, unit:"mm",
+      hint:`After shrinking by ${s}%, ${100-s}% is left. So final = printed × ${(1-s/100).toFixed(2)}. Work backwards.`,
+      work:[`${100-s}% is left after sintering, so final = printed × ${(1-s/100).toFixed(2)}.`, `Printed = ${L} ÷ ${(1-s/100).toFixed(2)} = ${a} mm.`, `Check: ${s}% of ${a} is ${(a*s/100).toFixed(1)}, and ${a} - ${(a*s/100).toFixed(1)} ≈ ${L} mm.`]}); }
+  { const H = pick([1800,1850,1900,1950]), sd = 115/1.645, z = (H-1745)/sd, p = Math.round(1000*normTail(z))/10;
+    r.push({id:"L8", lvl:"Advanced", q:`Male stature: 50th percentile 1745 mm, 95th percentile 1860 mm. Estimate the percentage of UK adult men taller than ${H} mm. One decimal place.`, ans:p, tol:Math.max(0.15, 0.05*p), unit:"%",
+      hint:"The 95th percentile is 1.645 standard deviations above the mean. Find s, then z = (height - mean) ÷ s, then use a z table.",
+      work:[`1.645 × s = 1860 - 1745 = 115, so s = ${sd.toFixed(1)} mm.`, `z = (${H} - 1745) ÷ ${sd.toFixed(1)} = ${z.toFixed(2)}.`, `Proportion above z = ${z.toFixed(2)} is about ${p}%.`]}); }
+  return r;
+}
+function runLadder(){
+  var rungs = ladderRungs(), i = 0, score = 0, tries = 0, log = [], review = [], started = Date.now();
+  function show(){
+    if (i >= rungs.length) return finishGame("ladder", score, rungs.length, log, started, review);
+    tries = 0; var it = rungs[i];
+    screen(gameHeader(TITLE.ladder, i, rungs.length) + '<div class="wrap"><div class="card">' +
+      '<div class="rungs" aria-hidden="true">' + rungs.map(function(_,k){ return '<i class="'+(k<i ? (log[k] && log[k].ok ? "done" : "miss") : (k===i ? "now" : ""))+'"></i>'; }).join("") + '</div>' +
+      '<div class="qno">Rung '+(i+1)+', '+it.lvl.toLowerCase()+'</div><p class="qtext">'+esc(it.q)+'</p>' +
+      '<div class="numrow"><label class="sr" for="ans">Your answer in '+(it.unit === "%" ? "percent" : "millimetres")+'</label>' +
+      '<input id="ans" class="textin" inputmode="decimal" autocomplete="off" enterkeyhint="done"><span class="unit">'+it.unit+'</span></div>' +
+      '<div class="row" style="margin-top:4px"><button class="link" id="hint">Show a hint</button><button class="link" data-act="datacard">Data card</button></div>' +
+      '<div id="hintbox"></div><div id="fb" role="status"></div></div>' +
+      '<div class="dock" id="dock"><button class="btn amber block" id="chk">Check</button></div></div>', {game:true});
+    var inp = $("#ans");
+    inp.addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); var b = $("#chk") || $("#next"); if (b) b.click(); } });
+    $("#hint").onclick = function(){ $("#hintbox").innerHTML = '<div class="worked">'+esc(it.hint)+'</div>'; };
+    $('[data-act="datacard"]').onclick = function(){ openDataCard(); };
+    function done(ok){
+      if (ok) score++;
+      log.push({i:it.id, ok:ok?1:0, l:it.q.slice(0,90)});
+      if (!ok) review.push({q:it.q, right:it.ans+" "+it.unit, why:it.work.join(" ")});
+      inp.disabled = true;
+      var fb = $("#fb"); fb.className = "fb" + (ok ? "" : " bad");
+      fb.innerHTML = '<strong>'+(ok ? (tries === 1 ? "Correct first time." : "Correct on the second go.") : "The answer is "+it.ans+" "+it.unit+".")+'</strong>' +
+        '<ol>'+it.work.map(function(w){ return '<li>'+esc(w)+'</li>'; }).join("")+'</ol>';
+      $("#dock").innerHTML = '<button class="btn amber block" id="next">'+(i+1 < rungs.length ? "Next rung" : "See my score")+'</button>';
+      $("#next").onclick = function(){ i++; show(); };
+      say(ok ? "Correct." : "The answer is " + it.ans + " " + it.unit);
+    }
+    $("#chk").onclick = function(){
+      var v = parseFloat(inp.value.replace(/,/g,"").replace(/[^\d.\-]/g,""));
+      if (isNaN(v)) { var f = $("#fb"); f.className = "fb info"; f.innerHTML = "<strong>Type a number first.</strong>"; return; }
+      tries++;
+      if (Math.abs(v - it.ans) <= it.tol + 1e-9) return done(true);
+      if (tries === 1) {
+        $("#hintbox").innerHTML = '<div class="worked">'+esc(it.hint)+'</div>';
+        var f2 = $("#fb"); f2.className = "fb info"; f2.innerHTML = "<strong>Not quite. Have one more go.</strong>The hint is showing above.";
+        inp.select(); say("Not quite. Have one more go.");
+      } else done(false);
+    };
+    setTimeout(function(){ try { inp.focus(); } catch(e) {} }, 60);
+  }
+  show();
+}
+
+/* ---------- key word cards: look, think, flip, be honest ---------- */
+function runFlash(){
+  var queue = shuffle(CONTENT.flash).map(function(c){ return Object.assign({n:0}, c); }), total = queue.length, firstGo = 0, log = [], started = Date.now();
+  function show(){
+    if (!queue.length) return finishGame("flash", firstGo, total, log, started,
+      log.filter(function(x){ return !x.ok; }).map(function(x){ var c = CONTENT.flash.filter(function(f){ return f.id === x.i; })[0] || {}; return {q:x.l, right:c.def||"", why:""}; }));
+    var c = queue[0], known = total - queue.length;
+    screen(gameHeader(TITLE.flash, known, total) + '<div class="wrap">' +
+      '<p class="qprompt" style="margin:0 0 6px">Say the meaning out loud, then turn the card over.</p>' +
+      '<button class="flip" id="fc" aria-label="'+esc(c.term)+'. Tap to turn over."><span class="inner"><span class="face front"><strong>'+esc(c.term)+'</strong><span class="small muted" style="margin-top:10px">Tap to turn over</span></span>' +
+      '<span class="face back"><span>'+esc(c.def)+'</span></span></span></button>' +
+      '<div class="dock" id="dock"><div class="row"><button class="btn ghost" id="no" disabled>Not yet</button><button class="btn" id="yes" disabled>I knew that</button></div>' +
+      '<button class="link" id="stop" style="width:100%">Stop here and see my score</button></div></div>', {game:true});
+    var fc = $("#fc");
+    fc.onclick = function(){ fc.classList.toggle("on"); $("#yes").disabled = false; $("#no").disabled = false; fc.setAttribute("aria-label", fc.classList.contains("on") ? c.def : c.term); };
+    $("#yes").onclick = function(){ if (c.n === 0) { firstGo++; log.push({i:c.id, ok:1, l:c.term}); } queue.shift(); show(); };
+    $("#no").onclick = function(){ if (c.n === 0) log.push({i:c.id, ok:0, l:c.term}); c.n++; queue.shift(); if (c.n < 3) queue.push(c); show(); };
+    $("#stop").onclick = function(){ queue.forEach(function(q){ if (q.n === 0) log.push({i:q.id, ok:0, l:q.term}); }); queue = []; show(); };
+  }
+  show();
+}
+
+/* ---------- exit ticket and check-ins ---------- */
+function ragBlock(prefix, lines){
+  return lines.map(function(l,k){ return '<div class="q"><p id="'+prefix+k+'l" style="font-weight:400;color:var(--ink)">'+(k+1)+'. '+esc(l)+'</p>' +
+    '<div class="rag" role="group" aria-labelledby="'+prefix+k+'l">' +
+    '<button class="r" data-rag="'+prefix+k+'" data-v="R" aria-pressed="false">Not yet</button><button class="a" data-rag="'+prefix+k+'" data-v="A" aria-pressed="false">Nearly</button><button class="g" data-rag="'+prefix+k+'" data-v="G" aria-pressed="false">Got it</button></div></div>'; }).join("");
+}
+function wireRag(){ $$("[data-rag]").forEach(function(b){ b.onclick = function(){ $$('[data-rag="'+b.dataset.rag+'"]').forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); }); }; }); }
+function readRag(prefix, n){ var out = ""; for (var k=0;k<n;k++){ var on = $('[data-rag="'+prefix+k+'"][aria-pressed="true"]'); out += on ? on.dataset.v : "-"; } return out; }
+function doneScreen(key, title, score, max, heading, body, detail){
+  var p = S.prog; p.raw[key] = [score, max]; p.best[key] = Math.round(100*score/max); p.plays[key] = (p.plays[key]||0) + 1; p.last[key] = new Date().toISOString();
+  p.done[key] = true; p.xp += 30; var t = todayKey(); if (p.days.indexOf(t) < 0) p.days.push(t); saveProg();
+  screen(gameHeader(title, 0, 0) + '<div class="wrap"><div class="card stack"><h2 style="margin:0">'+heading+'</h2>'+body+'</div>' +
+    sendPanel(title, score, max, detail) + '<div class="dock"><button class="btn amber block" id="hub">Back to the games</button></div></div>', {game:true, done:true});
+  wireSend(title, score, max);
+  $("#hub").onclick = function(){ home(); };
+}
+function runExit(){
+  var E = CONTENT.exit;
+  function radios(name, q){ return '<fieldset class="q"><legend>'+esc(q.q)+'</legend>'+q.opts.map(function(o,k){ return '<label class="check"><input type="radio" name="'+name+'" value="'+k+'"><span>'+esc(o)+'</span></label>'; }).join("")+'</fieldset>'; }
+  screen(gameHeader(TITLE.exit, 0, 0) + '<div class="wrap"><div class="card">' +
+    '<p style="margin:0">Five minutes, on your own. This is for feedback, not a mark.</p>' +
+    '<div class="q"><label for="q1">1. '+esc(E.q1)+'</label><textarea id="q1" class="textin" maxlength="400"></textarea></div>' +
+    radios("q2", {q:"2. "+E.q2.q, opts:E.q2.opts}) +
+    '<fieldset class="q"><legend>'+esc(E.q2b.q)+'</legend>'+E.q2b.opts.map(function(o,k){ return '<label class="check"><input type="checkbox" name="q2b" value="'+k+'"><span>'+esc(o)+'</span></label>'; }).join("")+'</fieldset>' +
+    radios("q3", {q:"3. "+E.q3.q, opts:E.q3.opts}) + radios("q4", {q:"4. "+E.q4.q, opts:E.q4.opts}) +
+    '<div class="q"><label for="q4b">'+esc(E.q4b)+'</label><textarea id="q4b" class="textin" maxlength="300" style="min-height:70px"></textarea></div>' +
+    '<h3 style="margin:22px 0 4px">Can you do all eight? Be honest.</h3>' + ragBlock("x", E.rag) +
+    '<div class="q"><label for="fz">Anything still fuzzy? (optional)</label><textarea id="fz" class="textin" maxlength="300" style="min-height:70px"></textarea></div>' +
+    '<p id="err" class="small" role="alert" style="color:var(--red)"></p></div>' +
+    '<div class="dock"><button class="btn amber block" id="send2">Hand it in</button></div></div>', {game:true});
+  wireRag();
+  $("#send2").onclick = function(){
+    var q1 = $("#q1").value.trim(), q2 = $('input[name="q2"]:checked'), q3 = $('input[name="q3"]:checked'), q4 = $('input[name="q4"]:checked');
+    var q2b = $$('input[name="q2b"]:checked').map(function(x){ return +x.value; }), rag = readRag("x", E.rag.length);
+    if (!q1 || !q2 || !q3 || !q4 || rag.indexOf("-") >= 0) { $("#err").textContent = "Answer questions 1 to 4 and rate all eight lines before handing in."; return; }
+    var ok2 = +q2.value === E.q2.ans, ok2b = q2b.length === 3 && E.q2b.ans.every(function(a){ return q2b.indexOf(a) >= 0; }), ok3 = +q3.value === E.q3.ans, ok4 = +q4.value === E.q4.ans;
+    var score = (ok2 ? 1 : 0) + (ok2b ? 1 : 0) + (ok3 ? 1 : 0) + (ok4 ? 1 : 0);
+    var lowest = E.rag[rag.indexOf("R") >= 0 ? rag.indexOf("R") : (rag.indexOf("A") >= 0 ? rag.indexOf("A") : 0)];
+    var extra = {q1:q1, q2:E.q2.opts[+q2.value], q2b:q2b.map(function(k){ return E.q2b.opts[k]; }).join("; "), q3:E.q3.opts[+q3.value], q4:E.q4.opts[+q4.value], q4b:$("#q4b").value.trim(), rag:rag, fuzzy:$("#fz").value.trim()};
+    logEvent("exit", TITLE.exit, {score:score, max:4, extra:extra, items:[{i:"X2",ok:ok2?1:0,l:"Casting is part of shaping"},{i:"X2b",ok:ok2b?1:0,l:"Other three shaping categories"},{i:"X3",ok:ok3?1:0,l:"Linear versus iterative"},{i:"X4",ok:ok4?1:0,l:"Shelf reach percentile"}]});
+    function li(ok, good, bad){ return '<li>'+(ok ? '<b style="color:var(--green)">Right:</b> '+good : '<b style="color:var(--red)">Check this:</b> '+bad)+'</li>'; }
+    var body = '<p style="margin:0">Thank you. Your tutor will read this before the next lesson.</p><ul class="review">' +
+      li(ok2, "casting is one of the four categories of shaping.", "casting is one of the four categories of <b>shaping</b>.") +
+      li(ok2b, "the other three are manipulative processes, powder techniques, and cutting and grinding.", "the other three are <b>manipulative processes, powder techniques, and cutting and grinding</b>.") +
+      li(ok3, "iterative design makes and tests a prototype before manufacture.", "iterative design <b>makes and tests a prototype before manufacture</b>, and feeds improvements back.") +
+      li(ok4, "a shelf is a reach problem, so design for the 5th percentile.", "a shelf is a reach problem, so design for the <b>smallest user, the 5th percentile</b>.") + '</ul>' +
+      '<div class="panel amber"><p><b>Your first thing to work on:</b> '+esc(lowest)+'</p></div>';
+    var detail = "Q1: " + q1 + " | Q4 reason: " + extra.q4b + " | Lines: " + rag + (extra.fuzzy ? " | Fuzzy: " + extra.fuzzy : "");
+    doneScreen("exit", TITLE.exit, score, 4, "Handed in", body, detail);
+  };
+}
+function runCheckin(part, key){
+  var C = CONTENT.checkin[part];
+  screen(gameHeader(C.title, 0, 0) + '<div class="wrap"><div class="card"><p style="margin:0">Rate each line honestly. It tells your tutor what to go over again.</p>' +
+    ragBlock("c", C.lines) + '<p id="err" class="small" role="alert" style="color:var(--red)"></p></div>' +
+    '<div class="dock"><button class="btn amber block" id="send2">Send my check-in</button></div></div>', {game:true});
+  wireRag();
+  $("#send2").onclick = function(){
+    var rag = readRag("c", C.lines.length);
+    if (rag.indexOf("-") >= 0) { $("#err").textContent = "Rate every line first."; return; }
+    var g = rag.split("").filter(function(x){ return x === "G"; }).length;
+    logEvent("checkin", C.title, {score:g, max:C.lines.length, extra:{rag:rag, part:part}});
+    var weak = C.lines.filter(function(_,k){ return rag[k] !== "G"; });
+    var body = '<p style="margin:0">You rated '+g+' of '+C.lines.length+' lines as got it.</p>' +
+      (weak.length ? '<p style="margin:0">Go over these next:</p><ul class="review">'+weak.map(function(l){ return '<li>'+esc(l)+'</li>'; }).join("")+'</ul>' : '<p style="margin:0">Everything rated got it. Try the games to prove it.</p>');
+    doneScreen(key, C.title, g, C.lines.length, "Sent", body, "Lines: " + rag);
+  };
+}
+
+/* ---------- start ---------- */
+(function init(){
+  applyPrefs();
+  var labels = {games:["games","Games"], record:["record","My record"], help:["help","Help"]};
+  $$("#tabs button").forEach(function(b){ var l = labels[b.dataset.tab]; b.innerHTML = icon(l[0]) + '<span>'+l[1]+'</span>';
+    b.onclick = function(){ if (b.dataset.tab === "games") home(); else if (b.dataset.tab === "record") record(); else help(); }; });
+  if (!CONTENT) { $("#app").innerHTML = '<div class="wrap"><p>The question bank did not load. Ask your tutor for a fresh copy of this file.</p></div>'; return; }
+  var qc = ""; try { qc = (new URLSearchParams(location.search).get("c") || "").trim().toUpperCase(); } catch(e) {}
+  if (/^[A-Z0-9]{4}$/.test(qc)) {
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch(e) {}
+    if (!S.me || S.me.code !== qc) {
+      var hit = CLASS.filter(function(c){ return c.code === qc; })[0];
+      S.me = {code:qc, name: hit ? hit.name : qc}; Store.set("me", S.me); try { localStorage.setItem("tlhub.me", JSON.stringify(S.me)); } catch(e) {} logEvent("open","hub");
+    }
+  }
+  if (S.me) { loadProg(); home(); loadServer().then(function(){ if (!inGame && S.tab === "games" && S.me) home(); }); Sync.flush(); }
+  else { loadServer().then(function(){ signIn(); }); signIn(); }
+})();
+</script>
+</body>
+</html>

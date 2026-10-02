@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16335B">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="8.1 and 10.1 games">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Semiconductors and signals games</title>
+<style>
+:root{--navy:#16335B;--navy2:#22497D;--amber:#E8A33D;--amb:#96610F;--green:#0B6E4F;--red:#B3261E;
+--ink:#1F2F4D;--head:#16335B;--muted:#5A6472;--line:#D8E2EE;--bg:#F4F7FB;--card:#FFFFFF;--tint:#EEF3FA;
+--goodbg:#E7F4EE;--badbg:#FBEAEA;--ambbg:#FFF6E5;--btn:#16335B;--btnh:#22497D;--art:#16335B;--r:14px;--scale:1;
+--shadow:0 1px 2px rgba(22,51,91,.06),0 3px 10px rgba(22,51,91,.05)}
+[data-theme="cream"]{--bg:#F6EFE1;--card:#FFFDF8;--line:#E4D9C4;--tint:#F2EADB;--ambbg:#FBEFD6}
+[data-theme="dark"]{--bg:#0E1A2B;--card:#16263D;--ink:#E4ECF7;--head:#D3E3F8;--muted:#A6B4C7;--line:#2B3F5E;--tint:#1C3050;
+--goodbg:#123A2D;--badbg:#401E1E;--ambbg:#3A2E14;--btn:#2F5E9C;--btnh:#3A6DB0;--art:#BFD4F2;--green:#63D3A8;--red:#FF8F86;--amb:#F2C879;
+--shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#0E1A2B;--card:#16263D;--ink:#E4ECF7;--head:#D3E3F8;--muted:#A6B4C7;--line:#2B3F5E;--tint:#1C3050;
+--goodbg:#123A2D;--badbg:#401E1E;--ambbg:#3A2E14;--btn:#2F5E9C;--btnh:#3A6DB0;--art:#BFD4F2;--green:#63D3A8;--red:#FF8F86;--amb:#F2C879;--shadow:none}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:Arial,"Liberation Sans",Helvetica,sans-serif;
+font-size:calc(17px * var(--scale));line-height:1.5;-webkit-tap-highlight-color:transparent}
+[data-theme="cream"] body{letter-spacing:.01em;word-spacing:.06em;line-height:1.6}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+[tabindex="-1"]:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.muted{color:var(--muted)} .small{font-size:.86em}
+h2,h3{color:var(--head);line-height:1.25}
+
+/* header: full on the menu, compact while playing */
+.hdr{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;
+padding:calc(18px + env(safe-area-inset-top)) 18px 16px}
+.hdr .kick{color:var(--amber);font-weight:700;font-size:.8em}
+.hdr h1{margin:3px 0 2px;font-size:1.5em;line-height:1.2}
+.hdr .sub{color:#C3D3EA;font-size:.86em}
+.rule{height:4px;background:var(--amber)}
+.hdr.compact{display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 10px 8px}
+.hdr.compact .t{flex:1;min-width:0;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hdr.compact .n{font-size:.86em;color:#C3D3EA;white-space:nowrap;padding-right:6px}
+.iconbtn{flex:none;width:46px;height:46px;border-radius:12px;border:0;background:rgba(255,255,255,.14);color:#fff;
+display:inline-flex;align-items:center;justify-content:center}
+.iconbtn.plain{background:var(--tint);color:var(--head)}
+.pbar{height:6px;background:var(--line)} .pbar i{display:block;height:100%;background:var(--amber);transition:width .35s}
+svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px calc(100px + env(safe-area-inset-bottom))}
+body.playing .wrap{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.stack>*+*{margin-top:12px}
+.sec{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:24px 2px 10px}
+.sec h2{margin:0;font-size:1.1em}
+.panel{border-radius:var(--r);padding:14px 16px;background:var(--card);border:1px solid var(--line)}
+.panel.amber{background:var(--ambbg);border-color:transparent;border-left:5px solid var(--amber)}
+.panel h3{margin:0 0 4px;font-size:1em}
+.panel p{margin:.35em 0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:12px;
+border:2px solid var(--btn);background:var(--btn);color:#fff;font-weight:700;text-decoration:none;text-align:center;line-height:1.2}
+.btn:hover{background:var(--btnh);border-color:var(--btnh)}
+.btn.amber{background:var(--amber);border-color:var(--amber);color:#241802}
+.btn.amber:hover{filter:brightness(1.05)}
+.btn.ghost{background:transparent;color:var(--head);border-color:var(--line)}
+.btn.ghost:hover{background:var(--tint)}
+.btn.small{min-height:42px;padding:0 14px;font-size:.9em}
+.btn.block{width:100%}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>.btn{flex:1 1 150px}
+.link{background:none;border:0;padding:10px 4px;color:var(--head);text-decoration:underline;text-underline-offset:3px;font-weight:700;min-height:44px}
+.dock{position:sticky;bottom:0;padding:14px 0 calc(10px + env(safe-area-inset-bottom));margin-top:8px;
+background:linear-gradient(to top,var(--bg) 72%,rgba(0,0,0,0));z-index:5}
+
+/* me strip */
+.me{display:flex;gap:14px;align-items:center}
+.avatar{flex:none;width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:1.05em;
+display:flex;align-items:center;justify-content:center;border:3px solid var(--amber)}
+.me h2{margin:0;font-size:1.2em}
+.me .lvl{color:var(--muted);font-size:.88em}
+.meter{height:10px;border-radius:999px;background:var(--tint);overflow:hidden;margin-top:10px}
+.meter i{display:block;height:100%;background:var(--amber);border-radius:999px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:var(--tint);font-size:.84em;color:var(--head);font-weight:700}
+.chip svg.i{width:18px;height:18px}
+
+/* game tiles */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.tile{position:relative;display:flex;flex-direction:column;text-align:left;background:var(--card);border:1px solid var(--line);
+border-radius:var(--r);overflow:hidden;padding:0;box-shadow:var(--shadow);transition:transform .12s,border-color .12s}
+.tile:hover{border-color:var(--amber)}
+.tile:active{transform:scale(.98)}
+.tile .art{height:80px;background:var(--tint);display:flex;align-items:center;justify-content:center}
+.tile .art svg{width:128px;height:64px}
+.tile .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:3px;flex:1}
+.tile .ttl{font-weight:700;color:var(--head);line-height:1.25}
+.tile .what{font-size:.82em;color:var(--muted);line-height:1.35}
+.tile .rec{margin-top:auto;padding-top:8px;font-size:.8em;color:var(--muted)}
+.tile .rec.good{color:var(--green);font-weight:700}
+.badge{align-self:flex-start;margin-bottom:3px;background:var(--amber);color:#241802;font-weight:700;font-size:.72em;padding:3px 9px;border-radius:999px}
+.tick{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center}
+.tick svg.i{width:18px;height:18px;stroke-width:3}
+.rows{display:flex;flex-direction:column;gap:10px}
+.rowbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);
+border-radius:var(--r);padding:12px 14px;min-height:66px;box-shadow:var(--shadow)}
+.rowbtn:hover{border-color:var(--amber)}
+.rowbtn .ic{flex:none;width:42px;height:42px;border-radius:11px;background:var(--tint);color:var(--head);display:flex;align-items:center;justify-content:center}
+.rowbtn .tx{flex:1;min-width:0}
+.rowbtn .tx b{color:var(--head);display:block}
+.rowbtn .tx span{display:block;color:var(--muted);font-size:.84em;line-height:1.35}
+.pill{flex:none;font-size:.76em;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--goodbg);color:var(--green)}
+.pill.amber{background:var(--ambbg);color:var(--amb)}
+.foot{margin:28px 4px 0;color:var(--muted);font-size:.8em;line-height:1.5}
+
+/* tab bar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);
+display:grid;grid-template-columns:repeat(3,1fr);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar button{background:none;border:0;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.76em;color:var(--muted)}
+.tabbar button[aria-current="page"]{color:var(--head);font-weight:700}
+.tabbar button[aria-current="page"] svg.i{color:var(--amber);stroke-width:2.4}
+body.playing .tabbar, body.out .tabbar{display:none}
+
+/* questions */
+.qno{color:var(--amb);font-weight:700;font-size:.86em}
+.qtext{font-size:1.2em;font-weight:700;color:var(--head);line-height:1.35;margin:4px 0 6px}
+.qprompt{color:var(--muted);margin:8px 0 12px}
+.qart{background:var(--tint);border-radius:12px;padding:10px;margin:12px 0;display:flex;justify-content:center}
+.qart svg{width:100%;max-width:340px;height:auto}
+.stepnote{background:var(--goodbg);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:.9em}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opts.two{display:grid;grid-template-columns:1fr 1fr}
+.opt{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:10px 12px;border-radius:12px;
+border:2px solid var(--line);background:var(--card);text-align:left;line-height:1.35}
+.opt .k{flex:none;width:30px;height:30px;border-radius:8px;background:var(--tint);color:var(--head);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.88em}
+.opt .l{flex:1;min-width:0}
+.opt .s{flex:none;font-size:.76em;font-weight:700;text-align:right;max-width:5.5em;line-height:1.2}
+.opt:not(:disabled):hover{border-color:var(--amber)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--green);background:var(--goodbg)} .opt.correct .s{color:var(--green)}
+.opt.wrong{border-color:var(--red);background:var(--badbg)} .opt.wrong .s{color:var(--red)}
+.opt.dim{opacity:.6}
+.opts.two .opt .s{display:none}
+.fb{margin-top:14px;padding:12px 14px;border-radius:12px;border-left:5px solid var(--green);background:var(--goodbg)}
+.fb.bad{border-left-color:var(--red);background:var(--badbg)}
+.fb.info{border-left-color:var(--amber);background:var(--ambbg)}
+.fb strong{display:block;margin-bottom:2px}
+.fb ol{margin:.4em 0 0 1.2em;padding:0}
+
+/* spot the error */
+.chunks{display:flex;flex-wrap:wrap;gap:8px}
+.chunk{padding:10px 12px;border:2px dashed var(--line);border-radius:10px;background:var(--card);text-align:left;min-height:48px;line-height:1.35}
+.chunk:not(:disabled):hover{border-color:var(--amber)}
+.chunk.is-error{border:2px solid var(--red);background:var(--badbg)}
+.chunk.wrong-pick{border:2px solid var(--amber);background:var(--ambbg)}
+.chunk.fine{opacity:.55}
+.chunk:disabled{cursor:default}
+
+/* brief or spec swipe */
+.deck{position:relative;height:230px;margin:6px 0 16px;touch-action:pan-y;overflow:hidden;border-radius:20px}
+.scard{position:absolute;inset:4px;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;
+border-radius:18px;background:var(--card);border:2px solid var(--head);font-size:1.12em;font-weight:700;color:var(--head);
+box-shadow:0 8px 24px rgba(22,51,91,.12);transition:transform .25s,opacity .25s;user-select:none}
+.scard.back{transform:translateY(10px) scale(.96);opacity:.5;color:transparent;border-color:var(--line)}
+.scard .hint{position:absolute;top:12px;font-size:.72em;padding:3px 10px;border-radius:999px;opacity:0;font-weight:700}
+.scard .hint.l{left:12px;background:var(--tint);color:var(--head)}
+.scard .hint.r{right:12px;background:var(--amber);color:#241802}
+
+/* sequence */
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.chip2{min-height:46px;padding:8px 12px;border-radius:10px;border:2px solid var(--head);background:var(--card);color:var(--head);font-weight:700;text-align:left}
+.slots{display:flex;flex-direction:column;gap:8px}
+.slot{display:flex;gap:10px;align-items:center;min-height:50px;border:2px dashed var(--line);border-radius:10px;padding:6px 10px;background:var(--card);text-align:left;width:100%}
+.slot b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--tint);color:var(--head);display:flex;align-items:center;justify-content:center;font-size:.85em}
+.slot.filled{border-style:solid;border-color:var(--head)}
+.slot.ok{border-color:var(--green);background:var(--goodbg)} .slot.no{border-color:var(--red);background:var(--badbg)}
+
+/* ladder */
+.rungs{display:flex;gap:5px;margin:0 0 12px}
+.rungs i{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.rungs i.done{background:var(--green)} .rungs i.miss{background:var(--red)} .rungs i.now{background:var(--amber)}
+.numrow{display:flex;gap:10px;align-items:center}
+.textin{width:100%;min-height:52px;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:var(--card);font-size:1.05em}
+.textin:focus{border-color:var(--amber);outline:none}
+.numrow .textin{flex:1;font-size:1.2em;font-weight:700}
+.unit{font-weight:700;color:var(--head)}
+.worked{background:var(--tint);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.92em}
+.worked ol{margin:.3em 0 0 1.2em;padding:0}
+
+/* flash cards */
+.flip{display:block;perspective:1200px;width:100%;border:0;background:none;padding:0;margin:4px 0 14px}
+.flip .inner{display:block;position:relative;height:250px;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;text-align:center}
+.face.front{background:var(--card);border:2px solid var(--head)}
+.face.front strong{font-size:1.45em;color:var(--head);line-height:1.25}
+.face.back{background:var(--navy);color:#fff;transform:rotateY(180deg);font-size:1.02em;line-height:1.45}
+.face.back .muted{color:#C3D3EA}
+
+/* results */
+.result{text-align:center;padding:22px 16px}
+.big{font-size:3.2em;font-weight:700;color:var(--head);line-height:1.1}
+.big small{font-size:.38em;color:var(--muted);font-weight:700}
+.seal{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:6px 14px;border-radius:999px;background:var(--goodbg);color:var(--green);font-weight:700}
+.seal.pop{animation:pop .5s ease-out}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.code{display:inline-block;font-weight:700;letter-spacing:.08em;background:var(--card);border:2px solid var(--amber);border-radius:8px;padding:4px 10px;color:var(--head)}
+.review{margin:0;padding-left:1.1em} .review li{margin:.55em 0}
+.copyline{width:100%;min-height:90px;font-size:.84em;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--tint)}
+
+/* record */
+.recard{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.recard b{color:var(--head)} .recard .meta{grid-column:1/2;color:var(--muted);font-size:.84em}
+.recard .act{grid-row:1/3;grid-column:2/3}
+
+/* check-ins and exit ticket */
+.q{margin:18px 0}
+.q > p, .q > label, .q legend{display:block;font-weight:700;color:var(--head);margin-bottom:8px}
+fieldset.q{border:0;padding:0;margin-left:0;margin-right:0}
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:2px solid var(--line);border-radius:10px;margin:6px 0;background:var(--card);min-height:48px;font-weight:400;color:var(--ink)}
+.check input{width:22px;height:22px;margin-top:1px;flex:none;accent-color:var(--navy)}
+textarea.textin{min-height:96px;resize:vertical}
+.rag{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rag button{min-height:48px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:.9em}
+.rag button[aria-pressed="true"].r{background:var(--badbg);border-color:var(--red);color:var(--red)}
+.rag button[aria-pressed="true"].a{background:var(--ambbg);border-color:var(--amber);color:var(--amb)}
+.rag button[aria-pressed="true"].g{background:var(--goodbg);border-color:var(--green);color:var(--green)}
+
+/* sign in */
+.card label[for="code"]{display:block}
+.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:8px}
+.names button{min-height:50px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:700;color:var(--head);text-align:left;padding:8px 12px}
+.names button:hover{border-color:var(--amber)}
+.codebox{display:block;margin:6px auto 0;text-transform:uppercase;letter-spacing:.3em;font-size:1.5em;font-weight:700;text-align:center;max-width:260px}
+
+/* settings */
+.seg{display:grid;gap:6px;margin:6px 0 14px}
+.seg button{min-height:46px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:.9em}
+.seg button[aria-pressed="true"]{border-color:var(--head);background:var(--tint);color:var(--head)}
+details.tut{margin-top:12px}
+details.tut summary{cursor:pointer;font-weight:700;color:var(--head);min-height:48px;display:flex;align-items:center}
+.tut table{width:100%;border-collapse:collapse;font-size:.86em;margin:8px 0}
+.tut td,.tut th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+
+/* data card */
+.modal{position:fixed;inset:0;background:rgba(14,26,43,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.modal .sheet{background:var(--card);width:100%;max-width:640px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom))}
+@media (min-width:700px){.modal{align-items:center}.modal .sheet{border-radius:18px}}
+.dtable{width:100%;border-collapse:collapse;font-size:.92em;font-variant-numeric:tabular-nums}
+.dtable th,.dtable td{border:1px solid var(--line);padding:8px;text-align:right}
+.dtable th:first-child,.dtable td:first-child{text-align:left}
+.dtable thead th{background:var(--tint);color:var(--head)}
+.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--navy);color:#fff;
+padding:10px 16px;border-radius:12px;z-index:60;max-width:90vw;font-size:.9em}
+
+/* tile and question art */
+.a-i{fill:none;stroke:var(--art);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.a-a{fill:none;stroke:var(--amber);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.a-f{fill:var(--card);stroke:var(--art);stroke-width:2.2;stroke-linejoin:round}
+.a-fa{fill:var(--amber);stroke:none}
+.a-fi{fill:var(--art);stroke:none}
+.a-d{fill:none;stroke:var(--amber);stroke-width:2;stroke-dasharray:6 5}
+.a-t{fill:var(--art);font:700 13px Arial,sans-serif}
+
+
+/* added for criterion 8.1 (continued) and 10.1: activating hard thinking */
+.badges{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:3px}
+.badges:empty{display:none}
+.badge{margin-bottom:0}
+.badge.next{background:var(--green);color:#fff}
+.step{align-self:flex-start;background:var(--tint);color:var(--head);font-weight:700;font-size:.72em;padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
+.part{margin-top:6px}
+.part .sec{align-items:center}
+.part .sec h2{font-size:1.05em}
+details.goals{margin:-4px 2px 10px}
+details.goals summary{cursor:pointer;color:var(--head);font-weight:700;font-size:.88em;min-height:44px;display:flex;align-items:center}
+details.goals ul{margin:0 0 4px;padding-left:1.2em;font-size:.9em}
+.modebox{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.goal .btn.small{flex:1 1 120px}
+.pill.red{background:var(--badbg);color:var(--red)}
+.opt.picked{border-color:var(--amber);background:var(--ambbg)}
+.rag.conf button{min-height:50px}
+.rag button[aria-pressed="true"].g{background:var(--goodbg);border-color:var(--green);color:var(--green)}
+.whyno{display:block;margin:6px 0;padding:6px 10px;border-radius:8px;background:var(--card);border:1px dashed var(--red)}
+.nextstep{margin-top:12px;border-left:5px solid var(--green)}
+.calgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.calgrid div{background:var(--tint);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column}
+.calgrid div.warn{background:var(--badbg)}
+.calgrid b{font-size:1.5em;color:var(--head);line-height:1.1}
+.calgrid div.warn b{color:var(--red)}
+.calgrid span{font-size:.84em;color:var(--muted)}
+.pairgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pcol{display:flex;flex-direction:column;gap:8px}
+.pb{min-height:56px;padding:8px 10px;border-radius:10px;border:2px solid var(--head);background:var(--card);color:var(--head);font-weight:700;text-align:left;line-height:1.3;font-size:.92em}
+.pb.r{font-weight:400;color:var(--ink);border-color:var(--line)}
+.pb.sel{border-color:var(--amber);background:var(--ambbg)}
+.pb.ok{border-color:var(--green);background:var(--goodbg);color:var(--green);cursor:default}
+.pb.no{border-color:var(--red);background:var(--badbg)}
+.ftable td{text-align:left}
+
+@media (min-width:900px){.wrap{max-width:980px}.grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+[data-motion="reduce"] *{transition:none!important;animation:none!important}
+</style>
+</head>
+<body class="out">
+<div id="app"></div>
+<nav class="tabbar" id="tabs" aria-label="Main">
+  <button data-tab="games">Games</button>
+  <button data-tab="record">My record</button>
+  <button data-tab="help">Help</button>
+</nav>
+<div id="live" class="sr" aria-live="polite"></div>
+<script>
+"use strict";
+/* ==========================================================================
+   TUTOR SETTINGS. These are the only two lines in this file you need to edit.
+   Open this file in Notepad, change what is between the quotes, save, then
+   upload it to the class team. Every learner who opens it gets these.
+
+   1. FORM_PREFILL
+      Paste the prefill link from your results form (the same form as the Unit 1.1 hub) between the
+      quotes. It must contain all six markers:
+      LEARNERHERE GAMEHERE SCOREHERE MAXHERE CHECKHERE DETAILHERE
+      Leave it empty and learners copy their result instead of sending it.  */
+
+var FORM_PREFILL = "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=4OQOG2ZRykO0ZwI86bscxERjzzfGEWpBoSzhUqBjoRRUQTAwV0w3OTZPU0JTMEE4QU5JR0FESTUxRy4u&r6943e2eed6624747b7a352b2c7854b11=LEARNERHERE&r66b498e8b20347f0a8046b1e4874fff6=GAMEHERE&rd55e4ba0e7694884a4baa1625c6ba6ea=SCOREHERE&r81a771f5f5454d3aacaf8510fb104c9b=MAXHERE&r81bf32a5fdae46308fa2f3def616dc38=CHECKHERE&r021eaab6e56a4f8a8f4d75486b9ec69c=DETAILHERE";
+
+/*    2. CLASS_LIST
+      Each learner's name and hub code joined by an equals sign, separated
+      by a vertical bar. The tracker writes this line for you: Start here
+      sheet, cell B7. Example:
+      var CLASS_LIST = "Alex Example=K7PM|Bea Example=X2Q9";
+      Names only ever show on the learner's own phone. Results carry the
+      code, never the name. Leave it empty and learners type their code.
+      IMPORTANT: if this hub is on a public website, leave CLASS_LIST
+      empty so no names are published. Learners then type their code, or
+      open their personal link from the tracker, which signs them in.     */
+
+var CLASS_LIST = "";
+
+
+/* ======================= nothing below here needs editing ================ */
+
+var HUB_CONFIG = {
+  hubName: "Semiconductors and signals games",
+  kicker: "Engineering Common Core (300), Core Paper 1 and Core Paper 2",
+  unitLabel: "Criterion 8.1 (continued) and criterion 10.1",
+  endpoint: "",            /* only for the optional Google Apps Script route */
+  defaultFocus: ["circuit","waves"],
+  defaultTarget: 150
+};
+var CONTENT = {
+
+/* ---------- the three parts of the lesson, in teaching order (Structuring) ---------- */
+parts: [
+  {id:"p0", title:"Warm up", sub:"Wake up what you already know from earlier in 8.1.",
+   goals:["Recall Ohm's law, AC and circuit ideas you need today"], games:["recall"]},
+  {id:"p1", title:"Part 1: Semiconductors", sub:"Criterion 8.1. Core Paper 1.",
+   goals:["Explain N-type, P-type and the P-N junction","Describe forward and reverse bias and read a diode curve","Explain rectifiers, transistors and hierarchical design"],
+   games:["circuit","doctor"]},
+  {id:"p2", title:"Part 2: Signals and waveforms", sub:"Criterion 8.1, shared with 10.1 (Core Paper 2).",
+   goals:["Compare analogue and digital signals","Name the five waveforms and give a use for each","Work out period, frequency and duty cycle"],
+   games:["waves","anadig"]},
+  {id:"p3", title:"Part 3: Conditioning and processing", sub:"Criterion 8.1.",
+   goals:["Explain why raw sensor signals need conditioning","Put the stages of a signal chain in order","Explain fan in and fan out"],
+   games:["stages","chain"]},
+  {id:"mix", title:"Pull it together", sub:"Every part mixed. These make you think hardest.",
+   goals:["Explain why, not just what","Answer in the words that earn the marks"],
+   games:["ladder","why","errors","examiner","pairs","sure","master"]}
+],
+
+/* ---------- the eight goals, used for the goal picker, check-ins and exit ticket ---------- */
+goals: [
+  {t:"Explain N-type and P-type material and the P-N junction", games:["circuit","why","errors"]},
+  {t:"Describe forward and reverse bias and read a diode characteristic curve", games:["circuit","doctor","errors"]},
+  {t:"Explain how diodes rectify AC and work out the average DC output", games:["ladder","why","chain"]},
+  {t:"Explain a transistor as a switch and an amplifier, and use hFE", games:["circuit","ladder","why"]},
+  {t:"Explain hierarchical design", games:["chain","why"]},
+  {t:"Compare analogue and digital signals and say where each is used", games:["anadig","why","examiner"]},
+  {t:"Name the five waveforms, their uses, and work out period, frequency and duty cycle", games:["waves","pairs","ladder"]},
+  {t:"Explain signal conditioning, signal processing, and fan in and fan out", games:["stages","chain","examiner"]}
+],
+
+/* ---------- Remember when: earlier 8.1 content (Explaining: reactivate prior knowledge) ----------
+   opts[0] is always the right answer. fb gives feedback for a specific wrong option. */
+recall: [
+  {id:"R01", q:"Which equation is Ohm's law?", opts:["V = I × R","I = V × R","R = V × I","P = V ÷ I"], why:"Voltage equals current times resistance.",
+   fb:{"I = V × R":"If resistance goes up, current goes down, so R must divide: I = V ÷ R.","R = V × I":"Rearranged properly it is R = V ÷ I."}},
+  {id:"R02", q:"UK mains is 50 Hz. What is the period of one cycle?", opts:["20 ms","50 ms","0.5 s","2 ms"], why:"T = 1 ÷ f = 1 ÷ 50 = 0.02 s, which is 20 ms.",
+   fb:{"50 ms":"You used the frequency as the period. Period is 1 ÷ frequency."}},
+  {id:"R03", q:"In a purely capacitive AC circuit, the current...", opts:["leads the voltage by 90°","lags the voltage by 90°","is in phase with the voltage","leads the voltage by 180°"], why:"Capacitor: current leads. Inductor: current lags.",
+   fb:{"lags the voltage by 90°":"That is an inductor. For a capacitor the current leads."}},
+  {id:"R04", q:"Two 330 Ω resistors in series carry 15 mA. What is the total voltage?", opts:["9.9 V","4.95 V","22 V","0.99 V"], why:"660 Ω × 0.015 A = 9.9 V.",
+   fb:{"4.95 V":"That is across one resistor only. Add both: 660 Ω.","0.99 V":"Check the units: 15 mA is 0.015 A, not 0.0015 A."}},
+  {id:"R05", q:"What does an RCD compare to decide whether to trip?", opts:["The current in the live and neutral conductors","The voltage across the load","The supply frequency","The resistance of the earth"], why:"A difference between live and neutral current means current is leaking, perhaps through a person."},
+  {id:"R06", q:"The time constant of an RC circuit is...", opts:["τ = R × C","τ = R ÷ C","τ = C ÷ R","τ = 1 ÷ (R × C)"], why:"Bigger R or bigger C means slower charging, so they multiply."},
+  {id:"R07", q:"A 230 V rms supply has a peak voltage of about...", opts:["325 V","230 V","163 V","460 V"], why:"Vpk = Vrms × 1.414 = 325 V.",
+   fb:{"163 V":"You divided by 1.414. Peak is bigger than rms, so multiply."}},
+  {id:"R08", q:"What carries the current in a copper wire?", opts:["Free electrons","Protons","Holes","Neutrons"], why:"Metals have free electrons that drift when a voltage is applied."},
+  {id:"R09", q:"Kirchhoff's current law says the current into a junction...", opts:["equals the current out","is always zero","doubles at each branch","equals the voltage"], why:"Charge is not stored at a junction, so what goes in comes out."},
+  {id:"R10", q:"In a series circuit, what is the same through every component?", opts:["The current","The voltage","The power","The resistance"], why:"There is only one path, so the same current flows everywhere."},
+  {id:"R11", q:"Power in a DC circuit is...", opts:["P = V × I","P = V ÷ I","P = I ÷ V","P = V + I"], why:"Watts are volts times amps."},
+  {id:"R12", q:"Which is a good insulator?", opts:["PVC","Copper","Aluminium","Graphite"], why:"PVC has almost no free electrons, which is why cables are sheathed in it."}
+],
+
+/* ---------- Diode Doctor: meter readings on the diode test setting ---------- */
+doctor: [
+  {id:"D01", a:"0.62", c:"OL", ans:"Good silicon diode", why:"About 0.6 to 0.7 V one way and OL the other is a healthy silicon diode."},
+  {id:"D02", a:"0.70", c:"OL", ans:"Good silicon diode", why:"0.7 V forward and OL reverse: working silicon."},
+  {id:"D03", a:"0.28", c:"OL", ans:"Good germanium diode", why:"Germanium conducts from about 0.3 V, so a low forward reading is normal, not a fault."},
+  {id:"D04", a:"0.31", c:"OL", ans:"Good germanium diode", why:"A forward drop near 0.3 V and OL reversed: a working germanium diode."},
+  {id:"D05", a:"OL", c:"OL", ans:"Failed open circuit", why:"No current either way. The junction has broken open."},
+  {id:"D06", a:"0.01", c:"0.01", ans:"Failed short circuit", why:"About 0 V both ways. The diode is behaving like a piece of wire."},
+  {id:"D07", a:"0.00", c:"0.02", ans:"Failed short circuit", why:"Near zero in both directions means it no longer blocks. It has shorted."},
+  {id:"D08", a:"OL", c:"OL", ans:"Failed open circuit", why:"OL both ways: nothing gets through at all, so it has failed open."},
+  {id:"D09", a:"0.66", c:"OL", ans:"Good silicon diode", why:"Forward drop in the silicon range, blocks when reversed."}
+],
+doctorOpts: ["Good silicon diode","Good germanium diode","Failed open circuit","Failed short circuit"],
+doctorFb: {
+  "Good silicon diode|Good germanium diode":"The forward reading is too low for silicon. Silicon needs about 0.7 V; germanium about 0.3 V.",
+  "Good germanium diode|Good silicon diode":"The forward reading is around 0.6 to 0.7 V, which is silicon. Germanium would read about 0.3 V.",
+  "Failed open circuit|Failed short circuit":"Short circuit reads about 0 V both ways. Open circuit reads OL both ways.",
+  "Failed short circuit|Failed open circuit":"Open circuit reads OL both ways. Short circuit reads about 0 V both ways.",
+  "Good germanium diode|Failed short circuit":"A germanium diode still reads OL when reversed. This one does not block either way.",
+  "Good silicon diode|Failed open circuit":"A good diode conducts one way. This one reads OL both ways."
+},
+
+/* ---------- Analogue or digital: examples and non-examples (Explaining) ---------- */
+anadig: [
+  {id:"A01", s:"The millivolt output of a thermocouple", ans:"Analogue", why:"It changes smoothly with temperature and can take any value in its range."},
+  {id:"A02", s:"A push button that gives either 0 V or 24 V", ans:"Digital", why:"Only two possible values: on or off."},
+  {id:"A03", s:"The 4 to 20 mA signal from a pressure transmitter", ans:"Analogue", why:"It can be any current between 4 and 20 mA. A current signal is not automatically digital."},
+  {id:"A04", s:"The binary code coming out of an ADC", ans:"Digital", why:"An ADC's whole job is to turn a smooth signal into discrete codes."},
+  {id:"A05", s:"The voltage from a microphone", ans:"Analogue", why:"It follows the sound pressure continuously."},
+  {id:"A06", s:"A microprocessor clock signal", ans:"Digital", why:"A square wave switching between high and low."},
+  {id:"A07", s:"A proximity switch input to a PLC: target there or not there", ans:"Digital", why:"Two states only, so it is digital."},
+  {id:"A08", s:"The UK mains supply voltage", ans:"Analogue", why:"A sine wave: continuous, with every value in between."},
+  {id:"A09", s:"The pulses from a motor encoder", ans:"Digital", why:"Each pulse is high or low; the controller counts them."},
+  {id:"A10", s:"The output of a light dependent resistor in a potential divider", ans:"Analogue", why:"The voltage rises and falls smoothly with the light level."},
+  {id:"A11", s:"A strain gauge bridge output of a few millivolts", ans:"Analogue", why:"Small and continuous. This is why it needs amplifying."},
+  {id:"A12", s:"A PWM signal switching a motor supply on and off", ans:"Digital", why:"The signal itself only has two levels. The motor responds to the average, which is the clever part."},
+  {id:"A13", s:"A signal that can only be high (1) or low (0)", ans:"Digital", why:"Discrete, two values: the definition of a binary digital signal."},
+  {id:"A14", s:"A potentiometer wiper voltage showing a valve's position", ans:"Analogue", why:"Any position gives a voltage anywhere in the range."},
+  {id:"A15", s:"A number stored in a PLC register", ans:"Digital", why:"Stored as binary, so it can only take set values."},
+  {id:"A16", s:"A sawtooth wave from a timebase generator", ans:"Analogue", why:"It ramps smoothly through every value. Shape alone does not make a signal digital; only two set levels does."}
+],
+
+/* ---------- Stage Selector: which conditioning stage solves the problem? ---------- */
+stageNames: ["Amplification","Filtering","Level shifting and scaling","Isolation","Linearisation","Conversion"],
+stages: [
+  {id:"S01", q:"A thermocouple gives only about 12 mV at full temperature. The PLC input needs volts.", ans:"Amplification", why:"The signal is far too small. Amplification makes it bigger first.",
+   fb:{"Filtering":"Filtering removes noise but does not make a 12 mV signal any bigger.","Conversion":"It is already a voltage. The problem is size, not type."}},
+  {id:"S02", q:"The reading jumps about every time the conveyor motor starts.", ans:"Filtering", why:"The motor adds electrical noise. A filter removes it.",
+   fb:{"Amplification":"Amplifying a noisy signal makes the noise bigger too.","Isolation":"Isolation protects people and equipment; it does not remove noise on its own."}},
+  {id:"S03", q:"A sensor gives 0 to 5 V, but the controller only accepts a current signal.", ans:"Conversion", why:"Changing a voltage signal into a current signal changes its type: conversion.",
+   fb:{"Level shifting and scaling":"Scaling changes the range but keeps the same type. Volts to milliamps is a change of type."}},
+  {id:"S04", q:"A sensor gives 1 V to 3 V over its range. The controller expects 0 to 10 V over the same range.", ans:"Level shifting and scaling", why:"Shift 1 V down to 0 V, then stretch the 2 V span to 10 V.",
+   fb:{"Amplification":"Amplifying alone would turn 1 V into 5 V, not 0 V. It needs shifting as well as stretching."}},
+  {id:"S05", q:"The sensor sits on equipment at a high voltage. A fault could reach the operator's panel.", ans:"Isolation", why:"Isolation separates the two circuits so a fault on one side cannot reach the other."},
+  {id:"S06", q:"A thermistor's resistance does not change evenly, so equal temperature steps give unequal signal steps.", ans:"Linearisation", why:"Linearisation corrects a sensor that does not rise evenly.",
+   fb:{"Level shifting and scaling":"Scaling stretches the range evenly. It cannot fix a curve."}},
+  {id:"S07", q:"The conditioned 4 to 20 mA signal must be stored and analysed by a computer.", ans:"Conversion", why:"An ADC converts the analogue signal into binary codes the computer can use."},
+  {id:"S08", q:"There is a steady 50 Hz hum on a signal cable that runs beside mains wiring.", ans:"Filtering", why:"A filter can remove the unwanted 50 Hz while keeping the slower signal you want."},
+  {id:"S09", q:"A strain gauge on a crane hook gives a few millivolts.", ans:"Amplification", why:"Millivolts are too small to read reliably, so they are amplified."},
+  {id:"S10", q:"The controller's digital answer must set how far an analogue valve opens.", ans:"Conversion", why:"A DAC converts the binary answer back into an analogue signal for the actuator."}
+],
+
+/* ---------- Sequence It ---------- */
+sequences: [
+  {id:"Q1", title:"A measurement and control chain, sensor to actuator",
+   steps:["Sensor measures the quantity","Amplify and filter the raw signal","Scale it to 4 to 20 mA","Convert to digital (ADC)","PLC or microcontroller processes it","Convert back to analogue (DAC)","Actuator acts on the process"],
+   why:"Condition first, then convert, then process. The DAC only comes after the decision is made."},
+  {id:"Q2", title:"The blocks of a regulated DC power supply",
+   steps:["Transformer steps 230 V down","Rectifier turns AC into pulsing DC","Smoothing capacitor fills the dips","Regulator holds the output steady"],
+   why:"This is hierarchical design: four blocks, each with one job and clear inputs and outputs."},
+  {id:"Q3", title:"How a silicon diode starts to conduct",
+   steps:["Positive terminal connected to the P side","Holes and electrons pushed towards the junction","Depletion layer narrows","Supply passes about 0.7 V","Current flows through the diode"],
+   why:"Below about 0.7 V the depletion layer still blocks most current."},
+  {id:"Q4", title:"How an ADC turns a signal into data",
+   steps:["Analogue signal arrives","Signal is sampled at regular intervals","Each sample is rounded to the nearest step","Each step is given a binary code","Codes pass to the processor"],
+   why:"The rounding step is where detail is lost. That is the disadvantage of digital in the mark scheme."},
+  {id:"Q5", title:"Making a P-N junction diode",
+   steps:["Start with pure silicon","Dope one region with phosphorus (N-type)","Dope the next region with boron (P-type)","A depletion layer forms at the join","Leads fitted to the anode and cathode"],
+   why:"The depletion layer forms by itself when N and P meet."},
+  {id:"Q6", title:"Hierarchical design, from the top down",
+   steps:["Show the whole system as one block","Split it into subsystems by function","Give each block clear inputs and outputs","Design the components inside each block","Test each block, then the whole system"],
+   why:"Top down: whole system first, detail last. Each block can be tested on its own."}
+],
+
+/* ---------- Why? Because. Two steps: the answer, then the best reason (Questioning) ---------- */
+why: [
+  {id:"W01", q:"A silicon diode is forward biased by a 0.4 V supply.",
+   steps:[{label:"What happens?", correct:"Almost no current flows", wrongs:["It conducts fully","It breaks down","Current flows backwards"]},
+          {label:"Why?", correct:"0.4 V is below the 0.7 V needed to get across the depletion layer", wrongs:["Forward bias always blocks current","Silicon is an insulator","The depletion layer widens in forward bias"]}]},
+  {id:"W02", q:"The same AC supply feeds a half wave and a full wave bridge rectifier.",
+   steps:[{label:"Which gives more average DC?", correct:"The full wave bridge", wrongs:["The half wave rectifier","They give the same","It depends only on the load"]},
+          {label:"Why?", correct:"It uses both half cycles, so the average is 0.637 × Vpk, not 0.318 × Vpk", wrongs:["Four diodes give four times the voltage","Bridge diodes have no voltage drop","It halves the supply frequency"]}]},
+  {id:"W03", q:"A reading must travel 100 m of cable to the control room.",
+   steps:[{label:"Which signal would you choose?", correct:"4 to 20 mA", wrongs:["0 to 10 V","Either, they behave the same","A raw millivolt signal"]},
+          {label:"Why?", correct:"Current is the same all round a series loop, so cable resistance does not change the reading", wrongs:["Current travels faster than voltage","Milliamps are bigger than volts","Voltage signals cannot be amplified"]}]},
+  {id:"W04", q:"Noise gets into a cable carrying a digital signal.",
+   steps:[{label:"What usually happens to the data?", correct:"It is recovered correctly", wrongs:["It is lost completely","It becomes an analogue signal","Its frequency doubles"]},
+          {label:"Why?", correct:"The receiver only has to decide high or low, so small noise does not change the answer", wrongs:["Digital cables are always shielded","Noise cannot affect square waves","The noise is turned into binary"]}]},
+  {id:"W05", q:"A power transistor carries 500 A with 2 V across it.",
+   steps:[{label:"What happens without cooling?", correct:"It overheats and can fail", wrongs:["Nothing, transistors have no losses","It amplifies the current further","It switches off safely"]},
+          {label:"Why?", correct:"Heat produced is V × I = 2 × 500 = 1000 W", wrongs:["Base current makes most of the heat","The silicon melts at room temperature","A transistor is a mechanical switch with friction"]}]},
+  {id:"W06", q:"An NPN transistor switch has its base at 0 V. A lamp is in the collector circuit.",
+   steps:[{label:"Is the lamp on?", correct:"No, it is off", wrongs:["Yes, fully on","Yes, at half brightness","It flashes"]},
+          {label:"Why?", correct:"No base current flows, so no collector current flows", wrongs:["The emitter is reverse biased by the lamp","An NPN base must be negative to turn on","The lamp blocks current in one direction"]}]},
+  {id:"W07", q:"The same information is sent as an analogue signal and as a digital signal.",
+   steps:[{label:"Which needs the wider range of frequencies (more bandwidth)?", correct:"The digital signal", wrongs:["The analogue signal","Both need the same","Neither uses bandwidth"]},
+          {label:"Why?", correct:"Sending many samples as fast, sharp pulses needs a wider range of frequencies", wrongs:["Digital signals always have bigger voltages","Analogue signals have no frequency","Pulses travel more slowly down a cable"]}]},
+  {id:"W08", q:"Phosphorus is added to pure silicon to make N-type.",
+   steps:[{label:"Is the N-type silicon negatively charged?", correct:"No, it is neutral overall", wrongs:["Yes, strongly negative","Yes, slightly negative","No, it becomes positive"]},
+          {label:"Why?", correct:"Each phosphorus atom brings one extra proton for its one extra electron", wrongs:["The extra electrons fill all the holes","Silicon absorbs the extra charge","Doping removes electrons from silicon"]}]},
+  {id:"W09", q:"A 4 to 20 mA loop suddenly reads 0 mA.",
+   steps:[{label:"What is the most likely cause?", correct:"A break in the loop, such as a cut wire", wrongs:["The process is at the bottom of its range","The temperature is 0 °C","The signal has turned digital"]},
+          {label:"Why?", correct:"The bottom of the range is 4 mA, so 0 mA can only mean a fault", wrongs:["Current loops always read zero at rest","The display uses the first 4 mA","Milliamp readings cannot go below 4"]}]},
+  {id:"W10", q:"One TTL gate output is wired to 14 other gate inputs.",
+   steps:[{label:"What is likely to happen?", correct:"The output may not reach a proper logic level, so the circuit is unreliable", wrongs:["The gate switches faster","Extra inputs are safely ignored","The gate becomes an OR gate"]},
+          {label:"Why?", correct:"Each input loads the output, and 14 is more than a typical fan out of 10", wrongs:["TTL gates only have one output pin","Fan in is limited to two inputs","Logic gates have no current limits"]}]},
+  {id:"W11", q:"A phone charger's output has too much ripple.",
+   steps:[{label:"What change helps most?", correct:"A bigger smoothing capacitor", wrongs:["A smaller smoothing capacitor","Removing the rectifier","A higher load current"]},
+          {label:"Why?", correct:"A bigger capacitor stores more charge, so its voltage drops less in each dip", wrongs:["Capacitors raise the mains frequency","It turns AC straight into DC","A bigger capacitor blocks DC"]}]},
+  {id:"W12", q:"A power supply designed in blocks has too much ripple on its output.",
+   steps:[{label:"Which block do you check first?", correct:"Smoothing", wrongs:["Transformer","Regulator input fuse","The mains plug"]},
+          {label:"Why?", correct:"Each block has one job, so the symptom points to the block whose job it is", wrongs:["Smoothing is always the cheapest part","The transformer cannot fail","Hierarchical design removes all faults"]}]},
+  {id:"W13", q:"Compare a square wave and a rectangular wave.",
+   steps:[{label:"What is the difference?", correct:"The square wave is high and low for equal times; the rectangular is not", wrongs:["The square wave is analogue","The rectangular wave has more than two levels","The square wave has a sudden drop like a sawtooth"]},
+          {label:"How would you show it with numbers?", correct:"A square wave has a 50% duty cycle; a rectangular wave has any other duty cycle", wrongs:["A square wave has a higher frequency","A rectangular wave has a lower amplitude","A square wave has a period of 1 s"]}]},
+  {id:"W14", q:"Compare signal conditioning and signal processing.",
+   steps:[{label:"Which one makes the decision?", correct:"Signal processing", wrongs:["Signal conditioning","Both equally","Neither, the sensor decides"]},
+          {label:"So what does conditioning do?", correct:"Gets the raw signal ready to be read: bigger, cleaner, in the right range and form", wrongs:["Compares the reading with the set point","Stores the data for later","Switches the actuator on"]}]}
+],
+
+/* ---------- Spot the Error: misconceptions, including errors found in source slides ---------- */
+errors: [
+  {id:"E01", chunks:["In N-type silicon,","the extra electrons","give the material","an overall negative charge."], wrong:3, fix:"N-type silicon is neutral overall. N names the majority carrier, electrons, not a charge."},
+  {id:"E02", chunks:["A diode is forward biased","when the positive terminal","is connected to","the cathode."], wrong:3, fix:"Forward bias is positive to the anode, the P side."},
+  {id:"E03", chunks:["In reverse bias","the depletion layer","gets narrower","and almost no current flows."], wrong:2, fix:"In reverse bias the depletion layer widens."},
+  {id:"E04", chunks:["A half wave rectifier","uses one diode","and gives an average output of","0.637 × Vpk."], wrong:3, fix:"Half wave gives 0.318 × Vpk. 0.637 × Vpk is full wave."},
+  {id:"E05", chunks:["A bridge rectifier","uses four diodes,","and on each half cycle","all four conduct together."], wrong:3, fix:"Two diodes conduct on each half cycle: D1 and D4, then D2 and D3."},
+  {id:"E06", chunks:["To turn on an NPN transistor,","make the base about 0.7 V","more negative","than the emitter."], wrong:2, fix:"NPN needs the base about 0.7 V more positive than the emitter. PNP is the one that needs negative."},
+  {id:"E07", chunks:["Current gain hFE","equals the collector current","multiplied by","the base current."], wrong:2, fix:"hFE = Ic ÷ Ib. It is a ratio, so divide."},
+  {id:"E08", chunks:["A square wave","has a duty cycle of","25%,","with equal mark and space."], wrong:2, fix:"Equal mark and space means 50%. 25% would be a rectangular wave."},
+  {id:"E09", chunks:["Digital signals","need less bandwidth than analogue","because they are only","1s and 0s."], wrong:1, fix:"The June 2025 mark scheme credits the opposite: digital needs a wider range of frequencies to transmit."},
+  {id:"E10", chunks:["A sawtooth wave","ramps up steadily","and falls steadily","at the same rate."], wrong:2, fix:"A sawtooth drops suddenly. Equal rise and fall is a triangular wave."},
+  {id:"E11", chunks:["The period of a wave","is the number of cycles","in one second,","measured in seconds."], wrong:1, fix:"Period is the time for one cycle. Cycles per second is frequency, in hertz."},
+  {id:"E12", chunks:["In a 4 to 20 mA loop,","4 mA means","the top of the range","and 0 mA means a fault."], wrong:2, fix:"4 mA is the bottom of the range. 20 mA is the top."},
+  {id:"E13", chunks:["Signal processing","gets a raw signal ready to be read","by amplifying and filtering it","before the ADC."], wrong:0, fix:"That is signal conditioning. Processing uses the signal to make a decision or produce information."},
+  {id:"E14", chunks:["A 4-bit ADC","has","8","possible codes."], wrong:2, fix:"2 to the power 4 is 16 codes, from 0000 to 1111."},
+  {id:"E15", chunks:["Fan in","is the number of gate inputs","that one output","can drive."], wrong:0, fix:"That is fan out. Fan in is the number of inputs a gate has."},
+  {id:"E16", chunks:["The arrow on a transistor symbol","is on the base","and points the way","conventional current flows."], wrong:1, fix:"The arrow is always on the emitter."},
+  {id:"E17", chunks:["A germanium diode","starts to conduct at about","0.7 V","in forward bias."], wrong:2, fix:"Germanium conducts from about 0.3 V. 0.7 V is silicon."},
+  {id:"E18", chunks:["Peak inverse voltage","is the lowest reverse voltage","a diode can safely","withstand."], wrong:1, fix:"PIV is the highest reverse voltage before the diode breaks down."},
+  {id:"E19", chunks:["A smoothing capacitor","charges near each peak","and makes the ripple","bigger."], wrong:3, fix:"It fills in the dips, so the ripple gets smaller."},
+  {id:"E20", chunks:["Full wave ripple","on a 50 Hz supply","has a frequency of","50 Hz."], wrong:3, fix:"Two humps per cycle, so the ripple is at 100 Hz."}
+],
+
+/* ---------- Examiner's eye: mark a learner's answer (Interacting: feedback) ---------- */
+examiner: [
+  {id:"X01", q:"State what a diode is used for.", max:1, a:"To stop current.", got:0, why:"Stopping current altogether is a switch. The mark needs 'one direction only'.", model:"It allows current to flow in one direction only. [1]", src:"Autumn 2024 Core Paper 1, Q4a"},
+  {id:"X02", q:"State what a diode is used for.", max:1, a:"It lets current flow in one direction only.", got:1, why:"This is the mark scheme wording.", model:"It allows current to flow in one direction only. [1]", src:"Autumn 2024 Core Paper 1, Q4a"},
+  {id:"X03", q:"Give one application of a diode.", max:1, a:"A Zener diode used as a voltage regulator.", got:1, why:"Voltage regulator is on the mark scheme list, as are protecting circuits and LEDs.", model:"Voltage regulator / protecting other components / LED / rectifier. [1]", src:"Autumn 2024 Core Paper 1, Q4b"},
+  {id:"X04", q:"Explain one advantage and one disadvantage of digital signals compared to analogue signals.", max:4, a:"Digital is less affected by noise. A disadvantage is it needs more equipment.", got:2, why:"One mark for each point, but neither has a 'because', so the two explanation marks are lost.", model:"Less affected by noise [1] because the receiver only has to tell a 1 from a 0 [1]. Only a sampled version of the original [1], so some detail is lost when converting from analogue to digital [1].", src:"June 2025 Core Paper 2, Q8b"},
+  {id:"X05", q:"Explain one advantage and one disadvantage of digital signals compared to analogue signals.", max:4, a:"Less affected by noise because the receiver only has to decide high or low. But it is only a sampled version, so some detail is lost in the conversion.", got:4, why:"Two points, each with a linked explanation.", model:"As written. Point, then because, twice.", src:"June 2025 Core Paper 2, Q8b"},
+  {id:"X06", q:"Explain one advantage and one disadvantage of digital signals compared to analogue signals.", max:4, a:"Digital is better and faster. Analogue is worse.", got:0, why:"'Better', 'faster' and 'worse' are too vague to credit. Name a real advantage.", model:"Less affected by noise [1] because... Needs a wider range of frequencies [1] because...", src:"June 2025 Core Paper 2, Q8b"},
+  {id:"X07", q:"State one advantage of a digital signal compared to an analogue signal.", max:1, a:"Less susceptible to interference.", got:1, why:"On the mark scheme: less susceptible to noise or interference.", model:"Less susceptible to noise / interference. [1]", src:"Summer 2026 Core Paper 2, Q3a"},
+  {id:"X08", q:"Describe how a diode behaves in reverse bias. (Practice question, 3 marks)", max:3, a:"The depletion layer gets wider so hardly any current flows.", got:2, why:"Two good points. The third mark needs breakdown: at the PIV it conducts and can be damaged.", model:"Depletion layer widens [1]; only a tiny leakage current flows [1]; at the breakdown voltage (PIV) it conducts and may be damaged [1].", src:"Textbook assessment practice, question 8"},
+  {id:"X09", q:"Explain the difference between fan in and fan out. (Practice question, 2 marks)", max:2, a:"Fan in is how many inputs a gate has. Fan out is how many gate inputs one output can drive.", got:2, why:"Both terms defined accurately.", model:"As written.", src:"Textbook assessment practice, question 10"},
+  {id:"X10", q:"Describe the purpose of signal conditioning. (Practice question, 2 marks)", max:2, a:"To make the signal better.", got:0, why:"'Better' says nothing. Say what changes and give an example.", model:"To change a raw sensor signal into a form a controller can use [1], for example amplifying a millivolt signal and filtering out noise [1].", src:"Textbook assessment practice, question 9"},
+  {id:"X11", q:"A transistor has hFE = 200 and Ib = 25 µA. Calculate Ic. (Practice question, 2 marks)", max:2, a:"Ic = 200 × 25 = 5000 A", got:1, why:"The method is right, so the method mark stands. µA were not converted, so the answer is a million times too big.", model:"Ic = 200 × 25 × 10⁻⁶ [1] = 0.005 A = 5 mA [1].", src:"Practice question"},
+  {id:"X12", q:"Explain the difference between N-type and P-type semiconductors. (Practice question, 2 marks)", max:2, a:"N-type has spare electrons as the majority carriers. P-type has holes as the majority carriers.", got:2, why:"Both types described by their majority carrier.", model:"As written.", src:"Textbook test yourself, question 1"},
+  {id:"X13", q:"Explain the difference between N-type and P-type semiconductors. (Practice question, 2 marks)", max:2, a:"N-type is negative and P-type is positive.", got:0, why:"Both are neutral overall. The letters name the majority carrier, not a charge.", model:"N-type: electrons are the majority carriers [1]. P-type: holes are the majority carriers [1].", src:"Textbook test yourself, question 1"}
+],
+
+/* ---------- Pair up: matching sets ---------- */
+pairs: [
+  {id:"M1", title:"Waveform and a use", p:[["Sinusoidal","Mains supply"],["Square","Microprocessor clock"],["Rectangular","PWM motor speed control"],["Triangular","Function generator test signal"],["Sawtooth","Oscilloscope timebase sweep"]]},
+  {id:"M2", title:"Conditioning stage and its job", p:[["Amplification","Makes a small signal bigger"],["Filtering","Removes unwanted noise"],["Isolation","Separates circuits for safety"],["Linearisation","Corrects an uneven sensor output"],["Scaling","Fits the signal to a standard range"]]},
+  {id:"M3", title:"Semiconductor term and meaning", p:[["Doping","Adding impurities to silicon"],["Depletion layer","Region with no free carriers"],["Hole","A missing electron that acts as a positive carrier"],["PIV","Highest safe reverse voltage"],["hFE","Collector current divided by base current"]]},
+  {id:"M4", title:"Device and what it does", p:[["LED","Gives out light when forward biased"],["Zener diode","Holds a steady voltage in reverse breakdown"],["Bridge rectifier","Turns AC into DC using four diodes"],["Protection diode","Absorbs the spike from a relay coil"],["Transistor","Lets a small current control a large one"]]},
+  {id:"M5", title:"Signal term and meaning", p:[["Period","Time for one cycle"],["Frequency","Cycles per second"],["Duty cycle","Mark divided by period, as a percentage"],["Fan in","Number of inputs on a gate"],["Fan out","Number of inputs one output can drive"]]},
+  {id:"M6", title:"Signal range and where you meet it", p:[["4 to 20 mA","Process transmitters"],["0 to 10 V","Motor speed drives"],["0 V and 24 V DC","PLC digital inputs"],["0 V and 5 V","Microcontroller logic"],["1 to 5 V","A 4 to 20 mA loop across 250 Ω"]]}
+],
+
+/* ---------- Quick bank, used by Sure or not?, Master it and Review ---------- */
+quick: [
+  {id:"K01", q:"What is doping?", opts:["Adding a small amount of another element to silicon","Heating silicon until it melts","Coating silicon with metal","Cooling silicon to stop current"], why:"Doping changes how well silicon conducts."},
+  {id:"K02", q:"Which element makes N-type silicon?", opts:["Phosphorus (five outer electrons)","Boron (three outer electrons)","Carbon","Copper"], why:"Five outer electrons leave one spare to move.", fb:{"Boron (three outer electrons)":"Boron leaves a hole, which makes P-type."}},
+  {id:"K03", q:"What are the majority carriers in P-type silicon?", opts:["Holes","Electrons","Protons","Neutrons"], why:"P-type has missing electrons, called holes."},
+  {id:"K04", q:"What is the depletion layer?", opts:["A region at the junction with no free carriers","A metal layer on the diode","The band printed on the cathode","A layer of extra electrons"], why:"Electrons and holes cancel out there, leaving no free carriers."},
+  {id:"K05", q:"About how much voltage does a silicon diode need before it conducts well?", opts:["0.7 V","0.3 V","7 V","0.07 V"], why:"0.7 V for silicon, 0.3 V for germanium.", fb:{"0.3 V":"0.3 V is germanium."}},
+  {id:"K06", q:"In forward bias, the positive terminal connects to...", opts:["the anode (P side)","the cathode (N side)","the depletion layer","the band"], why:"Positive to P, negative to N."},
+  {id:"K07", q:"What does the band on a diode mark?", opts:["The cathode","The anode","The P side","The maximum voltage"], why:"The band matches the bar on the symbol: the cathode."},
+  {id:"K08", q:"What does PIV stand for?", opts:["Peak inverse voltage","Positive input voltage","Power in volts","Peak internal value"], why:"The highest reverse voltage a diode can take."},
+  {id:"K09", q:"A rectifier converts...", opts:["AC into DC","DC into AC","low voltage into high voltage","analogue into digital"], why:"Diodes let only one direction through."},
+  {id:"K10", q:"Average output of a half wave rectifier:", opts:["0.318 × Vpk","0.637 × Vpk","0.707 × Vpk","1.414 × Vpk"], why:"Vpk ÷ π = 0.318 Vpk.", fb:{"0.637 × Vpk":"That is full wave.","0.707 × Vpk":"That is the rms of a full sine wave, not rectified average."}},
+  {id:"K11", q:"How many diodes in a bridge rectifier?", opts:["Four","One","Two","Three"], why:"Two conduct on each half cycle."},
+  {id:"K12", q:"Full wave ripple on a 50 Hz supply is at...", opts:["100 Hz","50 Hz","25 Hz","200 Hz"], why:"Two humps per cycle."},
+  {id:"K13", q:"The three terminals of a bipolar transistor are...", opts:["base, collector, emitter","anode, cathode, gate","positive, negative, earth","input, output, ground"], why:"b, c and e."},
+  {id:"K14", q:"The arrow on a transistor symbol is on the...", opts:["emitter","base","collector","case"], why:"Always the emitter. Out for NPN, in for PNP."},
+  {id:"K15", q:"hFE = 100 and Ib = 50 µA. What is Ic?", opts:["5 mA","0.5 mA","50 mA","5000 mA"], why:"100 × 50 µA = 5000 µA = 5 mA."},
+  {id:"K16", q:"Ie equals...", opts:["Ib + Ic","Ic − Ib","Ib × Ic","Ic ÷ Ib"], why:"All current leaves through the emitter."},
+  {id:"K17", q:"Why can transistors switch millions of times a second without wearing out?", opts:["They have no moving parts","They are water cooled","They use AC","They are made of copper"], why:"Solid state: nothing moves, so nothing wears."},
+  {id:"K18", q:"Hierarchical design splits a circuit into...", opts:["blocks and sub-blocks by function","layers of copper","separate power supplies","analogue and digital parts only"], why:"Each block has a clear job and inputs and outputs."},
+  {id:"K19", q:"An analogue signal is...", opts:["continuous","discrete","always a square wave","only 0 or 1"], why:"It can take any value in its range."},
+  {id:"K20", q:"A digital signal is...", opts:["discrete","continuous","always a sine wave","always analogue"], why:"Only set values, usually two."},
+  {id:"K21", q:"Which waveform is used as an oscilloscope timebase?", opts:["Sawtooth","Square","Sinusoidal","Triangular"], why:"A steady ramp sweeps the trace across, then it snaps back."},
+  {id:"K22", q:"Which waveform rises and falls at the same steady rate?", opts:["Triangular","Sawtooth","Square","Sinusoidal"], why:"Sawtooth rises steadily but drops suddenly."},
+  {id:"K23", q:"A square wave's duty cycle is...", opts:["50%","25%","100%","any value"], why:"Equal mark and space."},
+  {id:"K24", q:"Frequency is...", opts:["cycles per second, in hertz","the time for one cycle","the height of the wave","the number of levels"], why:"f = 1 ÷ T."},
+  {id:"K25", q:"A signal has a period of 4 ms. Its frequency is...", opts:["250 Hz","4 Hz","25 Hz","2500 Hz"], why:"1 ÷ 0.004 = 250 Hz.", fb:{"25 Hz":"Check the units: 4 ms is 0.004 s."}},
+  {id:"K26", q:"The most commonly credited advantage of digital signals:", opts:["Less affected by noise","Show every detail","Need no conversion","Use less bandwidth"], why:"The receiver only decides high or low.", fb:{"Use less bandwidth":"The June 2025 mark scheme gives the opposite as a disadvantage."}},
+  {id:"K27", q:"A disadvantage of digital signals:", opts:["Only a sampled version, so detail is lost","Badly affected by noise","Cannot be stored","Cannot be encrypted"], why:"Rounding to the nearest step loses detail."},
+  {id:"K28", q:"Signal conditioning...", opts:["gets a raw signal ready to be read","decides what the actuator does","stores data","generates the signal"], why:"Amplify, filter, scale, isolate, convert."},
+  {id:"K29", q:"Signal processing...", opts:["uses the signal to make a decision or produce information","amplifies a raw signal","removes noise before the ADC","isolates the sensor"], why:"Comparing, calculating, logging, alarms."},
+  {id:"K30", q:"Why is 4 to 20 mA preferred to 0 to 20 mA?", opts:["0 mA can only mean a fault (live zero)","It gives a bigger range","It uses less power","It is digital"], why:"A broken wire reads 0 mA, which is outside the range."},
+  {id:"K31", q:"A 4-bit ADC has how many codes?", opts:["16","8","4","32"], why:"2⁴ = 16."},
+  {id:"K32", q:"What does a DAC do?", opts:["Turns a binary code back into an analogue signal","Turns analogue into binary","Removes noise","Measures temperature"], why:"Digital to analogue converter."},
+  {id:"K33", q:"Fan in is...", opts:["the number of inputs a gate has","the number of inputs one output can drive","the speed of a gate","the gate's supply voltage"], why:"Fan out is the other one."},
+  {id:"K34", q:"A typical TTL gate has a fan out of...", opts:["10","2","100","1"], why:"Standard TTL: 10 unit loads."},
+  {id:"K35", q:"An AND gate outputs 1 when...", opts:["all inputs are 1","any input is 1","all inputs are 0","the input is 0"], why:"Guard shut AND start pressed."},
+  {id:"K36", q:"About how much does a type K thermocouple give per °C?", opts:["41 µV","41 mV","4.1 V","0.7 V"], why:"Microvolts, which is why it needs amplifying.", fb:{"41 mV":"Millivolts per degree would give 12 V at 300 °C. It is far smaller."}},
+  {id:"K37", q:"Why is a current signal good over long cables?", opts:["Cable resistance does not change the current in a series loop","Current travels faster","Current cannot pick up noise at all","Cables only carry current"], why:"The same current flows all round the loop."},
+  {id:"K38", q:"A 4 to 20 mA loop read across a 250 Ω resistor gives...", opts:["1 to 5 V","4 to 20 V","0 to 10 V","0.25 to 5 V"], why:"0.004 × 250 = 1 V; 0.020 × 250 = 5 V."},
+  {id:"K39", q:"A Zener diode is mostly used as...", opts:["a simple voltage regulator","a light source","a rectifier","a switch"], why:"It holds a steady voltage in reverse breakdown."},
+  {id:"K40", q:"Why do power semiconductors need heat sinks?", opts:["Their voltage drop times the current is lost as heat","They store charge","They run on AC","They are magnetic"], why:"P = V × I in the device itself."}
+],
+
+/* ---------- key word cards ---------- */
+flash: [
+  {id:"F01", term:"Semiconductor", def:"A material between a conductor and an insulator, whose conduction can be controlled by doping."},
+  {id:"F02", term:"Doping", def:"Adding a tiny, controlled amount of another element to pure silicon."},
+  {id:"F03", term:"N-type", def:"Silicon doped with phosphorus. Electrons are the majority carriers. Still neutral overall."},
+  {id:"F04", term:"P-type", def:"Silicon doped with boron. Holes are the majority carriers. Still neutral overall."},
+  {id:"F05", term:"Hole", def:"A missing electron in a bond, which behaves like a positive carrier."},
+  {id:"F06", term:"Depletion layer", def:"The region at a P-N junction with no free charge carriers."},
+  {id:"F07", term:"Forward bias", def:"Positive to the anode (P), negative to the cathode (N). Conducts above about 0.7 V in silicon."},
+  {id:"F08", term:"Reverse bias", def:"Positive to the cathode (N). The depletion layer widens and almost no current flows."},
+  {id:"F09", term:"Peak inverse voltage (PIV)", def:"The highest reverse voltage a diode can take before it breaks down."},
+  {id:"F10", term:"Rectifier", def:"A circuit that converts AC into DC using diodes."},
+  {id:"F11", term:"Ripple", def:"The small rise and fall left on a rectified, smoothed DC output."},
+  {id:"F12", term:"Current gain (hFE)", def:"Collector current divided by base current."},
+  {id:"F13", term:"Hierarchical design", def:"Splitting a circuit into blocks and sub-blocks by function, each with clear inputs and outputs."},
+  {id:"F14", term:"Signal", def:"A voltage or current that changes to carry information."},
+  {id:"F15", term:"Analogue signal", def:"A continuous signal that can take any value in its range."},
+  {id:"F16", term:"Digital signal", def:"A discrete signal with set values, usually high (1) and low (0)."},
+  {id:"F17", term:"Period", def:"The time for one complete cycle, in seconds."},
+  {id:"F18", term:"Frequency", def:"Cycles per second, in hertz. f = 1 ÷ T."},
+  {id:"F19", term:"Duty cycle", def:"Mark divided by period, as a percentage. A square wave is 50%."},
+  {id:"F20", term:"Sawtooth wave", def:"Ramps up steadily then drops suddenly. Used for timebase sweeps."},
+  {id:"F21", term:"Noise", def:"Unwanted electrical interference added to a signal."},
+  {id:"F22", term:"Signal conditioning", def:"Getting a raw signal ready to be read: amplify, filter, scale, isolate, linearise, convert."},
+  {id:"F23", term:"Signal processing", def:"Using a signal to make a decision or produce information."},
+  {id:"F24", term:"Live zero", def:"Starting a current loop at 4 mA so that 0 mA can only mean a fault."},
+  {id:"F25", term:"ADC", def:"Analogue to digital converter. Samples a signal and gives each sample a binary code."},
+  {id:"F26", term:"Fan in", def:"The number of inputs a logic gate has, or can safely handle."},
+  {id:"F27", term:"Fan out", def:"The number of gate inputs one gate output can drive reliably."}
+],
+
+/* ---------- formula card (opened from games and the ladder) ---------- */
+formulas: [
+  ["Frequency and period","f = 1 ÷ T,  T = 1 ÷ f"],
+  ["Peak from rms","Vpk = Vrms × 1.414"],
+  ["Half wave average","Vdc = 0.318 × Vpk"],
+  ["Full wave average","Vdc = 0.637 × Vpk"],
+  ["Current gain","hFE = Ic ÷ Ib"],
+  ["Emitter current","Ie = Ib + Ic"],
+  ["Duty cycle","mark ÷ period × 100%"],
+  ["4 to 20 mA","I = 4 + (fraction of range × 16) mA"],
+  ["ADC codes","n bits give 2ⁿ codes"],
+  ["ADC step","span ÷ (2ⁿ − 1)"],
+  ["Heat in a device","P = V × I"]
+],
+
+/* ---------- exit ticket and check-ins ---------- */
+exit: {
+  q1:"Explain why a raw thermocouple signal cannot go straight into a PLC input.",
+  q2:{q:"In forward bias, what happens to the depletion layer?", opts:["It narrows","It widens","It stays the same","It disappears at any voltage"], ans:0},
+  q2b:{q:"Tick the three that are digital signals.", opts:["A push button giving 0 V or 24 V","A microprocessor clock","The output code of an ADC","A thermocouple output","UK mains voltage","A 4 to 20 mA transmitter signal"], ans:[0,1,2]},
+  q3:{q:"Which waveform is used as an oscilloscope timebase?", opts:["Sinusoidal","Square","Triangular","Sawtooth"], ans:3},
+  q4:{q:"A 4 to 20 mA transmitter covers 0 to 300 °C. What current is sent at 150 °C?", opts:["10 mA","12 mA","8 mA","16 mA"], ans:1},
+  q4b:"Show how you worked out question 4."
+},
+checkin: {
+  p1:{title:"Part 1 check-in: semiconductors", lines:["Explain N-type and P-type silicon.","Describe what happens at a P-N junction.","Describe forward and reverse bias.","Read the knee voltage and PIV from a diode curve.","Explain half wave and full wave rectification.","Calculate average DC output.","Explain a transistor as a switch and as an amplifier.","Explain hierarchical design."]},
+  p2:{title:"Part 2 check-in: signals and waveforms", lines:["Explain the difference between analogue and digital.","Name the five waveforms.","Give a use for each waveform.","Work out frequency from period.","Work out a duty cycle.","Explain why digital resists noise, with a reason."]},
+  p3:{title:"Part 3 check-in: conditioning and processing", lines:["Explain why a raw sensor signal needs conditioning.","Name the stages of conditioning.","Tell conditioning and processing apart.","Scale a 4 to 20 mA signal both ways.","Explain what an ADC and a DAC do.","Explain fan in and fan out."]}
+}
+};
+
+var VERSION = "1.1";
+
+/* ---------- small helpers ---------- */
+function $(s, el){ return (el||document).querySelector(s); }
+function $$(s, el){ return Array.prototype.slice.call((el||document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function shuffle(a){ a = a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+function uid(){ return (Date.now().toString(36) + Math.random().toString(36).slice(2,8)).toUpperCase(); }
+function todayKey(d){ d = d || new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function niceDate(d){ d = d ? new Date(d) : new Date(); return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}); }
+function say(msg){ var l=$("#live"); if(l){ l.textContent=""; setTimeout(function(){ l.textContent=msg; },30);} }
+function toast(msg){ var t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(function(){ t.remove(); },2600); }
+var ICON = {
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  games:'<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',
+  record:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
+  exit:'<path d="M14 4h5v16h-5"/><path d="M10 8l-4 4 4 4M6 12h9"/>',
+  check:'<path d="M5 12l4 4 10-10"/>',
+  flash:'<rect x="4" y="7" width="13" height="12" rx="2"/><path d="M8 4h11a1 1 0 0 1 1 1v10"/>',
+  card:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M9 10v9"/>',
+  flame:'<path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/>',
+  close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  send:'<path d="M4 12l16-8-6 16-3-7z"/>',
+  copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+  chev:'<path d="M9 5l7 7-7 7"/>',
+  flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+  cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15l2 2 4-4"/>'
+};
+function icon(k){ return '<svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+(ICON[k]||"")+'</svg>'; }
+
+/* ---------- storage that never throws (private browsing falls back to memory) ---------- */
+var Store = (function(){
+  var mem = {}, ok = false;
+  try { localStorage.setItem("__t","1"); localStorage.removeItem("__t"); ok = true; } catch(e) { ok = false; }
+  return {
+    get: function(k, d){ try{ var v = ok ? localStorage.getItem("u81shub."+k) : mem[k]; return v==null ? d : JSON.parse(v);}catch(e){ return d; } },
+    set: function(k, v){ var s = JSON.stringify(v); try{ if(ok) localStorage.setItem("u81shub."+k, s); else mem[k]=s; }catch(e){ mem[k]=s; } },
+    del: function(k){ try{ if(ok) localStorage.removeItem("u81shub."+k); delete mem[k]; }catch(e){} },
+    persistent: function(){ return ok; }
+  };
+})();
+
+/* ---------- class list: "Name=CODE|Name=CODE" ---------- */
+var CLASS = String(CLASS_LIST||"").split("|").map(function(x){
+  var p = x.split("="); return {name:(p[0]||"").trim(), code:(p[1]||"").trim().toUpperCase()};
+}).filter(function(x){ return x.name && /^[A-Z0-9]{4}$/.test(x.code); });
+
+/* ---------- state ---------- */
+function freshProg(){ return {xp:0, best:{}, raw:{}, plays:{}, last:{}, stamps:{}, days:[], done:{}, srs:{}, rag:{}, goal:null, cal:null}; }
+var S = {
+  me: Store.get("me", null) || (function(){ try { var m = JSON.parse(localStorage.getItem("tlhub.me")); return (m && /^[A-Z0-9]{4}$/.test(m.code||"")) ? m : null; } catch(e) { return null; } })(),
+  prog: null,
+  prefs: Object.assign({theme:"auto", scale:1, motion:"auto", mode:"guided"}, Store.get("prefs", {})),
+  server: {state:"unknown", focus:null, target:null, week:null, message:"", nameOnly:false},
+  device: Store.get("device", null) || (function(){ var d=uid(); Store.set("device", d); return d; })(),
+  tab: "games"
+};
+function loadProg(){ var p = Store.get("prog."+(S.me?S.me.code:"none"), null); S.prog = Object.assign(freshProg(), p||{}); }
+function saveProg(){ if (S.me) Store.set("prog."+S.me.code, S.prog); }
+loadProg();
+function applyPrefs(){
+  var r=document.documentElement;
+  if (S.prefs.theme==="auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", S.prefs.theme);
+  r.style.setProperty("--scale", S.prefs.scale);
+  if (S.prefs.motion==="reduce") r.setAttribute("data-motion","reduce"); else r.removeAttribute("data-motion");
+}
+
+/* ---------- transport: Microsoft Forms (main route), Google Apps Script (optional), or this phone only ---------- */
+var Net = {
+  mode: function(){
+    if (window.google && google.script && google.script.run) return "gas";
+    if (HUB_CONFIG.endpoint) return "remote";
+    if (FORM_PREFILL) return "forms";
+    return "local";
+  },
+  call: function(action, payload){
+    var m = this.mode();
+    return new Promise(function(resolve, reject){
+      if (m === "gas") {
+        google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).api(action, payload || {});
+      } else if (m === "remote") {
+        var ctrl = ("AbortController" in window) ? new AbortController() : null;
+        var timer = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 15000);
+        fetch(HUB_CONFIG.endpoint, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"},
+          body: JSON.stringify(Object.assign({action:action}, payload||{})), signal: ctrl ? ctrl.signal : undefined})
+          .then(function(r){ return r.json(); }).then(function(j){ clearTimeout(timer); resolve(j); })
+          .catch(function(e){ clearTimeout(timer); reject(e); });
+      } else reject(new Error("no_server"));
+    });
+  }
+};
+/* Only used by the Google route: results queue on the phone until they send. */
+var Sync = {
+  q: Store.get("queue", []), busy:false,
+  add: function(ev){ this.q.push(ev); Store.set("queue", this.q); this.flush(); },
+  flush: function(){
+    var self = this, m = Net.mode();
+    if (self.busy || !self.q.length || (m!=="gas" && m!=="remote")) return;
+    if (navigator.onLine === false) return;
+    self.busy = true;
+    var batch = self.q.slice(0, 25);
+    Net.call("log", {events: batch}).then(function(res){
+      if (res && res.ok) {
+        var sent = {}; batch.forEach(function(e){ sent[e.id]=1; });
+        self.q = self.q.filter(function(e){ return !sent[e.id]; }); Store.set("queue", self.q); S.server.state = "ok";
+      } else if (res && res.error === "unknown_code") {
+        var bad = S.me ? S.me.code : ""; self.q = self.q.filter(function(e){ return e.code !== bad; }); Store.set("queue", self.q);
+        toast("Your code was not recognised. Please sign in again."); signOut(true);
+      } else { S.server.state = "error"; }
+    }).catch(function(){ S.server.state = "offline"; }).then(function(){
+      self.busy = false; updateSyncLine();
+      if (self.q.length && S.server.state==="ok") setTimeout(function(){ self.flush(); }, 400);
+    });
+  }
+};
+window.addEventListener("online", function(){ Sync.flush(); });
+setInterval(function(){ Sync.flush(); }, 30000);
+function logEvent(type, game, data){
+  data = data || {};
+  var m = Net.mode(); if (m!=="gas" && m!=="remote") return null;
+  var ev = { id: uid(), t: new Date().toISOString(), code: S.me ? S.me.code : "", name: "", dev: S.device, type: type, game: game ? sentName(game) : "",
+    score: data.score == null ? "" : data.score, max: data.max == null ? "" : data.max, secs: data.secs == null ? "" : data.secs,
+    items: data.items || [], extra: data.extra ? JSON.stringify(data.extra) : "", v: VERSION };
+  Sync.add(ev); return ev;
+}
+function syncText(){
+  var m = Net.mode();
+  if (m==="forms") return "Your results reach your tutor when you press Send my result.";
+  if (m==="local") return "Your tutor has not linked this hub to a form yet. Copy your result instead.";
+  if (Sync.q.length) return Sync.q.length + " result" + (Sync.q.length>1?"s":"") + " waiting to send. They go as soon as you are online.";
+  return "All results sent to your tutor.";
+}
+function updateSyncLine(){ $$("[data-sync]").forEach(function(el){ el.textContent = syncText(); }); }
+
+/* ---------- verification code: short, and it changes if the code, game or score is edited ----------
+   The tracker works out the same number in Excel, so an edited score shows up there.   */
+/* The game name the tracker sees: unit prefix, a space, then the title, e.g. 8.1/10.1 Circuit Reader.
+   Every unit hub sends to the same form, so the prefix keeps the units apart.            */
+function sentName(title){ title = String(title||""); return /^\d/.test(title) ? title : "8.1/10.1 " + title; }
+function checkCode(code, game, score, max){
+  var s = String(code).toUpperCase()+"|"+sentName(game)+"|"+score+"|"+max, h = 0;
+  for (var k=0;k<s.length;k++) h += s.charCodeAt(k)*(k+1)*7;
+  h += 11*Number(score) + 13*Number(max);
+  return String(h % 9973).padStart(4,"0");
+}
+function formsLink(game, score, max, detail){
+  var u = FORM_PREFILL;
+  function rep(tok, val){ u = u.split(tok).join(encodeURIComponent(val)); }
+  rep("LEARNERHERE", S.me ? S.me.code : "");
+  rep("GAMEHERE", sentName(game)); rep("SCOREHERE", String(score)); rep("MAXHERE", String(max));
+  rep("CHECKHERE", checkCode(S.me ? S.me.code : "", game, score, max));
+  rep("DETAILHERE", String(detail||"").slice(0, 900));
+  return u;
+}
+function resultLine(game, score, max, when){
+  var code = S.me ? S.me.code : "";
+  return code + " | " + sentName(game) + " | " + score + " of " + max + " | check " + checkCode(code, game, score, max) + " | " + niceDate(when);
+}
+function copyText(text, done){
+  function fallback(){
+    var t = document.createElement("textarea"); t.value = text; t.setAttribute("readonly",""); t.style.position="fixed"; t.style.opacity="0";
+    document.body.appendChild(t); t.select(); var ok=false; try { ok = document.execCommand("copy"); } catch(e) {} t.remove(); done(ok);
+  }
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function(){ done(true); }, fallback); else fallback();
+}
+
+</script>
+<script>
+"use strict";
+/* ---------- drawings, made in code so the file needs no images ---------- */
+function svgWrap(vb, inner, label){ return '<svg viewBox="'+vb+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+esc(label||"")+'">'+inner+'</svg>'; }
+function arrowV(x, y1, y2){
+  var a = y1 < y2 ? 1 : -1;
+  return '<line class="a-a" x1="'+x+'" y1="'+y1+'" x2="'+x+'" y2="'+y2+'"/>'+
+    '<path class="a-fa" d="M'+(x-6)+' '+(y1+10*a)+' L'+x+' '+y1+' L'+(x+6)+' '+(y1+10*a)+' Z"/>'+
+    '<path class="a-fa" d="M'+(x-6)+' '+(y2-10*a)+' L'+x+' '+y2+' L'+(x+6)+' '+(y2-10*a)+' Z"/>';
+}
+function arrowH(y, x1, x2){
+  return '<line class="a-a" x1="'+x1+'" y1="'+y+'" x2="'+x2+'" y2="'+y+'"/>'+
+    '<path class="a-fa" d="M'+(x1+10)+' '+(y-6)+' L'+x1+' '+y+' L'+(x1+10)+' '+(y+6)+' Z"/>'+
+    '<path class="a-fa" d="M'+(x2-10)+' '+(y-6)+' L'+x2+' '+y+' L'+(x2-10)+' '+(y+6)+' Z"/>';
+}
+function ext(x1,y1,x2,y2){ return '<line class="a-d" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'"/>'; }
+function txt(x, y, s, extra){ extra = extra || ""; /* an anchor passed in extra must win, so do not also write middle */
+  return '<text class="a-t" x="'+x+'" y="'+y+'"'+(/text-anchor=/.test(extra) ? "" : ' text-anchor="middle"')+extra+'>'+esc(s)+'</text>'; }
+
+var TILE_ART = {
+  recall: '<circle class="a-i" cx="56" cy="40" r="24"/><path class="a-i" d="M56 26v14l10 6"/><path class="a-a" d="M96 22h44M96 40h32M96 58h40"/>',
+  circuit: '<path class="a-i" d="M20 20h120v44H20z"/><path class="a-fa" d="M62 10v20l20-10z"/><path class="a-i" d="M82 10v20"/><line class="a-i" x1="14" y1="36" x2="26" y2="36"/><line class="a-i" x1="17" y1="44" x2="23" y2="44"/><circle class="a-f" cx="140" cy="42" r="9"/><path class="a-a" d="M134 36l12 12M146 36l-12 12"/>',
+  doctor: '<rect class="a-i" x="40" y="8" width="56" height="66" rx="8"/><rect class="a-f" x="48" y="16" width="40" height="18" rx="3"/><text class="a-t" x="68" y="30" text-anchor="middle">0.62</text><circle class="a-i" cx="68" cy="54" r="10"/><path class="a-a" d="M104 40h40"/><path class="a-fa" d="M114 32v16l14-8z"/>',
+  waves: '<path class="a-i" d="M10 40h140"/><path class="a-a" d="M10 40q10-30 20 0t20 0 20 0"/><path class="a-i" d="M80 56V24h14v32h14V24h14v32h14V24"/>',
+  anadig: '<path class="a-i" d="M14 14h56a6 6 0 0 1 6 6v36a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V20a6 6 0 0 1 6-6z"/><path class="a-a" d="M16 40q10-20 20 0t20 0"/><rect class="a-f" x="88" y="14" width="68" height="48" rx="6"/><path class="a-i" d="M96 50V26h12v24h12V26h12v24"/>',
+  stages: '<rect class="a-i" x="6" y="28" width="30" height="24" rx="4"/><rect class="a-a" x="64" y="28" width="30" height="24" rx="4"/><rect class="a-i" x="122" y="28" width="30" height="24" rx="4"/><path class="a-i" d="M36 40h28M94 40h28"/><path class="a-a" d="M70 44q4-8 8 0t8 0"/>',
+  chain: '<rect class="a-i" x="8" y="28" width="26" height="24" rx="4"/><rect class="a-i" x="46" y="28" width="26" height="24" rx="4"/><rect class="a-i" x="84" y="28" width="26" height="24" rx="4"/><rect class="a-a" x="122" y="28" width="26" height="24" rx="4"/><path class="a-i" d="M34 40h12M72 40h12M110 40h12"/>',
+  ladder: '<path class="a-i" d="M60 6v68M100 6v68M60 18h40M60 32h40M60 60h40"/><path class="a-a" d="M60 46h40"/><text class="a-t" x="130" y="46" text-anchor="middle">f=1/T</text>',
+  why: '<path class="a-i" d="M12 12h60a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H36l-12 10V44h-12a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6z"/><text class="a-t" x="42" y="34" text-anchor="middle">Why?</text><path class="a-a" d="M88 28h60a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6h-12v10l-12-10H88a6 6 0 0 1-6-6V34a6 6 0 0 1 6-6z"/>',
+  errors: '<path class="a-i" d="M16 20h70M16 34h40M16 48h58"/><path class="a-a" d="M60 34h32"/><path class="a-a" d="M60 40q4-4 8 0t8 0 8 0 8 0"/><circle class="a-i" cx="120" cy="36" r="16"/><path class="a-i" d="M131 48l14 14"/>',
+  examiner: '<rect class="a-i" x="32" y="8" width="60" height="66" rx="4"/><path class="a-i" d="M42 22h40M42 34h40M42 46h26"/><path class="a-a" d="M100 40l10 10 22-26"/><text class="a-t" x="130" y="70" text-anchor="middle">2/4</text>',
+  pairs: '<rect class="a-i" x="14" y="10" width="44" height="18" rx="4"/><rect class="a-i" x="14" y="52" width="44" height="18" rx="4"/><rect class="a-f" x="102" y="10" width="44" height="18" rx="4"/><rect class="a-f" x="102" y="52" width="44" height="18" rx="4"/><path class="a-a" d="M58 19L102 61M58 61L102 19"/>',
+  sure: '<circle class="a-i" cx="80" cy="40" r="28"/><path class="a-a" d="M80 40l18-12"/><circle class="a-fa" cx="80" cy="40" r="4"/><text class="a-t" x="54" y="70" text-anchor="middle">?</text><text class="a-t" x="106" y="70" text-anchor="middle">!</text>',
+  master: '<path class="a-i" d="M58 30a24 24 0 0 1 42-10"/><path class="a-i" d="M96 12l5 9-10 2"/><path class="a-i" d="M102 50a24 24 0 0 1-42 10"/><path class="a-i" d="M64 68l-5-9 10-2"/><path class="a-a" d="M70 40l7 7 14-14"/>',
+  flash: '<rect class="a-i" x="46" y="18" width="62" height="42" rx="6"/><rect class="a-f" x="56" y="26" width="62" height="42" rx="6"/><path class="a-a" d="M72 48h30"/>',
+  review: '<rect class="a-i" x="30" y="12" width="100" height="58" rx="6"/><path class="a-i" d="M30 28h100M52 6v12M108 6v12"/><path class="a-a" d="M62 50l10 8 22-20"/>'
+};
+function tileArt(key){ return svgWrap("0 0 160 80", TILE_ART[key] || TILE_ART.recall, ""); }
+
+/* ---------- Circuit Reader drawings ---------- */
+function diodeH(cx, y, right, cls){ /* horizontal diode, arrow points right if right is true */
+  var d = right ? 1 : -1, bx = cx + 12*d;
+  return '<path class="'+(cls||"a-fi")+'" d="M'+(cx-12*d)+' '+(y-12)+' L'+(cx-12*d)+' '+(y+12)+' L'+bx+' '+y+' Z"/>'+
+    '<line class="a-i" x1="'+bx+'" y1="'+(y-13)+'" x2="'+bx+'" y2="'+(y+13)+'" style="stroke-width:3"/>';
+}
+function lampV(x, y, lit){
+  var s = '<circle class="a-f" cx="'+x+'" cy="'+y+'" r="14"'+(lit ? ' style="fill:var(--amber)"' : '')+'/>'+
+    '<path class="a-i" d="M'+(x-10)+' '+(y-10)+'l20 20M'+(x+10)+' '+(y-10)+'l-20 20"/>';
+  return s;
+}
+function batteryV(x, y, posTop, label){
+  var lp = posTop ? y-8 : y+8, sp = posTop ? y+8 : y-8; /* long plate is positive */
+  return '<rect x="'+(x-26)+'" y="'+(y-18)+'" width="52" height="36" style="fill:var(--tint)"/>'+
+    '<line class="a-i" x1="'+(x-22)+'" y1="'+lp+'" x2="'+(x+22)+'" y2="'+lp+'" style="stroke-width:3"/>'+
+    '<line class="a-i" x1="'+(x-11)+'" y1="'+sp+'" x2="'+(x+11)+'" y2="'+sp+'" style="stroke-width:7;stroke-linecap:butt"/>'+
+    '<text class="a-t" x="'+(x+32)+'" y="'+(lp+5)+'" style="fill:var(--red);font-size:17px">+</text>'+
+    '<text class="a-t" x="'+(x+32)+'" y="'+(sp+5)+'" style="font-size:17px">\u2212</text>'+
+    '<text class="a-t" x="'+(x-32)+'" y="'+(y+5)+'" text-anchor="end">'+esc(label)+'</text>';
+}
+function diodeCircuitArt(c){
+  /* loop: battery on the left, diode on the top wire, lamp on the right */
+  var s = '<path class="a-i" d="M60 30 H250 V140 H60 Z"/>' + batteryV(60, 85, c.posTop, c.volts) +
+    '<rect x="130" y="16" width="44" height="28" style="fill:var(--tint)"/>' + diodeH(152, 30, c.right) +
+    txt(152, 64, c.mat === "Ge" ? "germanium" : "silicon", ' style="font-size:12px"') +
+    '<rect class="a-f" x="240" y="66" width="20" height="38"/>' + txt(276, 90, "R");
+  return svgWrap("-26 0 326 170", s, "Supply of "+c.volts+", a "+(c.mat==="Ge"?"germanium":"silicon")+" diode and a resistor in series");
+}
+function transistorArt(c){
+  var s = '<path class="a-i" d="M190 20 V56 M190 120 V150 M60 150 H260 M60 20 H260"/>' +
+    txt(270, 24, "+9 V", ' text-anchor="start" style="font-size:12px"') + txt(270, 154, "0 V", ' text-anchor="start" style="font-size:12px"') +
+    lampV(190, 42, false) +
+    '<circle class="a-f" cx="182" cy="88" r="24"/><line class="a-i" x1="172" y1="74" x2="172" y2="102" style="stroke-width:4"/>' +
+    '<path class="a-i" d="M172 82 L190 66 V56 M172 94 L190 110 V120"/>' +
+    (c.pnp ? '<path class="a-fi" d="M176 97 L186 99 L181 107 Z"/>' : '<path class="a-fi" d="M190 110 L180 108 L185 100 Z"/>') +
+    '<path class="a-i" d="M60 88 H90 M122 88 H172"/><rect class="a-f" x="90" y="80" width="32" height="16"/>' +
+    '<circle class="a-f" cx="56" cy="88" r="5"/>' + txt(56, 118, "Base input", ' style="font-size:12px"') + txt(56, 136, c.vin, ' style="fill:var(--amb)"');
+  return svgWrap("0 0 300 170", s, (c.pnp?"PNP":"NPN")+" transistor switch with a lamp in the collector and "+c.vin+" on the base input");
+}
+function symbolArt(kind){
+  var s = "";
+  if (kind === "npn" || kind === "pnp") {
+    s = '<circle class="a-f" cx="150" cy="85" r="44"/><line class="a-i" x1="134" y1="60" x2="134" y2="110" style="stroke-width:4"/>'+
+      '<path class="a-i" d="M80 85 H134 M134 72 L166 46 V20 M134 98 L166 124 V150"/>' +
+      (kind === "pnp" ? '<path class="a-fi" d="M140 103 L154 106 L146 116 Z"/>' : '<path class="a-fi" d="M160 119 L146 116 L154 106 Z"/>');
+  } else {
+    s = '<line class="a-i" x1="40" y1="85" x2="260" y2="85"/>' + diodeH(150, 85, kind === "dright") +
+      txt(60, 120, "A") + txt(240, 120, "B");
+  }
+  return svgWrap("0 0 300 170", s, "A component symbol");
+}
+
+/* ---------- Wave Spotter drawings ---------- */
+function waveArt(kind, opt){
+  opt = opt || {};
+  var W = 300, H = 160, x0 = 30, y0 = 20, w = 250, h = 120, cols = opt.cols || 10, s = "";
+  for (var i = 0; i <= cols; i++) s += '<line x1="'+(x0+i*w/cols)+'" y1="'+y0+'" x2="'+(x0+i*w/cols)+'" y2="'+(y0+h)+'" style="stroke:var(--line);stroke-width:1"/>';
+  for (var j = 0; j <= 8; j++) s += '<line x1="'+x0+'" y1="'+(y0+j*h/8)+'" x2="'+(x0+w)+'" y2="'+(y0+j*h/8)+'" style="stroke:var(--line);stroke-width:1"/>';
+  var mid = y0 + h/2, A = h*3/8, pts = [], per = opt.period || 5, mark = opt.mark || per/2;
+  function X(t){ return x0 + t*w/cols; }
+  if (kind === "sine") { for (var k = 0; k <= 200; k++){ var t = k*cols/200; pts.push([X(t), mid - A*Math.sin(2*Math.PI*t/per)]); } }
+  else if (kind === "tri") { for (var k2 = 0; k2 <= 200; k2++){ var t2 = k2*cols/200, f = (t2/per)%1; pts.push([X(t2), mid - A*(f<.5 ? -1+4*f : 3-4*f)]); } }
+  else if (kind === "saw") { var t3 = 0; pts.push([X(0), mid+A]); while (t3 < cols - 1e-9){ var e = Math.min(cols, t3+per); pts.push([X(e), mid+A - 2*A*(e-t3)/per]); if (e < cols) pts.push([X(e), mid+A]); t3 = e; } }
+  else if (kind === "square" || kind === "rect") {
+    var mk = kind === "square" ? per/2 : mark, t4 = 0; pts.push([X(0), mid+A]);
+    while (t4 < cols - 1e-9){ pts.push([X(t4), mid-A]); var e1 = Math.min(cols, t4+mk); pts.push([X(e1), mid-A]); if (e1 >= cols) break; pts.push([X(e1), mid+A]); var e2 = Math.min(cols, t4+per); pts.push([X(e2), mid+A]); t4 = e2; }
+  }
+  else if (kind === "steps") { var lv = [0,1,2,3,3,2,1,0,1,2]; for (var q = 0; q < cols; q++){ var yy = mid + A - 2*A*lv[q%lv.length]/3; pts.push([X(q), yy]); pts.push([X(q+1), yy]); } }
+  s += '<path class="a-a" style="stroke-width:3" d="'+pts.map(function(p,n){ return (n?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1); }).join(" ")+'"/>';
+  s += '<line class="a-i" x1="'+x0+'" y1="'+mid+'" x2="'+(x0+w)+'" y2="'+mid+'" style="stroke-width:1.2"/>';
+  if (opt.xlabel) s += txt(x0+w/2, H-2, opt.xlabel, ' style="font-size:12px;fill:var(--muted)"');
+  if (opt.ylabel) s += txt(x0, y0-6, opt.ylabel, ' text-anchor="start" style="font-size:12px;fill:var(--muted)"');
+  return svgWrap("0 0 "+W+" "+H, s, "A waveform drawn on a grid");
+}
+
+/* ---------- Diode Doctor meter drawing ---------- */
+function meterArt(a, c){
+  function m(x, label, read){
+    return '<rect class="a-f" x="'+x+'" y="14" width="120" height="120" rx="12"/><rect x="'+(x+12)+'" y="28" width="96" height="40" rx="4" style="fill:var(--tint);stroke:var(--art);stroke-width:1.5"/>'+
+      '<text x="'+(x+60)+'" y="57" text-anchor="middle" style="font:700 22px Arial,sans-serif;fill:var(--head)">'+esc(read === "OL" ? "OL" : read+" V")+'</text>'+
+      '<text x="'+(x+60)+'" y="96" text-anchor="middle" style="font:700 12px Arial,sans-serif;fill:var(--muted)">Red lead on</text>'+
+      '<text x="'+(x+60)+'" y="114" text-anchor="middle" style="font:700 13px Arial,sans-serif;fill:var(--amb)">'+esc(label)+'</text>';
+  }
+  return svgWrap("0 0 300 150", m(20, "anode", a) + m(160, "cathode (band)", c), "Meter reads "+a+" with the red lead on the anode and "+c+" with it on the cathode");
+}
+
+</script>
+<script>
+"use strict";
+/* ---------- the games, grouped by part (Structuring: a clear sequence and stages of progress) ---------- */
+var GAMES = [
+  {key:"recall",   title:"Remember when",     what:"Wake up the Ohm's law and AC ideas you need today."},
+  {key:"circuit",  title:"Circuit Reader",    what:"Read the circuit. Does current flow? Is the transistor on?"},
+  {key:"doctor",   title:"Diode Doctor",      what:"Read the meter. Is the diode good, open or shorted?"},
+  {key:"waves",    title:"Wave Spotter",      what:"Read the waveform: its name, frequency, duty cycle or peak."},
+  {key:"anadig",   title:"Analogue or Digital?", what:"Swipe each signal. Examples and non-examples."},
+  {key:"stages",   title:"Stage Selector",    what:"A signal problem. Which conditioning stage fixes it?"},
+  {key:"chain",    title:"Sequence It",       what:"Put signal chains, power supplies and processes in order."},
+  {key:"ladder",   title:"Calculation Ladder",what:"Nine rungs. Worked examples at the bottom, on your own at the top."},
+  {key:"why",      title:"Why? Because",      what:"Pick the answer, then the reason. Explain, don't just recall."},
+  {key:"errors",   title:"Spot the Error",    what:"One part of each statement is wrong. Tap it."},
+  {key:"examiner", title:"Examiner's Eye",    what:"Mark real style answers. How many marks, and why?"},
+  {key:"pairs",    title:"Pair Up",           what:"Match each term to its meaning or use."},
+  {key:"sure",     title:"Sure or Not?",      what:"Say how sure you are before you see the answer."},
+  {key:"master",   title:"Master It",         what:"Anything you miss comes back until you get it right."}
+];
+var TITLE = {flash:"Key word cards", exit:"Exit ticket", review:"Review"};
+GAMES.forEach(function(g){ TITLE[g.key] = g.title; });
+if (CONTENT) { TITLE.checkin1 = CONTENT.checkin.p1.title; TITLE.checkin2 = CONTENT.checkin.p2.title; TITLE.checkin3 = CONTENT.checkin.p3.title; }
+var LEVELS = [{name:"Apprentice",at:0},{name:"Engineering Technician",at:400},{name:"Incorporated Engineer",at:1000},{name:"Chartered Engineer",at:2000}];
+function levelOf(xp){ var i=0; while (i<LEVELS.length-1 && xp>=LEVELS[i+1].at) i++; return {i:i, name:LEVELS[i].name, next:LEVELS[i+1]||null, from:LEVELS[i].at}; }
+function streak(){
+  var d = S.prog.days.slice().sort(), n = 0, day = new Date();
+  if (d.indexOf(todayKey(day)) < 0) day.setDate(day.getDate()-1);
+  while (d.indexOf(todayKey(day)) >= 0) { n++; day.setDate(day.getDate()-1); }
+  return n;
+}
+function firstName(){ if (!S.me) return ""; var n = S.me.name || S.me.code; return n.split(" ")[0]; }
+function initials(){ var n = (S.me && (S.me.name || S.me.code)) || "?"; var p = n.trim().split(/\s+/); return (p[0][0] + (p[1] ? p[1][0] : (p[0][1]||""))).toUpperCase(); }
+function guided(){ return S.prefs.mode !== "independent"; }
+
+/* ---------- spaced review (Embedding: revisit once-learnt material to stop it being forgotten) ----------
+   Each question in the review bank sits in a box. Wrong: back to box 0, due tomorrow.
+   Right: up one box, due after 1, 3, 7 then 14 days.                                                */
+var GAPS = [1, 3, 7, 14];
+function addDays(n){ var d = new Date(); d.setDate(d.getDate()+n); return todayKey(d); }
+function srsMark(id, ok){
+  if (!id) return false;
+  var box = S.prog.srs[id], was = box ? box.b : -1;
+  if (!ok) { S.prog.srs[id] = {b:0, due:addDays(1)}; return true; }
+  if (box) { var b = Math.min(box.b + 1, GAPS.length - 1); S.prog.srs[id] = {b:b, due:addDays(GAPS[b])}; }
+  return false;
+}
+function dueIds(){ var t = todayKey(); return Object.keys(S.prog.srs).filter(function(id){ return S.prog.srs[id].due <= t && REG[id]; }); }
+var REG = {};
+function mcqFrom(x, lead){ var m = mix(x.opts[0], x.opts.slice(1));
+  return {id:x.id, rid:x.id, lead:lead||"", prompt:x.q, options:m.options, correct:m.correct, why:x.why, wf:x.fb||null}; }
+function buildReg(){
+  CONTENT.recall.forEach(function(x){ REG[x.id] = function(){ return mcqFrom(x, "From earlier in 8.1"); }; });
+  CONTENT.quick.forEach(function(x){ REG[x.id] = function(){ return mcqFrom(x); }; });
+  CONTENT.stages.forEach(function(x){ REG[x.id] = function(){ return stageItem(x); }; });
+}
+
+/* ---------- screen frame ---------- */
+function fullHeader(){
+  return '<header class="hdr"><div class="kick">'+esc(HUB_CONFIG.kicker)+'</div><h1>'+esc(HUB_CONFIG.hubName)+'</h1><div class="sub">'+esc(HUB_CONFIG.unitLabel)+'</div></header><div class="rule"></div>';
+}
+function gameHeader(title, i, n){
+  var pct = n ? Math.round(100*i/n) : 100;
+  return '<header class="hdr compact"><button class="iconbtn" data-act="back" aria-label="Back to the games">'+icon("back")+'</button>'+
+    '<div class="t">'+esc(title)+'</div>'+(n ? '<div class="n">'+(i+1)+' of '+n+'</div>' : '')+'</header>'+
+    '<div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'"><i style="width:'+pct+'%"></i></div>';
+}
+var inGame = false;
+function screen(html, opts){
+  opts = opts || {};
+  inGame = !!opts.game && !opts.done;
+  document.body.classList.toggle("playing", !!opts.game);
+  document.body.classList.toggle("out", !!opts.out);
+  var md = $(".modal"); if (md) md.remove();
+  var app = $("#app"); app.innerHTML = html;
+  if (!opts.keep) window.scrollTo(0, 0);
+  $$("#tabs button").forEach(function(b){ if (b.dataset.tab === opts.tab) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current"); });
+  var f = $(".qtext", app) || $("h1", app) || $("h2", app);
+  if (f && !opts.keep) { f.setAttribute("tabindex","-1"); try { f.focus({preventScroll:true}); } catch(e){} }
+  $$('[data-act="back"]', app).forEach(function(b){ b.onclick = function(){
+    if (inGame && !confirm("Leave this game? This round will not be saved.")) return;
+    home();
+  }; });
+  $$('[data-act="formula"]', app).forEach(function(b){ b.onclick = function(){ openFormulaCard(); }; });
+}
+
+/* ---------- sign in ---------- */
+function signIn(msg){
+  var list = CLASS.length > 0;
+  screen(fullHeader() + '<div class="wrap stack">' +
+    '<div class="card stack"><h2 style="margin:0">Sign in</h2>' +
+    (list ? '<p class="muted" style="margin:0">Tap your name.</p><div class="names">' + CLASS.map(function(c,i){ return '<button data-i="'+i+'">'+esc(c.name)+'</button>'; }).join("") + '</div><p class="muted small" style="margin:6px 0 0">Name not there? Type your code instead.</p>' : '') +
+    '<label for="code"><b>Your hub code</b><br><span class="small muted">Four letters and numbers, on the slip from your tutor.</span></label>' +
+    '<input id="code" class="textin codebox" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="err">' +
+    '<button class="btn amber block" id="go">Start</button>' +
+    '<p id="err" class="small" role="alert" style="color:var(--red);margin:0">' + esc(msg||"") + '</p></div>' +
+    '<div class="panel amber"><h3>Nothing here is marked</h3><p>These games are for practice. Your scores stay on this phone until you choose to send them to your tutor.</p></div>' +
+    '<p class="foot">Your tutor sees your code, your scores, what you write in the exit ticket and when you played, so they know what to go over again. Nothing else is collected.</p></div>', {out:true});
+  var inp = $("#code"), go = $("#go");
+  inp.addEventListener("input", function(){ inp.value = inp.value.toUpperCase().replace(/[^A-Z0-9]/g,""); });
+  inp.addEventListener("keydown", function(e){ if (e.key === "Enter") go.click(); });
+  function finish(code, name){
+    S.me = {code:code, name:name || code}; Store.set("me", S.me); try { localStorage.setItem("tlhub.me", JSON.stringify(S.me)); } catch(e) {} loadProg(); logEvent("open","hub"); home();
+  }
+  function tryCode(code, name){
+    if (!/^[A-Z0-9]{4}$/.test(code)) { $("#err").textContent = "Your code has four letters and numbers."; return; }
+    var m = Net.mode();
+    if (m === "gas" || m === "remote") {
+      go.disabled = true; go.textContent = "Checking";
+      Net.call("hello", {code:code}).then(function(r){
+        if (r && r.ok) finish(code, name || r.first);
+        else { go.disabled=false; go.textContent="Start"; $("#err").textContent = "That code is not on the list. Check your slip, or ask your tutor."; }
+      }).catch(function(){ go.disabled=false; go.textContent="Start"; $("#err").textContent = "Cannot reach the hub right now. Check your wifi or data and try again."; });
+      return;
+    }
+    if (CLASS.length && !name) {
+      var hit = CLASS.filter(function(c){ return c.code === code; })[0];
+      if (!hit) { $("#err").textContent = "That code is not on the list. Check your slip, or ask your tutor."; return; }
+      name = hit.name;
+    }
+    finish(code, name);
+  }
+  go.onclick = function(){ tryCode(inp.value.trim()); };
+  $$(".names button").forEach(function(b){ b.onclick = function(){ var c = CLASS[+b.dataset.i]; tryCode(c.code, c.name); }; });
+  if (!list) setTimeout(function(){ try { inp.focus(); } catch(e){} }, 60);
+}
+function signOut(silent){
+  if (!silent && !confirm("Sign out on this phone? Your record stays here for next time.")) return;
+  S.me = null; Store.del("me"); try { localStorage.removeItem("tlhub.me"); } catch(e) {} loadProg(); signIn();
+}
+
+/* ---------- home ---------- */
+async function loadServer(){
+  var m = Net.mode(); if (m !== "gas" && m !== "remote") return;
+  try {
+    var r = await Net.call("stats", {});
+    if (r && r.ok) Object.assign(S.server, {state:"ok", focus:r.focus, target:r.target, week:r.week, message:r.message||"", nameOnly:!!r.nameOnly});
+  } catch(e) { S.server.state = "offline"; }
+}
+function gameByKey(k){ return GAMES.filter(function(g){ return g.key === k; })[0]; }
+function suggestNext(){
+  /* first game in path order not yet checked */
+  var order = []; CONTENT.parts.forEach(function(p){ order = order.concat(p.games); });
+  for (var i=0;i<order.length;i++) if (!S.prog.stamps[order[i]]) return order[i];
+  return "master";
+}
+function home(){
+  if (!S.me) return signIn();
+  S.tab = "games";
+  var p = S.prog, lv = levelOf(p.xp), focus = S.server.focus || HUB_CONFIG.defaultFocus;
+  var toNext = lv.next ? lv.next.at - p.xp : 0, span = lv.next ? lv.next.at - lv.from : 1, fill = lv.next ? Math.round(100*(p.xp-lv.from)/span) : 100;
+  var checked = Object.keys(p.stamps).length, played = Object.keys(p.plays).reduce(function(a,k){ return a + p.plays[k]; }, 0);
+  var due = dueIds().length, nxt = suggestNext();
+  function tile(g, step){
+    var best = p.best[g.key], n = p.plays[g.key]||0, isF = focus.indexOf(g.key) >= 0, good = best >= 80;
+    var rec = n ? "Best " + best + "%, played " + n + (n>1 ? " times" : " time") : "Not played yet";
+    return '<button class="tile" data-game="'+g.key+'" aria-label="'+esc((step?step+". ":"")+g.title+". "+g.what+" "+rec+(isF?". Set for this week":"")+(g.key===nxt?". Suggested next":""))+'">' +
+      '<div class="art">'+tileArt(g.key)+'</div>' +
+      (good ? '<span class="tick" aria-hidden="true">'+icon("check")+'</span>' : '') +
+      '<div class="body"><span class="badges">' + (step ? '<span class="step">'+esc(step)+'</span>' : '') + (isF ? '<span class="badge">This week</span>' : '') + (g.key===nxt ? '<span class="badge next">Next</span>' : '') + '</span>' +
+      '<span class="ttl">'+esc(g.title)+'</span><span class="what">'+esc(g.what)+'</span><span class="rec'+(good?' good':'')+'">'+rec+'</span></div></button>';
+  }
+  function row(act, ic, title, sub, pill){
+    return '<button class="rowbtn" data-go="'+act+'"><span class="ic">'+icon(ic)+'</span><span class="tx"><b>'+esc(title)+'</b><span>'+esc(sub)+'</span></span>'+(pill||'<span aria-hidden="true" class="muted">'+icon("chev")+'</span>')+'</button>';
+  }
+  var goal = (p.goal != null) ? CONTENT.goals[p.goal] : null;
+  var goalCard = goal ?
+    '<div class="card goal"><div class="row" style="justify-content:space-between;align-items:baseline;flex-wrap:nowrap"><b style="color:var(--head)">My goal this week</b><button class="link" data-act="goal">Change</button></div>' +
+    '<p style="margin:4px 0 8px">'+esc(goal.t)+'</p><div class="row">' + goal.games.map(function(k){ return '<button class="btn small ghost" data-game2="'+k+'">'+esc(TITLE[k])+'</button>'; }).join("") + '</div></div>' :
+    '<button class="rowbtn" data-act="goal"><span class="ic">'+icon("flag")+'</span><span class="tx"><b>Set a goal for this week</b><span>Pick the thing you most want to get better at. The hub shows you where to practise it.</span></span><span aria-hidden="true" class="muted">'+icon("chev")+'</span></button>';
+  var modeSeg = '<div class="modebox"><b style="color:var(--head)">How you play</b>' +
+    '<div class="seg" role="group" aria-label="How you play" style="grid-template-columns:1fr 1fr;margin:6px 0 4px">' +
+    '<button data-mode="guided" aria-pressed="'+guided()+'">Guided</button><button data-mode="independent" aria-pressed="'+(!guided())+'">Independent</button></div>' +
+    '<p class="small muted" style="margin:0">'+(guided() ? "Hints and worked examples are on. When you score 80% or more, try Independent." : "No hints or worked examples. Every game earns 50% more points.")+'</p></div>';
+  var path = CONTENT.parts.map(function(pt){
+    var gs = pt.games.map(gameByKey), done = pt.games.filter(function(k){ return p.stamps[k]; }).length;
+    var multi = pt.id !== "mix" && pt.id !== "p0";
+    return '<section class="part"><div class="sec"><div><h2>'+esc(pt.title)+'</h2><div class="small muted">'+esc(pt.sub)+'</div></div>' +
+      '<span class="pill'+(done === gs.length ? '' : ' amber')+'">'+done+' of '+gs.length+' checked</span></div>' +
+      '<details class="goals"><summary>You will be able to</summary><ul>'+pt.goals.map(function(g){ return '<li>'+esc(g)+'</li>'; }).join("")+'</ul></details>' +
+      '<div class="grid">' + gs.map(function(g,k){ return tile(g, multi ? "Step "+(k+1) : ""); }).join("") + '</div></section>';
+  }).join("");
+  var done = p.done;
+  screen(fullHeader() + '<div class="wrap">' +
+    '<div class="card"><div class="me"><span class="avatar" aria-hidden="true">'+esc(initials())+'</span><div><h2>Hello, '+esc(firstName())+'</h2>' +
+    '<div class="lvl">'+esc(lv.name)+', '+p.xp+' points</div></div></div>' +
+    '<div class="meter" aria-hidden="true"><i style="width:'+fill+'%"></i></div>' +
+    '<div class="small muted" style="margin-top:6px">'+(lv.next ? toNext+' points to '+esc(lv.next.name) : 'Top level reached. Keep your scores sharp.')+'</div>' +
+    '<div class="chips"><span class="chip">'+icon("flame")+streak()+' day streak</span><span class="chip">'+icon("check")+checked+' checked</span><span class="chip">'+icon("games")+played+' played</span></div>' +
+    modeSeg + '</div>' +
+    (S.server.message ? '<div class="panel amber" style="margin-top:12px"><p>'+esc(S.server.message)+'</p></div>' : '') +
+    '<div class="rows" style="margin-top:12px">' +
+      (due ? row("review", "cal", "Review: " + due + " question" + (due>1?"s":"") + " due today", "Questions you missed before, back when you are about to forget them.", '<span class="pill amber">Due</span>') :
+             row("review", "cal", "Review", Object.keys(p.srs).length ? "Nothing due today. Missed questions come back after 1, 3, 7 and 14 days." : "Questions you miss in the games come back here on later days.", '<span class="pill">Nothing due</span>')) +
+      goalCard + '</div>' +
+    '<div class="sec"><h2>Your path</h2><button class="link" data-act="formula">Formula card</button></div>' +
+    '<p class="small muted" style="margin:-4px 2px 4px">Work down the parts in order. A tick means you scored 80% or more.</p>' +
+    path +
+    '<div class="sec"><h2>After the lesson</h2></div><div class="rows">' +
+      row("exit", "exit", "Exit ticket", "Four questions and a check of all eight goals. Five minutes.", done.exit ? '<span class="pill">Handed in</span>' : '<span class="pill amber">To do</span>') +
+      row("checkin1", "check", "Part 1 check-in", "Rate yourself on semiconductors.", done.checkin1 ? '<span class="pill">Sent</span>' : '') +
+      row("checkin2", "check", "Part 2 check-in", "Rate yourself on signals and waveforms.", done.checkin2 ? '<span class="pill">Sent</span>' : '') +
+      row("checkin3", "check", "Part 3 check-in", "Rate yourself on conditioning and processing.", done.checkin3 ? '<span class="pill">Sent</span>' : '') +
+      row("flash", "flash", "Key word cards", CONTENT.flash.length + " flip cards. Keep going until you know them all.") +
+    '</div><p class="foot">This is formative. Nothing here is marked or graded. <span data-sync>'+esc(syncText())+'</span></p></div>', {tab:"games"});
+  $$(".tile").forEach(function(t){ t.onclick = function(){ startGame(t.dataset.game); }; });
+  $$("[data-game2]").forEach(function(t){ t.onclick = function(){ startGame(t.dataset.game2); }; });
+  $$("[data-go]").forEach(function(b){ b.onclick = function(){ var g=b.dataset.go;
+    if (g==="exit") runExit(); else if (g==="checkin1") runCheckin("p1","checkin1"); else if (g==="checkin2") runCheckin("p2","checkin2");
+    else if (g==="checkin3") runCheckin("p3","checkin3"); else if (g==="review") runReview(); else startGame("flash"); }; });
+  $$('[data-act="goal"]').forEach(function(b){ b.onclick = function(){ openGoalPicker(); }; });
+  $$("[data-mode]").forEach(function(b){ b.onclick = function(){ S.prefs.mode = b.dataset.mode; Store.set("prefs", S.prefs); home(); var x = $('[data-mode="'+S.prefs.mode+'"]'); if (x) x.focus(); }; });
+}
+
+/* ---------- goal picker (Activating: plan your own learning) ---------- */
+function openGoalPicker(){
+  var old = $(".modal"); if (old) old.remove();
+  var m = document.createElement("div"); m.className = "modal"; m.setAttribute("role","dialog"); m.setAttribute("aria-modal","true"); m.setAttribute("aria-label","Set a goal");
+  var rated = S.prog.rag || {};
+  m.innerHTML = '<div class="sheet stack"><div class="row" style="justify-content:space-between;align-items:center;flex-wrap:nowrap"><h2 style="margin:0">Set a goal</h2>' +
+    '<button class="iconbtn plain" data-close aria-label="Close">'+icon("close")+'</button></div>' +
+    '<p class="small" style="margin:0">Pick the one you are least sure about. '+(Object.keys(rated).length ? 'Your exit ticket ratings are shown.' : 'Be honest; it is only for you.')+'</p>' +
+    '<div class="rows">' + CONTENT.goals.map(function(g,k){
+      var r = rated[k], tag = r === "R" ? '<span class="pill red">Not yet</span>' : r === "A" ? '<span class="pill amber">Nearly</span>' : r === "G" ? '<span class="pill">Got it</span>' : '';
+      return '<button class="rowbtn" data-g="'+k+'"><span class="tx"><b>'+esc(g.t)+'</b></span>'+tag+'</button>'; }).join("") + '</div></div>';
+  document.body.appendChild(m);
+  function close(){ m.remove(); document.removeEventListener("keydown", onKey); }
+  function onKey(e){ if (e.key === "Escape") close(); }
+  document.addEventListener("keydown", onKey);
+  m.addEventListener("click", function(e){ if (e.target === m) close(); });
+  $("[data-close]", m).onclick = close;
+  $$("[data-g]", m).forEach(function(b){ b.onclick = function(){ S.prog.goal = +b.dataset.g; saveProg(); close(); home(); toast("Goal set. The games that practise it are on your home page."); }; });
+  $("[data-close]", m).focus();
+}
+
+/* ---------- formula card ---------- */
+function openFormulaCard(){
+  var old = $(".modal"); if (old) old.remove();
+  var m = document.createElement("div"); m.className = "modal"; m.setAttribute("role","dialog"); m.setAttribute("aria-modal","true"); m.setAttribute("aria-label","Formula card");
+  m.innerHTML = '<div class="sheet stack"><div class="row" style="justify-content:space-between;align-items:center;flex-wrap:nowrap"><h2 style="margin:0">Formula card</h2>' +
+    '<button class="iconbtn plain" data-close aria-label="Close">'+icon("close")+'</button></div>' +
+    '<table class="dtable ftable"><thead><tr><th scope="col">What</th><th scope="col">Formula</th></tr></thead><tbody>' +
+    CONTENT.formulas.map(function(f){ return '<tr><th scope="row">'+esc(f[0])+'</th><td>'+esc(f[1])+'</td></tr>'; }).join("") + '</tbody></table>' +
+    '<p class="small muted" style="margin:0">Knee voltage: silicon about 0.7 V, germanium about 0.3 V. Standard TTL fan out: 10.</p></div>';
+  document.body.appendChild(m);
+  function close(){ m.remove(); document.removeEventListener("keydown", onKey); }
+  function onKey(e){ if (e.key === "Escape") close(); }
+  document.addEventListener("keydown", onKey);
+  m.addEventListener("click", function(e){ if (e.target === m) close(); });
+  $("[data-close]", m).onclick = close;
+  $("[data-close]", m).focus();
+}
+
+/* ---------- my record ---------- */
+var RECORD_KEYS = GAMES.map(function(g){ return g.key; }).concat(["review","flash","exit","checkin1","checkin2","checkin3"]);
+function recordLines(){
+  var p = S.prog;
+  return RECORD_KEYS.filter(function(k){ return p.raw[k]; }).map(function(k){ return resultLine(TITLE[k], p.raw[k][0], p.raw[k][1], p.last[k]); });
+}
+function record(){
+  S.tab = "record";
+  var p = S.prog, mode = Net.mode();
+  var played = RECORD_KEYS.filter(function(k){ return (p.plays[k]||0) > 0 || p.raw[k]; });
+  var notYet = RECORD_KEYS.filter(function(k){ return played.indexOf(k) < 0; });
+  var cards = played.map(function(k){
+    var r = p.raw[k], t = TITLE[k], n = p.plays[k]||1;
+    var meta = (r ? "Best " + r[0] + " of " + r[1] : "Best " + (p.best[k]||0) + "%") + ", played " + n + (n>1?" times":" time") + (p.last[k] ? ", last " + niceDate(p.last[k]) : "");
+    var send = (mode === "forms" && r) ? '<a class="btn small amber act" target="_blank" rel="noopener" href="'+esc(formsLink(t, r[0], r[1], "Sent from My record"))+'">'+icon("send")+'Send</a>' : '';
+    return '<div class="card recard"><b>'+esc(t)+'</b>'+send+'<span class="meta">'+esc(meta)+(r ? '. Check code <span class="code">'+checkCode(S.me.code, t, r[0], r[1])+'</span>' : '')+'</span></div>';
+  }).join("");
+  var lines = recordLines().join("\n");
+  var cal = p.cal || {sr:0, sw:0, gr:0, gw:0}, calN = cal.sr + cal.sw + cal.gr + cal.gw;
+  screen(fullHeader() + '<div class="wrap">' +
+    '<div class="sec" style="margin-top:6px"><h2>My record</h2><span class="muted small">'+esc(S.me.name || S.me.code)+'</span></div>' +
+    (calN ? '<div class="card" style="margin-bottom:12px"><b style="color:var(--head)">Do you know what you know?</b><p class="small" style="margin:6px 0 0">From Sure or Not?: sure and right '+cal.sr+', sure but wrong '+cal.sw+', guessed and right '+cal.gr+', guessed and wrong '+cal.gw+'. '+
+      (cal.sw ? 'Sure but wrong is the one to shrink: those are the mistakes you would not spot in the exam.' : 'No confident mistakes so far. Good.')+'</p></div>' : '') +
+    (cards ? '<div class="stack">'+cards+'</div>' : '<div class="panel"><p>Nothing played yet. Your best score for each game appears here.</p></div>') +
+    (notYet.length ? '<p class="small muted" style="margin:14px 2px">Not played yet: '+notYet.map(function(k){ return esc(TITLE[k]); }).join(", ")+'.</p>' : '') +
+    '<div class="sec"><h2>Copy all my results</h2></div>' +
+    '<div class="card stack"><p style="margin:0">One line per game, with its check code. Paste it into the class chat if the form will not open.</p>' +
+    '<textarea class="copyline" id="block" readonly aria-label="All my results">'+esc(lines || "Nothing to copy yet.")+'</textarea>' +
+    '<button class="btn ghost block" id="copyAll">'+icon("copy")+'Copy the block</button></div>' +
+    '<div class="sec"><h2>Moving to another phone</h2></div>' +
+    '<div class="card stack"><p style="margin:0">Your record lives on this phone. To move it, copy your transfer code here, then paste it on the other phone and press Bring it across.</p>' +
+    '<button class="btn ghost block" id="pack">'+icon("copy")+'Copy my transfer code</button>' +
+    '<label for="unpack"><b>Coming from another phone? Paste the code here</b></label><textarea class="textin" id="unpack" placeholder="U8S-..."></textarea>' +
+    '<button class="btn block" id="bring">Bring it across</button><p class="small" id="mUnpack" role="status" style="margin:0"></p></div>' +
+    '<p class="foot">Clearing your browser data clears this record. Send your results first.</p></div>', {tab:"record"});
+  $("#copyAll").onclick = function(){ copyText(lines, function(ok){ toast(ok ? "Copied. Paste it into the class chat." : "Select the text and copy it."); }); };
+  $("#pack").onclick = function(){
+    var code = "U8S-" + btoa(unescape(encodeURIComponent(JSON.stringify({me:S.me, prog:S.prog}))));
+    copyText(code, function(ok){ toast(ok ? "Transfer code copied." : "Could not copy. Try again."); });
+  };
+  $("#bring").onclick = function(){
+    var v = $("#unpack").value.trim(), msg = $("#mUnpack");
+    try {
+      if (v.indexOf("U8S-") !== 0) throw 0;
+      var d = JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));
+      if (!d.me || !d.prog) throw 0;
+      var cur = S.prog, inc = Object.assign(freshProg(), d.prog);
+      cur.xp = Math.max(cur.xp, inc.xp);
+      Object.keys(inc.best).forEach(function(k){ if ((inc.best[k]||0) > (cur.best[k]||-1)) { cur.best[k] = inc.best[k]; if (inc.raw[k]) cur.raw[k] = inc.raw[k]; } });
+      Object.keys(inc.plays).forEach(function(k){ cur.plays[k] = Math.max(cur.plays[k]||0, inc.plays[k]); });
+      Object.keys(inc.last).forEach(function(k){ if (!cur.last[k] || inc.last[k] > cur.last[k]) cur.last[k] = inc.last[k]; });
+      Object.assign(cur.stamps, inc.stamps); Object.assign(cur.done, inc.done); Object.assign(cur.srs, inc.srs); Object.assign(cur.rag, inc.rag);
+      if (cur.goal == null) cur.goal = inc.goal;
+      inc.days.forEach(function(x){ if (cur.days.indexOf(x) < 0) cur.days.push(x); });
+      saveProg(); toast("Record brought across."); record();
+    } catch(e) { msg.style.color = "var(--red)"; msg.textContent = "That does not look like a transfer code. Copy it again on the other phone."; }
+  };
+}
+
+/* ---------- help and settings ---------- */
+function help(){
+  S.tab = "help";
+  var P = S.prefs;
+  function seg(name, opts, cur){ return '<div class="seg" role="group" aria-label="'+esc(name)+'" style="grid-template-columns:repeat('+opts.length+',1fr)">' +
+    opts.map(function(o){ return '<button data-pref="'+name+'" data-v="'+o[0]+'" aria-pressed="'+(String(cur)===String(o[0]))+'">'+o[1]+'</button>'; }).join("") + '</div>'; }
+  screen(fullHeader() + '<div class="wrap">' +
+    '<div class="sec" style="margin-top:6px"><h2>How it works</h2></div>' +
+    '<div class="card stack"><p style="margin:0">Work down your path: warm up, then Parts 1, 2 and 3, then pull it together. Play any game as often as you like. Your best score and the number of times you played are kept on this phone.</p>' +
+    '<p style="margin:0">Anything you get wrong goes on your review list and comes back after 1, 3, 7 and 14 days.</p>' +
+    '<p style="margin:0" data-sync>'+esc(syncText())+'</p>' +
+    '<p style="margin:0">Keyboard: press 1, 2, 3 or 4 to answer and Enter to move on.</p>' +
+    '<button class="btn ghost block" data-act="formula">Open the formula card</button></div>' +
+    '<div class="sec"><h2>Put the hub on your home screen</h2></div>' +
+    '<div class="card stack"><p style="margin:0"><b>iPhone:</b> in Safari, tap the Share button, then Add to Home Screen.</p>' +
+    '<p style="margin:0"><b>Android:</b> in Chrome, tap the three dots, then Add to home screen.</p>' +
+    '<p class="small muted" style="margin:0">It then opens like an app. On an iPhone it also stops your record being cleared if you have not played for a week or so.</p></div>' +
+    '<div class="sec"><h2>How you play</h2></div><div class="card">' +
+    seg("mode", [["guided","Guided"],["independent","Independent"]], P.mode || "guided") +
+    '<p class="small muted" style="margin:-6px 0 0">Guided gives hints and worked examples. Independent takes them away and gives 50% more points.</p></div>' +
+    '<div class="sec"><h2>Colours and text</h2></div><div class="card">' +
+    '<b style="color:var(--head)">Colours</b>' + seg("theme", [["auto","Auto"],["light","Light"],["dark","Dark"],["cream","Cream"]], P.theme) +
+    '<p class="small muted" style="margin:-6px 0 12px">Cream uses a softer background and wider spacing, which many people find easier to read.</p>' +
+    '<b style="color:var(--head)">Text size</b>' + seg("scale", [[1,"Normal"],[1.15,"Large"],[1.3,"Larger"],[1.45,"Largest"]], P.scale) +
+    '<b style="color:var(--head)">Movement</b>' + seg("motion", [["auto","Normal"],["reduce","Reduced"]], P.motion) + '</div>' +
+    '<div style="margin-top:16px"><button class="btn ghost block" id="out">Sign out on this phone</button></div>' +
+    '<p class="foot">'+esc(HUB_CONFIG.hubName)+', version '+VERSION+'. This is formative. Nothing here is marked or graded.</p></div>', {tab:"help"});
+  $$("[data-pref]").forEach(function(b){ b.onclick = function(){
+    var k = b.dataset.pref, v = b.dataset.v; S.prefs[k] = (k === "scale") ? Number(v) : v; Store.set("prefs", S.prefs); applyPrefs(); help();
+    var again = $('[data-pref="'+k+'"][data-v="'+v+'"]'); if (again) again.focus();
+  }; });
+  $("#out").onclick = function(){ signOut(); };
+}
+
+/* ---------- navigation ---------- */
+function startGame(key){
+  var run = {recall:runRecall, circuit:runCircuit, doctor:runDoctor, waves:runWaves, anadig:runAnaDig, stages:runStages, chain:runSequence,
+    ladder:runLadder, why:runWhy, errors:runErrors, examiner:runExaminer, pairs:runPairs, sure:runSure, master:runMaster, flash:runFlash, review:runReview}[key];
+  if (run) run();
+}
+document.addEventListener("keydown", function(e){
+  var t = e.target, tag = (t && t.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (/^[1-9]$/.test(e.key)) {
+    var conf = $$(".conf button:not([disabled])");   /* Sure or Not?: once an answer is picked, the keys rate confidence */
+    var b = (conf.length ? conf : $$(".opt:not([disabled]), .chunk:not([disabled]), [data-ans]:not([disabled])"))[Number(e.key)-1];
+    if (b) { e.preventDefault(); b.click(); }
+  } else if (e.key === "Enter" && tag !== "BUTTON" && tag !== "A") {
+    var n = $("#next"); if (n) { e.preventDefault(); n.click(); }
+  }
+});
+</script>
+<script>
+"use strict";
+/* ---------- results ---------- */
+function resultMessage(pct){
+  if (pct >= 90) return "Excellent. That is exam ready.";
+  if (pct >= 70) return "Good work. Check the ones below, then go again.";
+  if (pct >= 40) return "Getting there. Read the fixes, then play it again.";
+  return "Early days. Read each fix below and try again. It gets easier every round.";
+}
+function sendPanel(title, score, max, detail){
+  var m = Net.mode(), code = S.me ? S.me.code : "", chk = checkCode(code, title, score, max);
+  if (m === "forms") return '<div class="panel amber stack" style="margin-top:12px"><h3>Send this to your tutor</h3>' +
+    '<p>One tap opens the form with your code, the game and your score already filled in. Press Submit on the form.</p>' +
+    '<p>Check code <span class="code">'+chk+'</span></p>' +
+    '<div class="row"><a class="btn amber" id="send" target="_blank" rel="noopener" href="'+esc(formsLink(title, score, max, detail))+'">'+icon("send")+'Send my result</a>' +
+    '<button class="btn ghost" id="copy1">'+icon("copy")+'Copy it instead</button></div></div>';
+  if (m === "local") return '<div class="panel amber stack" style="margin-top:12px"><h3>Keep a copy</h3>' +
+    '<p>This hub is not linked to your tutor&#39;s form yet. Copy this line and paste it where your tutor asks.</p>' +
+    '<p class="small"><b>'+esc(resultLine(title, score, max))+'</b></p><button class="btn ghost" id="copy1">'+icon("copy")+'Copy it</button></div>';
+  return '<p class="small muted" style="margin:12px 2px" data-sync>'+esc(syncText())+'</p>';
+}
+function wireSend(title, score, max){
+  var c = $("#copy1"); if (c) c.onclick = function(){ copyText(resultLine(title, score, max), function(ok){ toast(ok ? "Copied. Paste it into the class chat." : "Select the line and copy it."); }); };
+  var s = $("#send"); if (s) s.addEventListener("click", function(){ toast("The form is opening. Press Submit on it."); });
+}
+/* Interacting: turn the result into one clear, actionable next step */
+function nextStep(key, pct, extra){
+  var added = extra.added || 0, ind = !guided(), out = [];
+  if (extra.conf && extra.conf.sw) out.push("You were sure but wrong on " + extra.conf.sw + (extra.conf.sw>1?" questions":" question") + ". Read those fixes twice: they are the mistakes you would not notice in the exam.");
+  if (pct < 50) out.push(ind ? "Switch to Guided on the home page and play this again with hints on." : "Read the fixes below, open the key word cards, then play this again.");
+  else if (pct < 80) out.push("Play it once more today. A score of 80% puts a tick on it.");
+  else if (!ind) out.push("That is a tick. Try it in Independent mode next: no hints, and 50% more points.");
+  else { var n = suggestNext(); if (n !== key) out.push("Move on to " + TITLE[n] + " next."); else out.push("Try Master It to keep this fluent."); }
+  if (added) out.push(added + (added>1 ? " questions have" : " question has") + " gone on your review list for tomorrow.");
+  return '<div class="card nextstep"><h3 style="margin:0 0 6px">Your next step</h3><ul class="review">' + out.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join("") + '</ul></div>';
+}
+function finishGame(key, score, max, items, started, review, extra){
+  extra = extra || {};
+  var p = S.prog, title = TITLE[key], pct = max ? Math.round(100*score/max) : 0, secs = Math.round((Date.now()-started)/1000);
+  var prev = p.best[key], newBest = prev == null || pct > prev;
+  if (newBest) { p.best[key] = pct; p.raw[key] = [score, max]; }
+  p.plays[key] = (p.plays[key]||0) + 1; p.last[key] = new Date().toISOString();
+  var gain = 20 + score*10 + (extra.bonus||0); if (!guided()) gain = Math.round(gain * 1.5); p.xp += gain;
+  var stamp = pct >= 80, firstStamp = stamp && !p.stamps[key]; if (stamp) p.stamps[key] = true;
+  var t = todayKey(); if (p.days.indexOf(t) < 0) p.days.push(t);
+  if (extra.conf) { p.cal = p.cal || {sr:0, sw:0, gr:0, gw:0}; ["sr","sw","gr","gw"].forEach(function(k){ p.cal[k] += extra.conf[k]||0; }); }
+  saveProg();
+  logEvent("finish", title, {score:score, max:max, secs:secs, items:items});
+  var missed = items.filter(function(x){ return !x.ok; }).map(function(x){ return x.l; });
+  var detail = (guided() ? "Guided" : "Independent") + ". " + (missed.length ? "To go over: " + missed.slice(0,6).join("; ") : "All correct") +
+    (extra.conf ? ". Sure but wrong: " + (extra.conf.sw||0) : "");
+  var calPanel = extra.conf ? '<div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">Do you know what you know?</h3>' +
+    '<div class="calgrid"><div><b>'+(extra.conf.sr||0)+'</b><span>Sure and right</span></div><div class="warn"><b>'+(extra.conf.sw||0)+'</b><span>Sure but wrong</span></div>' +
+    '<div><b>'+(extra.conf.gr||0)+'</b><span>Guessed, but right</span></div><div><b>'+(extra.conf.gw||0)+'</b><span>Guessed and wrong</span></div></div>' +
+    '<p class="small muted" style="margin:8px 0 0">Guessed but right is luck, not knowledge. Go back over those too.</p></div>' : '';
+  screen(gameHeader(title, 0, 0) + '<div class="wrap">' +
+    '<div class="card result"><p class="muted" style="margin:0 0 4px">'+esc(title)+(guided() ? '' : ', independent')+'</p><div class="big">'+score+'<small> of '+max+'</small></div>' +
+    '<p style="margin:10px 0 4px">'+resultMessage(pct)+'</p><p class="small muted" style="margin:0">+'+gain+' points'+(newBest && prev != null ? ', a new best' : '')+'</p>' +
+    (stamp ? '<span class="seal'+(firstStamp?' pop':'')+'">'+icon("check")+'Checked</span>' : '') + '</div>' +
+    nextStep(key, pct, extra) + calPanel +
+    sendPanel(title, score, max, detail) +
+    (review.length ? '<div class="card" style="margin-top:12px"><h3 style="margin:0 0 6px">What to fix</h3><ol class="review">' +
+      review.map(function(r){ return '<li><b>'+esc(r.q)+'</b><br>The answer: '+esc(r.right)+(r.why ? '. <span class="muted">'+esc(r.why)+'</span>' : '')+'</li>'; }).join("") + '</ol></div>'
+      : '<div class="panel" style="margin-top:12px"><p>Nothing to fix this round.</p></div>') +
+    '<div class="dock"><div class="row"><button class="btn amber" id="again">Play again</button><button class="btn ghost" id="hub">Back to the games</button></div></div></div>', {game:true, done:true});
+  wireSend(title, score, max);
+  $("#again").onclick = function(){ startGame(key); };
+  $("#hub").onclick = function(){ home(); };
+  say(score + " out of " + max + ". " + resultMessage(pct));
+}
+
+/* ---------- one engine for every multiple choice game ----------
+   Adds, on top of the Unit 1.1 engine:
+   wf     feedback written for a specific wrong answer (Interacting)
+   hint   shown only in Guided mode (Structuring: scaffolds that come away)
+   conf   rate how sure you are before the answer is shown (Activating)
+   master a missed question returns two questions later until it is right (Embedding)
+   rid    marks the question on the spaced review list (Embedding)                   */
+function optButtons(opts){ return opts.map(function(o,k){ return '<button class="opt" data-k="'+k+'"><span class="k">'+(k+1)+'</span><span class="l">'+esc(o)+'</span><span class="s"></span></button>'; }).join(""); }
+function markOpts(correct, chosen){
+  var ok = correct.indexOf(chosen) >= 0;
+  $$(".opt").forEach(function(b){
+    var j = +b.dataset.k; b.disabled = true; b.classList.remove("picked");
+    if (correct.indexOf(j) >= 0) { b.classList.add("correct"); $(".s", b).textContent = (j === chosen || !ok) ? "Right answer" : "Also right"; }
+    else if (j === chosen) { b.classList.add("wrong"); $(".s", b).textContent = "Not this one"; }
+    else b.classList.add("dim");
+  });
+  return ok;
+}
+function showFeedback(ok, rightText, why, nextLabel, onNext, chosenFb){
+  var fb = $("#fb");
+  fb.className = "fb" + (ok ? "" : " bad");
+  fb.innerHTML = '<strong>' + (ok ? pick(["Right.","Yes, that is it.","Correct."]) : "Not this time.") + '</strong>' +
+    (ok ? "" : "The answer is: " + esc(rightText) + ". ") +
+    (!ok && chosenFb ? '<span class="whyno"><b>About your answer:</b> ' + esc(chosenFb) + '</span>' : '') + esc(why || "");
+  $("#dock").innerHTML = '<button class="btn amber block" id="next">'+nextLabel+'</button>';
+  $("#next").onclick = onNext;
+  say(ok ? "Right." : "Not this time. The answer is " + rightText);
+  try { fb.scrollIntoView({block:"nearest", behavior:"smooth"}); } catch(e) {}
+}
+function runMCQ(key, items, opts){
+  opts = opts || {};
+  /* every question in a round needs its own id: a repeated id would be treated as "Back again" and not scored */
+  var idsSeen = {}; items = items.map(function(it, k){ if (idsSeen[it.id]) it = Object.assign({}, it, {id: it.id + "~" + k}); idsSeen[it.id] = 1; return it; });
+  var queue = items.slice(), total = items.length, i = 0, score = 0, bonus = 0, log = [], review = [], started = Date.now(), shownAt = 0;
+  var seen = {}, conf = {sr:0, sw:0, gr:0, gw:0}, added = 0, answered = 0;
+  function show(){
+    var it = queue[0], again = !!seen[it.id];
+    var n = answered + queue.length;
+    screen(gameHeader(TITLE[key], answered, n) + '<div class="wrap"><div class="card">' +
+      '<div class="qno">'+(again ? "Back again" : (opts.label || "Question")+' '+(Object.keys(seen).length+1))+'</div>' +
+      (it.lead ? '<p class="qprompt" style="margin:4px 0 0">'+esc(it.lead)+'</p>' : '') +
+      '<p class="qtext">'+esc(it.prompt)+'</p>' +
+      (it.art ? '<div class="qart">'+it.art+'</div>' : '') +
+      (it.sub ? '<p class="qprompt">'+esc(it.sub)+'</p>' : '') +
+      (it.hint && guided() ? '<div id="hintbox"><button class="link" id="hint">Show a hint</button></div>' : '') +
+      '<div class="opts'+(opts.cols === 2 ? ' two' : '')+'">' + optButtons(it.options) + '</div>' +
+      (opts.conf ? '<div id="confbox"></div>' : '') +
+      '<div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true});
+    shownAt = Date.now();
+    var h = $("#hint"); if (h) h.onclick = function(){ $("#hintbox").innerHTML = '<div class="worked">'+esc(it.hint)+'</div>'; it.usedHint = true; };
+    $$(".opt").forEach(function(b){ b.onclick = function(){
+      var k = +b.dataset.k;
+      if (!opts.conf) return answer(k, null);
+      $$(".opt").forEach(function(x){ x.classList.toggle("picked", x === b); });
+      $("#confbox").innerHTML = '<p class="qprompt" style="margin:14px 0 8px"><b style="color:var(--head)">How sure are you?</b></p>' +
+        '<div class="rag conf"><button class="g" data-c="sure">Sure</button><button class="a" data-c="think">Think so</button><button class="r" data-c="guess">Guessing</button></div>';
+      $$("[data-c]").forEach(function(c){ c.onclick = function(){ $$("[data-c]").forEach(function(x){ x.disabled = true; x.setAttribute("aria-pressed", String(x === c)); }); answer(k, c.dataset.c); }; });
+      try { $("#confbox").scrollIntoView({block:"nearest", behavior:"smooth"}); } catch(e) {}
+    }; });
+  }
+  function answer(k, c){
+    var it = queue[0], ok = markOpts(it.correct, k), right = it.correct.map(function(x){ return it.options[x]; }).join(" or ");
+    var first = !seen[it.id]; seen[it.id] = (seen[it.id]||0) + 1; answered++;
+    if (first) {
+      if (ok) { score++; if (opts.speed && Date.now() - shownAt < 6000) bonus += 5; }
+      else review.push({q:it.prompt, right:right, why:it.why});
+      log.push({i:it.id, ok:ok?1:0, l:String(it.label || it.prompt).slice(0,90)});
+      if (c) { var sure = c === "sure"; conf[(sure ? "s" : "g") + (ok ? "r" : "w")]++; }
+      if (it.rid && srsMark(it.rid, ok)) added++;
+    }
+    var chosenFb = (!ok && it.wf) ? it.wf[it.options[k]] : "";
+    queue.shift();
+    if (opts.master && !ok && seen[it.id] < 3) queue.splice(Math.min(2, queue.length), 0, reshuffle(it));
+    var last = queue.length === 0;
+    showFeedback(ok, right, it.why, last ? "See my score" : (opts.master && !ok ? "Next (this one will come back)" : "Next"), function(){
+      if (last) { saveProg(); finishGame(key, score, total, log, started, review, {bonus:bonus, conf:opts.conf ? conf : null, added:added}); }
+      else show();
+    }, chosenFb);
+  }
+  show();
+}
+function reshuffle(it){ var right = it.correct.map(function(x){ return it.options[x]; }), o = shuffle(it.options);
+  return Object.assign({}, it, {options:o, correct:right.map(function(r){ return o.indexOf(r); })}); }
+function mix(correct, wrongs){ var o = shuffle([correct].concat(wrongs)); return {options:o, correct:[o.indexOf(correct)]}; }
+
+/* ---------- Remember when ---------- */
+function runRecall(){ runMCQ("recall", shuffle(CONTENT.recall).slice(0,8).map(function(x){ return mcqFrom(x, "From earlier in 8.1"); }), {speed:true}); }
+
+/* ---------- Circuit Reader: generated circuits ---------- */
+function circuitItems(){
+  var out = [];
+  var LIT = "Yes: forward biased and above the knee voltage", REV = "No: the diode is reverse biased", LOW = "No: forward biased, but below the knee voltage", RC = "Yes: reverse biased diodes conduct too";
+  for (var n = 0; n < 4; n++) {
+    var mat = Math.random() < 0.7 ? "Si" : "Ge", knee = mat === "Si" ? 0.7 : 0.3;
+    var volts = pick(mat === "Si" ? ["6 V","9 V","0.5 V","0.4 V","12 V"] : ["1.5 V","0.5 V","0.2 V","6 V"]), v = parseFloat(volts);
+    var posTop = Math.random() < 0.5, right = Math.random() < 0.5, fwd = posTop === right, on = fwd && v > knee;
+    var ans = on ? LIT : (!fwd ? REV : LOW), m = mix(ans, [LIT, REV, LOW, RC].filter(function(x){ return x !== ans; }));
+    var wf = {};
+    wf[LIT] = !fwd ? "Follow conventional current out of the + terminal. It reaches the bar (cathode) first, so the diode is reverse biased." : "It is forward biased, but "+volts+" is below the "+knee+" V a "+(mat==="Si"?"silicon":"germanium")+" diode needs.";
+    wf[REV] = "Follow conventional current out of the + terminal. It reaches the triangle (anode) first, so the diode is forward biased.";
+    wf[LOW] = !fwd ? "The voltage is not the problem here. The diode is the wrong way round, so it is reverse biased." : volts+" is above the "+knee+" V knee for "+(mat==="Si"?"silicon":"germanium")+", so current flows.";
+    wf[RC] = "A reverse biased diode only conducts at breakdown, which is far above this supply.";
+    out.push({id:"C-"+mat+"-"+volts+"-"+(fwd?"F":"R"), label:"Diode circuit, "+(mat==="Si"?"silicon":"germanium")+", "+volts,
+      prompt:"Does current flow round this circuit?", art:diodeCircuitArt({posTop:posTop, right:right, mat:mat, volts:volts}),
+      options:m.options, correct:m.correct, wf:wf,
+      why: on ? "Positive reaches the anode, and "+volts+" is above the "+knee+" V knee." : (!fwd ? "Positive reaches the cathode, so the depletion layer widens and blocks." : "Forward biased, but "+volts+" is not enough to get over the "+knee+" V depletion layer barrier."),
+      hint:"Trace conventional current out of the + terminal (the long plate). Does it meet the triangle or the bar first? Then check the voltage against the knee: 0.7 V silicon, 0.3 V germanium."});
+  }
+  var ON = "On: base current flows, so collector current flows", OFF = "Off: no base current, so no collector current", W1 = "Off: a high base voltage blocks the transistor", W2 = "On: current flows from the base input straight through the lamp";
+  for (var t = 0; t < 2; t++) {
+    var vin = pick(["0 V","5 V","5 V","0.3 V"]), isOn = vin === "5 V", a2 = isOn ? ON : OFF, m2 = mix(a2, [ON, OFF, W1, W2].filter(function(x){ return x !== a2; }));
+    var wf2 = {}; wf2[ON] = vin === "0.3 V" ? "0.3 V is below the 0.7 V the base needs, so almost no base current flows." : "With 0 V on the base there is no base current at all.";
+    wf2[OFF] = "5 V drives current into the base through the resistor, well past 0.7 V, so the transistor turns on.";
+    wf2[W1] = "For an NPN transistor a positive base voltage turns it on, not off."; wf2[W2] = "The lamp current comes from the 9 V supply through collector and emitter. The base input only supplies a small control current.";
+    out.push({id:"T-"+vin, label:"NPN switch, base at "+vin, prompt:"Is the transistor on, and is the lamp lit?", art:transistorArt({vin:vin}),
+      options:m2.options, correct:m2.correct, wf:wf2, why: isOn ? "A small base current lets a much larger collector current flow through the lamp." : "The base needs about 0.7 V above the emitter before base current flows.",
+      hint:"An NPN transistor needs its base about 0.7 V above the emitter (0 V here) before it turns on."});
+  }
+  var r = Math.random() < 0.5, m3 = mix(r ? "A" : "B", [r ? "B" : "A"]);
+  out.push({id:"Y-diode", label:"Anode on a diode symbol", prompt:"Which end is the anode?", art:symbolArt(r ? "dright" : "dleft"), options:m3.options, correct:m3.correct,
+    why:"The triangle's flat side is the anode. The arrow points to the bar, which is the cathode.", hint:"The arrow points the way conventional current flows: anode to cathode.",
+    wf:{"A":"A is the bar end, the cathode.","B":"B is the bar end, the cathode."}});
+  var pn = Math.random() < 0.5 ? "pnp" : "npn", m4 = mix(pn.toUpperCase(), [pn === "npn" ? "PNP" : "NPN"]);
+  out.push({id:"Y-"+pn, label:"NPN or PNP symbol", prompt:"Is this an NPN or a PNP transistor?", art:symbolArt(pn), options:m4.options, correct:m4.correct,
+    why:"The emitter arrow points out on an NPN and in on a PNP.", hint:"NPN: Not Pointing iN.", wf:{"NPN":"The arrow points in towards the base: that is PNP.","PNP":"The arrow points out, away from the base: that is NPN."}});
+  return shuffle(out);
+}
+function runCircuit(){ runMCQ("circuit", circuitItems()); }
+
+/* ---------- Diode Doctor ---------- */
+function runDoctor(){
+  var O = CONTENT.doctorOpts;
+  runMCQ("doctor", shuffle(CONTENT.doctor).slice(0,8).map(function(x){
+    var wf = {}; O.forEach(function(o){ if (o !== x.ans) wf[o] = CONTENT.doctorFb[o+"|"+x.ans] || ""; });
+    return {id:x.id, label:"Readings "+x.a+" and "+x.c, lead:"A diode test with a multimeter.", prompt:"What is the verdict?", art:meterArt(x.a, x.c), options:O, correct:[O.indexOf(x.ans)], why:x.why, wf:wf,
+      hint:"Good silicon: about 0.6 to 0.7 V one way, OL the other. Germanium: about 0.3 V. Short: about 0 V both ways. Open: OL both ways."};
+  }), {cols:2});
+}
+
+/* ---------- Wave Spotter: generated waveforms ---------- */
+function fmt(n){ return (Math.round(n*100)/100).toString(); }
+function waveItems(){
+  var out = [], NAMES = {sine:"Sinusoidal", square:"Square", rect:"Rectangular", tri:"Triangular", saw:"Sawtooth"};
+  var kinds = shuffle(Object.keys(NAMES));
+  kinds.slice(0,3).forEach(function(k){
+    var right = NAMES[k], m = mix(right, shuffle(Object.keys(NAMES).filter(function(x){ return x !== k; }).map(function(x){ return NAMES[x]; })).slice(0,3));
+    var wf = {}; wf.Sawtooth = "A sawtooth ramps steadily then drops suddenly."; wf.Triangular = "A triangular wave rises and falls at the same rate.";
+    wf.Square = "A square wave is high and low for equal times."; wf.Rectangular = "A rectangular wave is high and low for unequal times."; wf.Sinusoidal = "A sine wave is smooth and curved.";
+    out.push({id:"V-"+k, label:"Name the "+right.toLowerCase()+" wave", prompt:"What is this waveform called?", art:waveArt(k, {period:5, mark:1}), options:m.options, correct:m.correct, wf:wf,
+      why:{sine:"Smooth, one frequency: mains and generators.", square:"Equal mark and space: 50% duty cycle. Clock signals.", rect:"Two levels but unequal times. Pulses and PWM.", tri:"Equal steady rise and fall. Test signals.", saw:"Steady ramp, sudden drop. Timebase sweeps."}[k],
+      hint:"Look at the edges: curved, straight up and down, or sloped? Then check whether the rise and fall match."});
+  });
+  /* duty cycle */
+  var p = pick([4,5,10]), mk = pick([1,2,3].filter(function(x){ return x < p && x*2 !== p; })), d = 100*mk/p;
+  var dOpts = [d, 100*(p-mk)/p, Math.round(100*mk/(p-mk)), 50].map(function(x){ return fmt(x)+"%"; }).filter(function(x,i,a){ return a.indexOf(x) === i; });
+  while (dOpts.length < 4) dOpts.push(fmt(d+10*dOpts.length)+"%");
+  var md = mix(dOpts[0], dOpts.slice(1));
+  var wfd = {}; wfd[fmt(100*(p-mk)/p)+"%"] = "That is the space, the low part. Duty cycle uses the mark, the high part."; wfd[Math.round(100*mk/(p-mk))+"%"] = "You divided mark by space. Divide the mark by the whole period."; wfd["50%"] = "50% would need equal mark and space.";
+  out.push({id:"V-duty", label:"Duty cycle from a drawing", prompt:"What is the duty cycle of this signal?", sub:"Each square is 1 ms across.", art:waveArt("rect", {period:p, mark:mk, xlabel:"1 square = 1 ms"}),
+    options:md.options, correct:md.correct, wf:wfd, why:"Mark "+mk+" ms, period "+p+" ms. "+mk+" ÷ "+p+" × 100 = "+fmt(d)+"%.", hint:"Count the squares while it is high (the mark), then the squares for one whole cycle (the period)."});
+  /* frequency */
+  var pr = pick([2,4,5]), sc = pick([1,2,5]), T = pr*sc, f = 1000/T, kind = pick(["sine","square"]);
+  var fo = [f, 1000/pr, T, f/2].map(function(x){ return fmt(x)+" Hz"; }).filter(function(x,i,a){ return a.indexOf(x) === i; });
+  while (fo.length < 4) fo.push(fmt(f*(fo.length+1))+" Hz");
+  var mf = mix(fo[0], fo.slice(1)), wff = {}; wff[fmt(1000/pr)+" Hz"] = "You counted squares but forgot each square is "+sc+" ms."; wff[fmt(T)+" Hz"] = T+" is the period in ms, not the frequency. Frequency is 1 ÷ period."; wff[fmt(f/2)+" Hz"] = "Check you measured one full cycle, not two.";
+  out.push({id:"V-freq", label:"Frequency from a drawing", prompt:"What is the frequency of this signal?", sub:"Each square is "+sc+" ms across.", art:waveArt(kind, {period:pr, xlabel:"1 square = "+sc+" ms"}),
+    options:mf.options, correct:mf.correct, wf:wff, why:"One cycle is "+pr+" squares × "+sc+" ms = "+T+" ms. f = 1 ÷ "+(T/1000)+" s = "+fmt(f)+" Hz.", hint:"Find one full cycle, count its squares, times by ms per square to get T, then f = 1 ÷ T (with T in seconds)."});
+  /* amplitude */
+  var vd = pick([1,2,5]), pkq = Math.random() < 0.5, pk = 3*vd, ans = pkq ? pk : 2*pk;
+  var ao = [ans, pkq ? 2*pk : pk, 3, fmt(0.707*pk)].map(function(x){ return fmt(Number(x))+" V"; }).filter(function(x,i,a){ return a.indexOf(x) === i; });
+  while (ao.length < 4) ao.push(fmt(ans+vd*(ao.length+1))+" V");
+  var ma = mix(ao[0], ao.slice(1)), wfa = {}; wfa[fmt(pkq ? 2*pk : pk)+" V"] = pkq ? "That is peak to peak. The peak is measured from the centre line." : "That is the peak. Peak to peak goes from the top to the bottom.";
+  wfa["3 V"] = "You counted squares but did not times by "+vd+" V per square."; wfa[fmt(0.707*pk)+" V"] = "That is the rms value, not what was asked.";
+  out.push({id:"V-amp", label:pkq ? "Peak voltage" : "Peak to peak voltage", prompt:"What is the "+(pkq ? "peak" : "peak to peak")+" voltage?", sub:"Each square is "+vd+" V up the page.",
+    art:waveArt("sine", {period:5, ylabel:"1 square = "+vd+" V"}), options:ma.options, correct:ma.correct, wf:wfa,
+    why:"The peak is 3 squares above the centre line: 3 × "+vd+" = "+pk+" V. Peak to peak is twice that, "+(2*pk)+" V.", hint:"Count squares from the centre line up to the top of the wave, then times by the volts per square."});
+  /* analogue or digital drawing */
+  var ak = pick(["sine","tri","square","steps"]), isA = ak === "sine" || ak === "tri", aa = isA ? "Analogue" : "Digital", mad = mix(aa, [isA ? "Digital" : "Analogue"]);
+  out.push({id:"V-ad-"+ak, label:"Analogue or digital drawing", prompt:"Is this signal analogue or digital?", art:waveArt(ak, {period:5}), options:mad.options, correct:mad.correct,
+    wf:{"Analogue":"It only takes set levels, so it is discrete: digital.","Digital":"It moves smoothly through every value, so it is continuous: analogue."},
+    why:isA ? "It passes smoothly through every value. Continuous means analogue." : "It jumps between set levels. Discrete means digital.", hint:"Can it take any value, or only set levels?"});
+  return shuffle(out);
+}
+function runWaves(){ runMCQ("waves", waveItems()); }
+
+/* ---------- Stage Selector ---------- */
+function stageItem(x){
+  var N = CONTENT.stageNames, wr = Object.keys(x.fb||{}).filter(function(k){ return k !== x.ans; });
+  shuffle(N.filter(function(k){ return k !== x.ans && wr.indexOf(k) < 0; })).forEach(function(k){ if (wr.length < 3) wr.push(k); });
+  var m = mix(x.ans, wr.slice(0,3));
+  return {id:x.id, rid:x.id, label:x.q, lead:"Which conditioning stage fixes this?", prompt:x.q, options:m.options, correct:m.correct, why:x.why, wf:x.fb||null,
+    hint:"Ask what is wrong with the signal: too small, noisy, wrong range, unsafe, uneven, or the wrong type?"};
+}
+function runStages(){ runMCQ("stages", shuffle(CONTENT.stages).slice(0,8).map(stageItem)); }
+
+/* ---------- Examiner's Eye ---------- */
+function runExaminer(){
+  runMCQ("examiner", shuffle(CONTENT.examiner).slice(0,8).map(function(x){
+    var o = []; for (var k = 0; k <= x.max; k++) o.push(k + (k === 1 ? " mark" : " marks"));
+    var right = o[x.got], wf = {};
+    o.forEach(function(v,k){ if (k > x.got) wf[v] = "Too generous. Look for what the answer is missing."; else if (k < x.got) wf[v] = "Too harsh. The answer does earn credit for what it says."; });
+    return {id:x.id, label:x.q.slice(0,60), lead:x.src + ". " + x.q + " (" + x.max + (x.max>1?" marks":" mark") + ")", prompt:"“"+x.a+"”", sub:"How many marks does this answer earn?",
+      options:o, correct:[x.got], wf:wf, why:x.why + " Full marks: " + x.model,
+      hint:"Most marks need a precise point. For 'explain', each point needs a linked 'because' to get the second mark."};
+  }), {cols: 2, label:"Answer"});
+}
+
+/* ---------- Sure or Not? and Master It ---------- */
+function runSure(){ runMCQ("sure", shuffle(CONTENT.quick).slice(0,10).map(function(x){ return mcqFrom(x); }), {conf:true}); }
+function runMaster(){ runMCQ("master", shuffle(CONTENT.quick.concat(CONTENT.recall)).slice(0,8).map(function(x){ return mcqFrom(x); }), {master:true}); }
+function runReview(){
+  var ids = shuffle(dueIds()).slice(0,10);
+  if (!ids.length) { toast("Nothing is due today. Play a game: anything you miss comes back here tomorrow."); return; }
+  runMCQ("review", ids.map(function(id){ var it = REG[id](); it.lead = "Review. " + (it.lead||""); return it; }));
+}
+
+/* ---------- Why? Because: two steps per case, the answer and then the reason ---------- */
+function runWhy(){
+  var items = shuffle(CONTENT.why).slice(0,6), i = 0, s = 0, score = 0, log = [], review = [], started = Date.now();
+  function show(){
+    var it = items[i], st = it.steps[s], m = mix(st.correct, st.wrongs);
+    screen(gameHeader(TITLE.why, i*2+s, items.length*2) + '<div class="wrap"><div class="card">' +
+      '<div class="qno">Case '+(i+1)+' of '+items.length+'. '+(s === 0 ? "The answer" : "The reason")+'</div>' +
+      '<p class="qtext">'+esc(it.q)+'</p>' +
+      (s === 1 ? '<div class="stepnote"><b>'+esc(it.steps[0].label)+'</b> '+esc(it.steps[0].correct)+'</div>' : '') +
+      '<p class="qprompt"><b style="color:var(--head)">'+esc(st.label)+'</b></p>' +
+      (s === 1 && guided() ? '<p class="small muted" style="margin:-4px 0 10px">Say your own reason out loud first, then pick the one closest to it.</p>' : '') +
+      '<div class="opts">'+optButtons(m.options)+'</div><div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true});
+    $$(".opt").forEach(function(b){ b.onclick = function(){
+      var ok = markOpts(m.correct, +b.dataset.k);
+      if (ok) score++; else review.push({q:it.q + " (" + st.label.toLowerCase() + ")", right:st.correct, why:""});
+      log.push({i:it.id+"-"+(s+1), ok:ok?1:0, l:(st.label+" "+it.q).slice(0,90)});
+      var last = i === items.length-1 && s === 1;
+      showFeedback(ok, st.correct, s === 0 && ok ? "Now the harder part: why?" : "", s === 0 ? "Now the reason" : (last ? "See my score" : "Next case"), function(){
+        if (last) return finishGame("why", score, items.length*2, log, started, review);
+        if (s === 0) s = 1; else { s = 0; i++; } show();
+      });
+    }; });
+  }
+  show();
+}
+
+/* ---------- spot the error: tap the wrong chunk ---------- */
+function runErrors(){
+  var items = shuffle(CONTENT.errors).slice(0,8), i = 0, score = 0, log = [], review = [], started = Date.now();
+  function show(){
+    var it = items[i];
+    screen(gameHeader(TITLE.errors, i, items.length) + '<div class="wrap"><div class="card">' +
+      '<div class="qno">Statement '+(i+1)+'</div><p class="qprompt" style="margin:4px 0 12px">One part of this statement is wrong. Tap it.</p>' +
+      '<div class="chunks">' + it.chunks.map(function(c,k){ return '<button class="chunk" data-k="'+k+'">'+esc(c)+'</button>'; }).join("") + '</div>' +
+      '<div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true});
+    $$(".chunk").forEach(function(b){ b.onclick = function(){
+      var k = +b.dataset.k, ok = k === it.wrong;
+      $$(".chunk").forEach(function(c){ var j = +c.dataset.k; c.disabled = true;
+        if (j === it.wrong) c.classList.add("is-error"); else if (j === k) c.classList.add("wrong-pick"); else c.classList.add("fine"); });
+      if (ok) score++; else review.push({q:it.chunks.join(" "), right:"the wrong part is “"+it.chunks[it.wrong]+"”", why:it.fix});
+      log.push({i:it.id, ok:ok?1:0, l:it.chunks.join(" ").slice(0,90)});
+      var fb = $("#fb"); fb.className = "fb" + (ok ? "" : " bad");
+      fb.innerHTML = '<strong>'+(ok ? "Spotted it." : "Not that part. The wrong part is outlined in red.")+'</strong>'+esc(it.fix);
+      var last = i === items.length-1;
+      $("#dock").innerHTML = '<button class="btn amber block" id="next">'+(last ? "See my score" : "Next")+'</button>';
+      $("#next").onclick = function(){ if (last) finishGame("errors", score, items.length, log, started, review); else { i++; show(); } };
+      try { fb.scrollIntoView({block:"nearest", behavior:"smooth"}); } catch(e) {}
+    }; });
+  }
+  show();
+}
+
+/* ---------- Analogue or Digital: swipe or tap ---------- */
+function runAnaDig(){
+  var items = shuffle(CONTENT.anadig).slice(0,12), i = 0, score = 0, log = [], review = [], started = Date.now();
+  function show(){
+    var it = items[i], nxt = items[i+1];
+    screen(gameHeader(TITLE.anadig, i, items.length) + '<div class="wrap">' +
+      '<p class="qprompt" style="margin:0 0 8px">Swipe left for analogue, right for digital. Or tap a button.</p>' +
+      '<div class="deck">' + (nxt ? '<div class="scard back" aria-hidden="true">.</div>' : '') +
+      '<div class="scard" id="sc"><span class="hint l">Analogue</span><span class="hint r">Digital</span><span class="qtext" style="color:inherit;font-size:1em;margin:0">'+esc(it.s)+'</span></div></div>' +
+      '<div class="row"><button class="btn ghost" data-ans="Analogue">Analogue</button><button class="btn" data-ans="Digital">Digital</button></div>' +
+      '<div id="fb" role="status"></div><div class="dock" id="dock"></div></div>', {game:true});
+    var card = $("#sc"), x0 = null, dx = 0, done = false;
+    function answer(a){
+      if (done) return; done = true;
+      var ok = a === it.ans;
+      card.style.transform = "translateX(" + (a === "Analogue" ? "-" : "") + "60%) rotate(" + (a === "Analogue" ? "-" : "") + "8deg)"; card.style.opacity = "0";
+      $$("[data-ans]").forEach(function(b){ b.disabled = true; });
+      if (ok) score++; else review.push({q:it.s, right:it.ans, why:it.why});
+      log.push({i:it.id, ok:ok?1:0, l:it.s.slice(0,90)});
+      var last = i === items.length-1;
+      showFeedback(ok, it.ans, it.why, last ? "See my score" : "Next", function(){ if (last) finishGame("anadig", score, items.length, log, started, review); else { i++; show(); } });
+    }
+    $$("[data-ans]").forEach(function(b){ b.onclick = function(){ answer(b.dataset.ans); }; });
+    card.addEventListener("pointerdown", function(e){ x0 = e.clientX; dx = 0; card.style.transition = "none"; try { card.setPointerCapture(e.pointerId); } catch(err) {} });
+    card.addEventListener("pointermove", function(e){ if (x0 == null || done) return; dx = e.clientX - x0;
+      card.style.transform = "translateX(" + dx + "px) rotate(" + (dx/20) + "deg)";
+      $(".hint.l", card).style.opacity = Math.min(1, Math.max(0, -dx/80)); $(".hint.r", card).style.opacity = Math.min(1, Math.max(0, dx/80)); });
+    function end(){ if (x0 == null) return; x0 = null; card.style.transition = "";
+      if (Math.abs(dx) > 90) answer(dx < 0 ? "Analogue" : "Digital"); else { card.style.transform = ""; $$(".hint", card).forEach(function(h){ h.style.opacity = 0; }); } }
+    card.addEventListener("pointerup", end); card.addEventListener("pointercancel", end);
+  }
+  show();
+}
+
+/* ---------- Sequence It ---------- */
+function runSequence(){
+  var seqs = CONTENT.sequences, first = seqs.filter(function(q){ return q.id === "Q1"; })[0] || seqs[0];
+  var set = [first].concat(shuffle(seqs.filter(function(q){ return q !== first; })).slice(0,2));
+  var i = 0, score = 0, max = 0, log = [], review = [], started = Date.now();
+  set.forEach(function(q){ max += q.steps.length; });
+  function show(){
+    var it = set[i], n = it.steps.length, pool = shuffle(it.steps.map(function(_,k){ return k; })), placed = [], checked = false;
+    function draw(keepScroll){
+      var left = pool.filter(function(k){ return placed.indexOf(k) < 0; });
+      screen(gameHeader(TITLE.chain, i, set.length) + '<div class="wrap"><div class="card">' +
+        '<div class="qno">Sequence '+(i+1)+' of '+set.length+'</div><p class="qtext">'+esc(it.title)+'</p>' +
+        '<p class="qprompt">Tap the steps in the order they happen. Tap a numbered step to send it back.</p>' +
+        '<div class="pool">' + (left.length ? left.map(function(k){ return '<button class="chip2" data-step="'+k+'">'+esc(it.steps[k])+'</button>'; }).join("") : '<span class="small muted">All placed.</span>') + '</div>' +
+        '<div class="slots">' + it.steps.map(function(_,k){ var v = placed[k];
+          var cls = v == null ? "" : (checked ? (v === k ? " filled ok" : " filled no") : " filled");
+          return '<button class="slot'+cls+'" data-slot="'+k+'" '+((v == null || checked) ? "disabled" : "")+' aria-label="Step '+(k+1)+(v == null ? ", empty" : ": "+esc(it.steps[v]))+'"><b>'+(k+1)+'</b><span>'+(v == null ? '<span class="muted small">Empty</span>' : esc(it.steps[v]))+'</span></button>'; }).join("") + '</div>' +
+        '<div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true, keep:!!keepScroll});
+      $$(".chip2").forEach(function(b){ b.onclick = function(){ if (checked) return; var free = -1; for (var k=0;k<n;k++){ if (placed[k] == null) { free = k; break; } }
+        if (free >= 0) { placed[free] = +b.dataset.step; draw(true); } }; });
+      $$(".slot").forEach(function(b){ b.onclick = function(){ if (checked) return; placed[+b.dataset.slot] = null; draw(true); }; });
+      var full = placed.filter(function(v){ return v != null; }).length === n;
+      if (checked) {
+        var got = 0; for (var k=0;k<n;k++) if (placed[k] === k) got++;
+        var fb = $("#fb"); fb.className = "fb" + (got === n ? "" : " bad");
+        fb.innerHTML = '<strong>'+got+' of '+n+' in the right place.</strong>The order: <ol>'+it.steps.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join("")+'</ol>'+esc(it.why||"");
+        var last = i === set.length-1;
+        $("#dock").innerHTML = '<button class="btn amber block" id="next">'+(last ? "See my score" : "Next sequence")+'</button>';
+        $("#next").onclick = function(){ if (last) finishGame("chain", score, max, log, started, review); else { i++; show(); } };
+      } else {
+        $("#dock").innerHTML = '<button class="btn amber block" id="chk" '+(full ? "" : "disabled")+'>'+(full ? "Check my order" : "Place every step first")+'</button>';
+        $("#chk").onclick = function(){
+          checked = true; var got = 0;
+          for (var k=0;k<n;k++){ var ok = placed[k] === k; if (ok) got++; log.push({i:it.id+"-"+(k+1), ok:ok?1:0, l:(it.title+": step "+(k+1)).slice(0,90)}); }
+          score += got; if (got < n) review.push({q:it.title, right:it.steps.join(", "), why:it.why});
+          draw(true);
+        };
+      }
+    }
+    draw(false);
+  }
+  show();
+}
+
+/* ---------- Pair Up: tap a left card, then its partner ---------- */
+function runPairs(){
+  var sets = shuffle(CONTENT.pairs).slice(0,3), i = 0, score = 0, max = 0, log = [], review = [], started = Date.now();
+  sets.forEach(function(s){ max += s.p.length; });
+  function show(){
+    var it = sets[i], L = shuffle(it.p.map(function(_,k){ return k; })), R = shuffle(it.p.map(function(_,k){ return k; })), sel = null, done = {}, missed = {};
+    screen(gameHeader(TITLE.pairs, i, sets.length) + '<div class="wrap"><div class="card">' +
+      '<div class="qno">Set '+(i+1)+' of '+sets.length+'</div><p class="qtext">'+esc(it.title)+'</p>' +
+      '<p class="qprompt">Tap a card on the left, then its partner on the right.</p>' +
+      '<div class="pairgrid"><div class="pcol">' + L.map(function(k){ return '<button class="pb" data-l="'+k+'">'+esc(it.p[k][0])+'</button>'; }).join("") + '</div>' +
+      '<div class="pcol">' + R.map(function(k){ return '<button class="pb r" data-r="'+k+'">'+esc(it.p[k][1])+'</button>'; }).join("") + '</div></div>' +
+      '<div id="fb" role="status"></div></div><div class="dock" id="dock"></div></div>', {game:true});
+    $$("[data-l]").forEach(function(b){ b.onclick = function(){ if (done[b.dataset.l]) return; sel = +b.dataset.l;
+      $$("[data-l]").forEach(function(x){ x.classList.toggle("sel", x === b); }); }; });
+    $$("[data-r]").forEach(function(b){ b.onclick = function(){
+      if (sel == null) { toast("Tap a card on the left first."); return; }
+      var r = +b.dataset.r, lb = $('[data-l="'+sel+'"]');
+      if (r === sel) {
+        done[sel] = true; lb.classList.remove("sel"); lb.classList.add("ok"); b.classList.add("ok"); lb.disabled = true; b.disabled = true;
+        var ok = !missed[sel]; if (ok) score++; else review.push({q:it.p[sel][0], right:it.p[sel][1], why:""});
+        log.push({i:it.id+"-"+sel, ok:ok?1:0, l:(it.p[sel][0]+": "+it.p[sel][1]).slice(0,90)}); sel = null;
+        say("Matched.");
+        if (Object.keys(done).length === it.p.length) {
+          var last = i === sets.length-1, fb = $("#fb"), got = it.p.length - Object.keys(missed).length;
+          fb.className = "fb" + (got === it.p.length ? "" : " bad"); fb.innerHTML = '<strong>'+got+' of '+it.p.length+' matched first time.</strong>';
+          $("#dock").innerHTML = '<button class="btn amber block" id="next">'+(last ? "See my score" : "Next set")+'</button>';
+          $("#next").onclick = function(){ if (last) finishGame("pairs", score, max, log, started, review); else { i++; show(); } };
+        }
+      } else {
+        missed[sel] = true; b.classList.add("no"); lb.classList.add("no"); say("Not a pair. Try again.");
+        setTimeout(function(){ b.classList.remove("no"); lb.classList.remove("no"); }, 600);
+      }
+    }; });
+  }
+  show();
+}
+
+/* ---------- Calculation Ladder with fading worked examples ----------
+   Explaining and Structuring: rungs 1 and 2 show a fully worked example with different numbers,
+   rungs 3 to 5 show this question's method with the last step left to you, rungs 6 to 9 are on your own.
+   Independent mode removes all of it.                                                                 */
+function rung(kind){
+  var r = {};
+  if (kind === "freq") { var X = pick([2,4,5,8,10,20,25,40,50]), f = 1000/X;
+    r = {lvl:"Low", q:"A square wave has a period of "+X+" ms. What is its frequency?", ans:f, tol:0.5, unit:"Hz", hint:"Change ms to seconds, then f = 1 ÷ T.",
+      work:["T = "+X+" ms = "+(X/1000)+" s.", "f = 1 ÷ T = 1 ÷ "+(X/1000)+" = "+fmt(f)+" Hz."]}; }
+  else if (kind === "vpk") { var V = pick([6,9,12,15,18,24]), a = Math.round(V*1.414*100)/100;
+    r = {lvl:"Low", q:"A transformer gives "+V+" V rms. What is the peak voltage? Two decimal places.", ans:a, tol:0.05, unit:"V", hint:"Peak is bigger than rms: Vpk = Vrms × 1.414.",
+      work:["Vpk = Vrms × 1.414.", "Vpk = "+V+" × 1.414 = "+fmt(a)+" V."]}; }
+  else if (kind === "half") { var P = pick([10,15,17,20,24,34]), h = Math.round(0.318*P*100)/100;
+    r = {lvl:"Moderate", q:"A half wave rectifier has a peak of "+P+" V. What is the average DC output? Two decimal places.", ans:h, tol:0.05, unit:"V", hint:"Half wave: Vdc = 0.318 × Vpk.",
+      work:["Half wave, so use 0.318.", "Vdc = 0.318 × "+P+" = "+fmt(h)+" V."]}; }
+  else if (kind === "full") { var Q = pick([12,17,20,24,30,34]), g = Math.round(0.637*Q*100)/100;
+    r = {lvl:"Moderate", q:"A bridge rectifier has a peak of "+Q+" V. What is the average DC output? Two decimal places.", ans:g, tol:0.05, unit:"V", hint:"A bridge is full wave: Vdc = 0.637 × Vpk.",
+      work:["A bridge rectifier is full wave, so use 0.637.", "Vdc = 0.637 × "+Q+" = "+fmt(g)+" V."]}; }
+  else if (kind === "hfe") { var H = pick([50,80,100,120,150,200,250]), B = pick([20,25,40,50,60]), c = H*B/1000;
+    r = {lvl:"Moderate", q:"A transistor has hFE = "+H+" and a base current of "+B+" µA. What is the collector current in mA?", ans:c, tol:0.01, unit:"mA", hint:"Ic = hFE × Ib. Then change µA to mA by dividing by 1000.",
+      work:["Ic = hFE × Ib = "+H+" × "+B+" µA = "+(H*B)+" µA.", "Change to mA: "+(H*B)+" ÷ 1000 = "+fmt(c)+" mA."]}; }
+  else if (kind === "duty") { var mk = pick([1,2,3,5]), sp = pick([3,4,6,7,9].filter(function(x){ return x !== mk; })), d = Math.round(1000*mk/(mk+sp))/10;
+    r = {lvl:"Moderate", q:"A signal is high for "+mk+" ms and low for "+sp+" ms. What is its duty cycle? One decimal place.", ans:d, tol:0.15, unit:"%", hint:"Period = mark + space. Duty cycle = mark ÷ period × 100.",
+      work:["Period = "+mk+" + "+sp+" = "+(mk+sp)+" ms.", "Duty cycle = "+mk+" ÷ "+(mk+sp)+" × 100 = "+fmt(d)+"%."]}; }
+  else if (kind === "loopf") { var Rg = pick([100,200,300,400,500]), fr = pick([0.25,0.5,0.75,0.2,0.4,0.6,0.8]), T = Rg*fr, I = Math.round((4+16*fr)*100)/100;
+    r = {lvl:"Advanced", q:"A transmitter covers 0 to "+Rg+" °C as 4 to 20 mA. What current does it send at "+fmt(T)+" °C?", ans:I, tol:0.05, unit:"mA", hint:"Find the fraction of the range, times it by the 16 mA span, then add the 4 mA live zero.",
+      work:["Fraction of range = "+fmt(T)+" ÷ "+Rg+" = "+fr+".", "Share of the 16 mA span = "+fr+" × 16 = "+fmt(16*fr)+" mA.", "Add the live zero: 4 + "+fmt(16*fr)+" = "+fmt(I)+" mA."]}; }
+  else if (kind === "loopb") { var Rb = pick([100,200,300,400,500]), Ic = pick([6,8,10,12,14,16,18]), Tb = (Ic-4)/16*Rb;
+    r = {lvl:"Advanced", q:"A transmitter covers 0 to "+Rb+" °C as 4 to 20 mA. The PLC reads "+Ic+" mA. What is the temperature? One decimal place.", ans:Math.round(Tb*10)/10, tol:0.15, unit:"°C", hint:"Take off the 4 mA live zero first, divide by the 16 mA span, then times by the range.",
+      work:["Above the live zero: "+Ic+" − 4 = "+(Ic-4)+" mA.", "Fraction of range: "+(Ic-4)+" ÷ 16 = "+fmt((Ic-4)/16)+".", "Temperature: "+fmt((Ic-4)/16)+" × "+Rb+" = "+fmt(Tb)+" °C."]}; }
+  else if (kind === "adc") { var n = pick([3,4]), sp2 = pick([["10 V",10,"V"],["10 mA",10,"mA"],["5 V",5,"V"]]), st = Math.round(sp2[1]/(Math.pow(2,n)-1)*1000)/1000;
+    r = {lvl:"Advanced", q:"A "+n+"-bit ADC covers 0 to "+sp2[0]+". What is the size of one step? Three decimal places.", ans:st, tol:0.002, unit:sp2[2], hint:"n bits give 2ⁿ codes, so 2ⁿ − 1 steps between the bottom and the top. Divide the span by the number of steps.",
+      show:st.toFixed(3), work:[n+" bits give 2"+(n===3?"³":"⁴")+" = "+Math.pow(2,n)+" codes.", "That is "+(Math.pow(2,n)-1)+" steps from bottom to top.", "Step = "+sp2[1]+" ÷ "+(Math.pow(2,n)-1)+" = "+st.toFixed(3)+" "+sp2[2]+"."]}; }
+  r.kind = kind; return r;
+}
+var RUNGS = ["freq","vpk","half","full","hfe","duty","loopf","loopb","adc"];
+function withUnit(it){ var v = it.show || fmt(it.ans); return it.unit === "%" ? v + "%" : v + " " + it.unit; }
+function runLadder(){
+  var rungs = RUNGS.map(function(k,idx){ var r = rung(k); r.id = "L"+(idx+1); r.ex = rung(k); var g = 0; while (r.ex.q === r.q && g++ < 10) r.ex = rung(k); return r; });
+  var i = 0, score = 0, tries = 0, log = [], review = [], started = Date.now();
+  function show(){
+    if (i >= rungs.length) return finishGame("ladder", score, rungs.length, log, started, review);
+    tries = 0; var it = rungs[i], fade = !guided() ? "none" : (i < 2 ? "full" : (i < 5 ? "part" : "none"));
+    var scaffold = "";
+    if (fade === "full") scaffold = '<div class="worked"><b>Worked example first.</b> '+esc(it.ex.q)+'<ol>'+it.ex.work.map(function(w){ return '<li>'+esc(w)+'</li>'; }).join("")+'</ol>Now do yours the same way.</div>';
+    if (fade === "part") scaffold = '<div class="worked"><b>Part worked.</b> The method is started for you. Finish the last step.<ol>'+it.work.slice(0,-1).map(function(w){ return '<li>'+esc(w)+'</li>'; }).join("")+'<li>Your turn.</li></ol></div>';
+    screen(gameHeader(TITLE.ladder, i, rungs.length) + '<div class="wrap"><div class="card">' +
+      '<div class="rungs" aria-hidden="true">' + rungs.map(function(_,k){ return '<i class="'+(k<i ? (log[k] && log[k].ok ? "done" : "miss") : (k===i ? "now" : ""))+'"></i>'; }).join("") + '</div>' +
+      '<div class="qno">Rung '+(i+1)+', '+it.lvl.toLowerCase()+(fade === "none" ? ", on your own" : "")+'</div>' + scaffold + '<p class="qtext">'+esc(it.q)+'</p>' +
+      '<div class="numrow"><label class="sr" for="ans">Your answer in '+esc(it.unit)+'</label>' +
+      '<input id="ans" class="textin" inputmode="decimal" autocomplete="off" enterkeyhint="done"><span class="unit">'+esc(it.unit)+'</span></div>' +
+      '<div class="row" style="margin-top:4px">'+(guided() ? '<button class="link" id="hint">Show a hint</button>' : '')+'<button class="link" data-act="formula">Formula card</button></div>' +
+      '<div id="hintbox"></div><div id="fb" role="status"></div></div>' +
+      '<div class="dock" id="dock"><button class="btn amber block" id="chk">Check</button></div></div>', {game:true});
+    var inp = $("#ans");
+    inp.addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); var b = $("#chk") || $("#next"); if (b) b.click(); } });
+    var hb = $("#hint"); if (hb) hb.onclick = function(){ $("#hintbox").innerHTML = '<div class="worked">'+esc(it.hint)+'</div>'; };
+    function done(ok){
+      if (ok) score++;
+      log.push({i:it.id, ok:ok?1:0, l:it.q.slice(0,90)});
+      if (!ok) review.push({q:it.q, right:withUnit(it), why:it.work.join(" ")});
+      inp.disabled = true;
+      var fb = $("#fb"); fb.className = "fb" + (ok ? "" : " bad");
+      fb.innerHTML = '<strong>'+(ok ? (tries === 1 ? "Correct first time." : "Correct on the second go.") : "The answer is "+esc(withUnit(it))+".")+'</strong>' +
+        '<ol>'+it.work.map(function(w){ return '<li>'+esc(w)+'</li>'; }).join("")+'</ol>';
+      $("#dock").innerHTML = '<button class="btn amber block" id="next">'+(i+1 < rungs.length ? "Next rung" : "See my score")+'</button>';
+      $("#next").onclick = function(){ i++; show(); };
+      say(ok ? "Correct." : "The answer is " + withUnit(it));
+    }
+    $("#chk").onclick = function(){
+      var v = parseFloat(inp.value.replace(/,/g,"").replace(/[^\d.\-]/g,""));
+      if (isNaN(v)) { var f = $("#fb"); f.className = "fb info"; f.innerHTML = "<strong>Type a number first.</strong>"; return; }
+      tries++;
+      if (Math.abs(v - it.ans) <= it.tol + 1e-9) return done(true);
+      if (tries === 1) {
+        if (guided()) $("#hintbox").innerHTML = '<div class="worked">'+esc(it.hint)+'</div>';
+        var f2 = $("#fb"); f2.className = "fb info"; f2.innerHTML = "<strong>Not quite. Have one more go.</strong>" + (guided() ? "The hint is showing above." : "Check your units and each step.");
+        inp.select(); say("Not quite. Have one more go.");
+      } else done(false);
+    };
+    setTimeout(function(){ try { inp.focus(); } catch(e) {} }, 60);
+  }
+  show();
+}
+
+/* ---------- key word cards: look, think, flip, be honest ---------- */
+function runFlash(){
+  var queue = shuffle(CONTENT.flash).map(function(c){ return Object.assign({n:0}, c); }), total = queue.length, firstGo = 0, log = [], started = Date.now();
+  function show(){
+    if (!queue.length) return finishGame("flash", firstGo, total, log, started,
+      log.filter(function(x){ return !x.ok; }).map(function(x){ var c = CONTENT.flash.filter(function(f){ return f.id === x.i; })[0] || {}; return {q:x.l, right:c.def||"", why:""}; }));
+    var c = queue[0], known = total - queue.length;
+    screen(gameHeader(TITLE.flash, known, total) + '<div class="wrap">' +
+      '<p class="qprompt" style="margin:0 0 6px">Say the meaning out loud, then turn the card over.</p>' +
+      '<button class="flip" id="fc" aria-label="'+esc(c.term)+'. Tap to turn over."><span class="inner"><span class="face front"><strong>'+esc(c.term)+'</strong><span class="small muted" style="margin-top:10px">Tap to turn over</span></span>' +
+      '<span class="face back"><span>'+esc(c.def)+'</span></span></span></button>' +
+      '<div class="dock" id="dock"><div class="row"><button class="btn ghost" id="no" disabled>Not yet</button><button class="btn" id="yes" disabled>I knew that</button></div>' +
+      '<button class="link" id="stop" style="width:100%">Stop here and see my score</button></div></div>', {game:true});
+    var fc = $("#fc");
+    fc.onclick = function(){ fc.classList.toggle("on"); $("#yes").disabled = false; $("#no").disabled = false; fc.setAttribute("aria-label", fc.classList.contains("on") ? c.def : c.term); };
+    $("#yes").onclick = function(){ if (c.n === 0) { firstGo++; log.push({i:c.id, ok:1, l:c.term}); } queue.shift(); show(); };
+    $("#no").onclick = function(){ if (c.n === 0) log.push({i:c.id, ok:0, l:c.term}); c.n++; queue.shift(); if (c.n < 3) queue.push(c); show(); };
+    $("#stop").onclick = function(){ queue.forEach(function(q){ if (q.n === 0) log.push({i:q.id, ok:0, l:q.term}); }); queue = []; show(); };
+  }
+  show();
+}
+
+/* ---------- exit ticket and check-ins ---------- */
+function ragBlock(prefix, lines){
+  return lines.map(function(l,k){ return '<div class="q"><p id="'+prefix+k+'l" style="font-weight:400;color:var(--ink)">'+(k+1)+'. '+esc(l)+'</p>' +
+    '<div class="rag" role="group" aria-labelledby="'+prefix+k+'l">' +
+    '<button class="r" data-rag="'+prefix+k+'" data-v="R" aria-pressed="false">Not yet</button><button class="a" data-rag="'+prefix+k+'" data-v="A" aria-pressed="false">Nearly</button><button class="g" data-rag="'+prefix+k+'" data-v="G" aria-pressed="false">Got it</button></div></div>'; }).join("");
+}
+function wireRag(){ $$("[data-rag]").forEach(function(b){ b.onclick = function(){ $$('[data-rag="'+b.dataset.rag+'"]').forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); }); }; }); }
+function readRag(prefix, n){ var out = ""; for (var k=0;k<n;k++){ var on = $('[data-rag="'+prefix+k+'"][aria-pressed="true"]'); out += on ? on.dataset.v : "-"; } return out; }
+function doneScreen(key, title, score, max, heading, body, detail){
+  var p = S.prog; p.raw[key] = [score, max]; p.best[key] = Math.round(100*score/max); p.plays[key] = (p.plays[key]||0) + 1; p.last[key] = new Date().toISOString();
+  p.done[key] = true; p.xp += 30; var t = todayKey(); if (p.days.indexOf(t) < 0) p.days.push(t); saveProg();
+  screen(gameHeader(title, 0, 0) + '<div class="wrap"><div class="card stack"><h2 style="margin:0">'+heading+'</h2>'+body+'</div>' +
+    sendPanel(title, score, max, detail) + '<div class="dock"><button class="btn amber block" id="hub">Back to the games</button></div></div>', {game:true, done:true});
+  wireSend(title, score, max);
+  $("#hub").onclick = function(){ home(); };
+}
+function runExit(){
+  var E = CONTENT.exit, G = CONTENT.goals.map(function(g){ return g.t; });
+  function radios(name, q){ return '<fieldset class="q"><legend>'+esc(q.q)+'</legend>'+q.opts.map(function(o,k){ return '<label class="check"><input type="radio" name="'+name+'" value="'+k+'"><span>'+esc(o)+'</span></label>'; }).join("")+'</fieldset>'; }
+  screen(gameHeader(TITLE.exit, 0, 0) + '<div class="wrap"><div class="card">' +
+    '<p style="margin:0">Five minutes, on your own. This is for feedback, not a mark.</p>' +
+    '<div class="q"><label for="q1">1. '+esc(E.q1)+'</label><textarea id="q1" class="textin" maxlength="400"></textarea></div>' +
+    radios("q2", {q:"2. "+E.q2.q, opts:E.q2.opts}) +
+    '<fieldset class="q"><legend>'+esc(E.q2b.q)+'</legend>'+E.q2b.opts.map(function(o,k){ return '<label class="check"><input type="checkbox" name="q2b" value="'+k+'"><span>'+esc(o)+'</span></label>'; }).join("")+'</fieldset>' +
+    radios("q3", {q:"3. "+E.q3.q, opts:E.q3.opts}) + radios("q4", {q:"4. "+E.q4.q, opts:E.q4.opts}) +
+    '<div class="q"><label for="q4b">'+esc(E.q4b)+'</label><textarea id="q4b" class="textin" maxlength="300" style="min-height:70px"></textarea></div>' +
+    '<h3 style="margin:22px 0 4px">Can you do all eight? Be honest.</h3>' + ragBlock("x", G) +
+    '<div class="q"><label for="fz">Anything still fuzzy? (optional)</label><textarea id="fz" class="textin" maxlength="300" style="min-height:70px"></textarea></div>' +
+    '<p id="err" class="small" role="alert" style="color:var(--red)"></p></div>' +
+    '<div class="dock"><button class="btn amber block" id="send2">Hand it in</button></div></div>', {game:true});
+  wireRag();
+  $("#send2").onclick = function(){
+    var q1 = $("#q1").value.trim(), q2 = $('input[name="q2"]:checked'), q3 = $('input[name="q3"]:checked'), q4 = $('input[name="q4"]:checked');
+    var q2b = $$('input[name="q2b"]:checked').map(function(x){ return +x.value; }), rag = readRag("x", G.length);
+    if (!q1 || !q2 || !q3 || !q4 || rag.indexOf("-") >= 0) { $("#err").textContent = "Answer questions 1 to 4 and rate all eight lines before handing in."; return; }
+    var ok2 = +q2.value === E.q2.ans, ok2b = q2b.length === 3 && E.q2b.ans.every(function(a){ return q2b.indexOf(a) >= 0; }), ok3 = +q3.value === E.q3.ans, ok4 = +q4.value === E.q4.ans;
+    var score = (ok2 ? 1 : 0) + (ok2b ? 1 : 0) + (ok3 ? 1 : 0) + (ok4 ? 1 : 0);
+    var lowIdx = rag.indexOf("R") >= 0 ? rag.indexOf("R") : (rag.indexOf("A") >= 0 ? rag.indexOf("A") : 0), lowest = G[lowIdx];
+    S.prog.rag = {}; rag.split("").forEach(function(v,k){ S.prog.rag[k] = v; });
+    if (rag.replace(/G/g,"").length) S.prog.goal = lowIdx;
+    var extra = {q1:q1, q2:E.q2.opts[+q2.value], q2b:q2b.map(function(k){ return E.q2b.opts[k]; }).join("; "), q3:E.q3.opts[+q3.value], q4:E.q4.opts[+q4.value], q4b:$("#q4b").value.trim(), rag:rag, fuzzy:$("#fz").value.trim()};
+    logEvent("exit", TITLE.exit, {score:score, max:4, extra:extra, items:[{i:"X2",ok:ok2?1:0,l:"Depletion layer in forward bias"},{i:"X2b",ok:ok2b?1:0,l:"Three digital signals"},{i:"X3",ok:ok3?1:0,l:"Timebase waveform"},{i:"X4",ok:ok4?1:0,l:"4 to 20 mA scaling"}]});
+    function li(ok, good, bad){ return '<li>'+(ok ? '<b style="color:var(--green)">Right:</b> '+good : '<b style="color:var(--red)">Check this:</b> '+bad)+'</li>'; }
+    var body = '<p style="margin:0">Thank you. Your tutor will read this before the next lesson.</p><ul class="review">' +
+      li(ok2, "in forward bias the depletion layer narrows.", "in forward bias the depletion layer <b>narrows</b>, so current can flow above the knee voltage.") +
+      li(ok2b, "the push button, the clock and the ADC code are digital.", "the digital ones are <b>the push button, the clock and the ADC code</b>. A 4 to 20 mA signal is analogue.") +
+      li(ok3, "a sawtooth sweeps the oscilloscope trace.", "the timebase is a <b>sawtooth</b>: a steady ramp, then a sudden drop.") +
+      li(ok4, "150 °C is half the range: 4 + 8 = 12 mA.", "150 °C is half the range, so 4 + (0.5 × 16) = <b>12 mA</b>. Do not forget the 4 mA live zero.") + '</ul>' +
+      '<div class="panel amber"><p><b>Your first thing to work on:</b> '+esc(lowest)+'</p><p class="small" style="margin:0">It is now set as your goal on the home page, with the games that practise it.</p></div>';
+    var detail = "Q1: " + q1 + " | Q4 working: " + extra.q4b + " | Lines: " + rag + (extra.fuzzy ? " | Fuzzy: " + extra.fuzzy : "");
+    doneScreen("exit", TITLE.exit, score, 4, "Handed in", body, detail);
+  };
+}
+function runCheckin(part, key){
+  var C = CONTENT.checkin[part];
+  screen(gameHeader(C.title, 0, 0) + '<div class="wrap"><div class="card"><p style="margin:0">Rate each line honestly. It tells your tutor what to go over again.</p>' +
+    ragBlock("c", C.lines) + '<p id="err" class="small" role="alert" style="color:var(--red)"></p></div>' +
+    '<div class="dock"><button class="btn amber block" id="send2">Send my check-in</button></div></div>', {game:true});
+  wireRag();
+  $("#send2").onclick = function(){
+    var rag = readRag("c", C.lines.length);
+    if (rag.indexOf("-") >= 0) { $("#err").textContent = "Rate every line first."; return; }
+    var g = rag.split("").filter(function(x){ return x === "G"; }).length;
+    logEvent("checkin", C.title, {score:g, max:C.lines.length, extra:{rag:rag, part:part}});
+    var weak = C.lines.filter(function(_,k){ return rag[k] !== "G"; });
+    var body = '<p style="margin:0">You rated '+g+' of '+C.lines.length+' lines as got it.</p>' +
+      (weak.length ? '<p style="margin:0">Go over these next:</p><ul class="review">'+weak.map(function(l){ return '<li>'+esc(l)+'</li>'; }).join("")+'</ul>' : '<p style="margin:0">Everything rated got it. Try the games to prove it.</p>');
+    doneScreen(key, C.title, g, C.lines.length, "Sent", body, "Lines: " + rag);
+  };
+}
+
+/* ---------- start ---------- */
+(function init(){
+  applyPrefs();
+  var labels = {games:["games","Games"], record:["record","My record"], help:["help","Help"]};
+  $$("#tabs button").forEach(function(b){ var l = labels[b.dataset.tab]; b.innerHTML = icon(l[0]) + '<span>'+l[1]+'</span>';
+    b.onclick = function(){ if (b.dataset.tab === "games") home(); else if (b.dataset.tab === "record") record(); else help(); }; });
+  if (!CONTENT) { $("#app").innerHTML = '<div class="wrap"><p>The question bank did not load. Ask your tutor for a fresh copy of this file.</p></div>'; return; }
+  buildReg();
+  var qc = ""; try { qc = (new URLSearchParams(location.search).get("c") || "").trim().toUpperCase(); } catch(e) {}
+  if (/^[A-Z0-9]{4}$/.test(qc)) {
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch(e) {}
+    if (!S.me || S.me.code !== qc) {
+      var hit = CLASS.filter(function(c){ return c.code === qc; })[0];
+      S.me = {code:qc, name: hit ? hit.name : qc}; Store.set("me", S.me); try { localStorage.setItem("tlhub.me", JSON.stringify(S.me)); } catch(e) {} logEvent("open","hub");
+    }
+  }
+  if (S.me) { loadProg(); home(); loadServer().then(function(){ if (!inGame && S.tab === "games" && S.me) home(); }); Sync.flush(); }
+  else { loadServer().then(function(){ signIn(); }); signIn(); }
+})();
+
+</script>
+</body>
+</html>
